@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Módulos | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html" class="active">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Módulos</span>
+            <span class="topbar-subtitle">Ativação e personalização da estrutura do ERP</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar módulos..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Módulos do sistema</h1>
+              <p class="page-description">
+                Ative, desative e organize os módulos do Ardetho ERP conforme o perfil e a necessidade da empresa.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-secondary">Restaurar padrão</a>
+              <a href="#" class="btn-primary">Salvar configuração</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="status-grid">
+              <article class="status-card">
+                <span class="status-card-label">Módulos ativos</span>
+                <strong class="status-card-value">6</strong>
+                <span class="status-card-helper">Recursos disponíveis no ambiente atual</span>
+              </article>
+
+              <article class="status-card">
+                <span class="status-card-label">Módulos inativos</span>
+                <strong class="status-card-value">3</strong>
+                <span class="status-card-helper">Podem ser habilitados futuramente</span>
+              </article>
+
+              <article class="status-card">
+                <span class="status-card-label">Personalizações salvas</span>
+                <strong class="status-card-value">12</strong>
+                <span class="status-card-helper">Configurações aplicadas ao perfil atual</span>
+              </article>
+            </section>
+
+            <section class="split-grid">
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Módulos principais</h2>
+                    <p class="page-card-description">Base operacional do ambiente atual.</p>
+                  </div>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Clientes</span>
+                      <span class="option-description">Gestão de cadastros, status e relacionamento comercial.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Produtos e Serviços</span>
+                      <span class="option-description">Controle de itens, categorias, valores e disponibilidade.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Vendas</span>
+                      <span class="option-description">Acompanhamento de pedidos, propostas e status comerciais.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Financeiro</span>
+                      <span class="option-description">Receitas, despesas, vencimentos e visão consolidada.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Módulos complementares</h2>
+                    <p class="page-card-description">Recursos adicionais e expansão futura do sistema.</p>
+                  </div>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Relatórios avançados</span>
+                      <span class="option-description">Indicadores mais completos para acompanhamento gerencial.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">RH</span>
+                      <span class="option-description">Gestão de colaboradores, cargos e registros internos.</span>
+                    </div>
+                    <div class="switch"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Agenda e agendamentos</span>
+                      <span class="option-description">Controle de compromissos, visitas e tarefas programadas.</span>
+                    </div>
+                    <div class="switch"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Estoque avançado</span>
+                      <span class="option-description">Alertas, múltiplos níveis e controle mais detalhado.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Observações da configuração</h2>
+                  <p class="page-card-description">Resumo do cenário configurado para o perfil atual.</p>
+                </div>
+              </div>
+
+              <div class="option-list">
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Perfil ativo: Operação comercial</span>
+                    <span class="option-description">Estrutura focada em clientes, vendas, financeiro e relatórios.</span>
+                  </div>
+                  <span class="badge-info">Atual</span>
+                </div>
+
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Módulos inativos não aparecem na navegação</span>
+                    <span class="option-description">A interface pode se adaptar conforme os módulos habilitados.</span>
+                  </div>
+                  <span class="badge-success">Ativo</span>
+                </div>
+
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Personalização salva localmente</span>
+                    <span class="option-description">As preferências podem ser mantidas no navegador em uma próxima etapa.</span>
+                  </div>
+                  <span class="badge-warning">Planejado</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

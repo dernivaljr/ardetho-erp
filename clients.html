@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clientes | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html" class="active">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Clientes</span>
+            <span class="topbar-subtitle">Gestão de cadastros e relacionamento</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar clientes..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Clientes</h1>
+              <p class="page-description">
+                Visualize, filtre e acompanhe os clientes cadastrados no sistema.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-primary">Novo cliente</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="section-block">
+              <div class="toolbar-row">
+                <div class="toolbar-left">
+                  <div class="search-bar">
+                    <input
+                      type="text"
+                      class="input-default"
+                      placeholder="Pesquisar por nome, empresa ou e-mail"
+                    />
+                  </div>
+                </div>
+
+                <div class="toolbar-right">
+                  <div class="filter-group">
+                    <select class="select-default">
+                      <option>Status</option>
+                      <option>Ativo</option>
+                      <option>Em análise</option>
+                      <option>Inativo</option>
+                    </select>
+
+                    <select class="select-default">
+                      <option>Cidade</option>
+                      <option>São Paulo</option>
+                      <option>Santo André</option>
+                      <option>São Bernardo</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Empresa</th>
+                      <th>E-mail</th>
+                      <th>Telefone</th>
+                      <th>Cidade</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Juliana Alves</td>
+                      <td>NovaLab</td>
+                      <td>juliana@novalab.com</td>
+                      <td>(11) 99876-1234</td>
+                      <td>Santo André</td>
+                      <td><span class="badge-success">Ativo</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Lucas Mendes</td>
+                      <td>BioAnalytica</td>
+                      <td>lucas@bioanalytica.com</td>
+                      <td>(11) 99711-4422</td>
+                      <td>São Paulo</td>
+                      <td><span class="badge-info">Em análise</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Marina Costa</td>
+                      <td>QualiTech</td>
+                      <td>marina@qualitech.com</td>
+                      <td>(11) 99620-8710</td>
+                      <td>São Bernardo</td>
+                      <td><span class="badge-warning">Pendente</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Rafael Souza</td>
+                      <td>LabCore</td>
+                      <td>rafael@labcore.com</td>
+                      <td>(11) 99455-3399</td>
+                      <td>Santo André</td>
+                      <td><span class="badge-neutral">Inativo</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Ana Ribeiro</td>
+                      <td>TechMed</td>
+                      <td>ana@techmed.com</td>
+                      <td>(11) 99112-7854</td>
+                      <td>São Paulo</td>
+                      <td><span class="badge-success">Ativo</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

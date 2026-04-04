@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html" class="active">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Relatórios</span>
+            <span class="topbar-subtitle">Indicadores e visão analítica da operação</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar relatórios..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Relatórios</h1>
+              <p class="page-description">
+                Acompanhe métricas, desempenho comercial e indicadores operacionais em um só lugar.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-secondary">Filtrar período</a>
+              <a href="#" class="btn-primary">Exportar relatório</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="report-grid">
+              <article class="card report-card">
+                <span class="status-card-label">Faturamento mensal</span>
+                <strong class="status-card-value">R$ 42.800</strong>
+                <span class="status-card-helper">Crescimento de 12% em relação ao mês anterior</span>
+              </article>
+
+              <article class="card report-card">
+                <span class="status-card-label">Clientes ativos</span>
+                <strong class="status-card-value">128</strong>
+                <span class="status-card-helper">Base recorrente em crescimento constante</span>
+              </article>
+
+              <article class="card report-card">
+                <span class="status-card-label">Pedidos concluídos</span>
+                <strong class="status-card-value">57</strong>
+                <span class="status-card-helper">Taxa de conclusão superior ao período passado</span>
+              </article>
+            </section>
+
+            <section class="split-grid">
+              <article class="card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Relatórios disponíveis</h2>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Desempenho comercial</span>
+                      <span class="option-description">Vendas por período, status e responsáveis.</span>
+                    </div>
+                    <a href="#" class="btn-secondary">Abrir</a>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Clientes ativos e inativos</span>
+                      <span class="option-description">Visão da base de clientes e movimentação recente.</span>
+                    </div>
+                    <a href="#" class="btn-secondary">Abrir</a>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Financeiro consolidado</span>
+                      <span class="option-description">Resumo de receitas, despesas e saldo operacional.</span>
+                    </div>
+                    <a href="#" class="btn-secondary">Abrir</a>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Produtos e estoque</span>
+                      <span class="option-description">Itens com maior giro e alertas de baixa disponibilidade.</span>
+                    </div>
+                    <a href="#" class="btn-secondary">Abrir</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Resumo analítico</h2>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Ticket médio</span>
+                      <span class="option-description">R$ 2.416 por pedido registrado no período.</span>
+                    </div>
+                    <span class="badge-info">Atual</span>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Conversão comercial</span>
+                      <span class="option-description">68% dos pedidos avançaram para aprovação.</span>
+                    </div>
+                    <span class="badge-success">Positivo</span>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Pendências financeiras</span>
+                      <span class="option-description">5 lançamentos com vencimento próximo.</span>
+                    </div>
+                    <span class="badge-warning">Atenção</span>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Módulos em uso</span>
+                      <span class="option-description">6 módulos ativos no ambiente atual.</span>
+                    </div>
+                    <span class="badge-neutral">Base</span>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="section-block">
+              <div class="section-block-header">
+                <h2 class="section-block-title">Histórico de exportações</h2>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Relatório</th>
+                      <th>Categoria</th>
+                      <th>Período</th>
+                      <th>Gerado por</th>
+                      <th>Data</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Resumo comercial mensal</td>
+                      <td>Vendas</td>
+                      <td>Março/2026</td>
+                      <td>Admin User</td>
+                      <td>12/04/2026</td>
+                      <td><span class="badge-success">Exportado</span></td>
+                    </tr>
+
+                    <tr>
+                      <td>Financeiro consolidado</td>
+                      <td>Financeiro</td>
+                      <td>Últimos 30 dias</td>
+                      <td>Ana Lima</td>
+                      <td>11/04/2026</td>
+                      <td><span class="badge-info">Gerado</span></td>
+                    </tr>
+
+                    <tr>
+                      <td>Produtos com baixo estoque</td>
+                      <td>Produtos</td>
+                      <td>Abril/2026</td>
+                      <td>Lucas Rocha</td>
+                      <td>10/04/2026</td>
+                      <td><span class="badge-warning">Pendente</span></td>
+                    </tr>
+
+                    <tr>
+                      <td>Clientes ativos</td>
+                      <td>Clientes</td>
+                      <td>Últimos 90 dias</td>
+                      <td>Marina Costa</td>
+                      <td>09/04/2026</td>
+                      <td><span class="badge-success">Exportado</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

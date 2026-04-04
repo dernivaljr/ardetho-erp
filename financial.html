@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financeiro | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html" class="active">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Financeiro</span>
+            <span class="topbar-subtitle">Contas, vencimentos e visão financeira da operação</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar lançamentos..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Financeiro</h1>
+              <p class="page-description">
+                Monitore entradas, saídas, vencimentos e indicadores financeiros do período.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-secondary">Nova despesa</a>
+              <a href="#" class="btn-primary">Nova receita</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="finance-summary">
+              <article class="card finance-item">
+                <span class="finance-label">Saldo atual</span>
+                <strong class="finance-value">R$ 38.420</strong>
+              </article>
+
+              <article class="card finance-item">
+                <span class="finance-label">Contas a receber</span>
+                <strong class="finance-value">R$ 18.400</strong>
+              </article>
+
+              <article class="card finance-item">
+                <span class="finance-label">Contas a pagar</span>
+                <strong class="finance-value">R$ 7.250</strong>
+              </article>
+
+              <article class="card finance-item">
+                <span class="finance-label">Vencimentos próximos</span>
+                <strong class="finance-value">5</strong>
+              </article>
+            </section>
+
+            <section class="section-block">
+              <div class="toolbar-row">
+                <div class="toolbar-left">
+                  <div class="search-bar">
+                    <input
+                      type="text"
+                      class="input-default"
+                      placeholder="Pesquisar por descrição, cliente ou categoria"
+                    />
+                  </div>
+                </div>
+
+                <div class="toolbar-right">
+                  <div class="filter-group">
+                    <select class="select-default">
+                      <option>Tipo</option>
+                      <option>Receita</option>
+                      <option>Despesa</option>
+                    </select>
+
+                    <select class="select-default">
+                      <option>Status</option>
+                      <option>Pago</option>
+                      <option>Pendente</option>
+                      <option>Vencido</option>
+                    </select>
+
+                    <select class="select-default">
+                      <option>Período</option>
+                      <option>Hoje</option>
+                      <option>Últimos 7 dias</option>
+                      <option>Últimos 30 dias</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Descrição</th>
+                      <th>Tipo</th>
+                      <th>Categoria</th>
+                      <th>Vencimento</th>
+                      <th>Valor</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Recebimento - NovaLab</td>
+                      <td>Receita</td>
+                      <td>Venda</td>
+                      <td>15/04/2026</td>
+                      <td>R$ 4.800</td>
+                      <td><span class="badge-success">Recebido</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Fornecedor Alpha</td>
+                      <td>Despesa</td>
+                      <td>Compra</td>
+                      <td>16/04/2026</td>
+                      <td>R$ 2.150</td>
+                      <td><span class="badge-warning">Pendente</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Serviço técnico - QualiTech</td>
+                      <td>Receita</td>
+                      <td>Serviço</td>
+                      <td>18/04/2026</td>
+                      <td>R$ 1.980</td>
+                      <td><span class="badge-info">Agendado</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Internet corporativa</td>
+                      <td>Despesa</td>
+                      <td>Infraestrutura</td>
+                      <td>10/04/2026</td>
+                      <td>R$ 320</td>
+                      <td><span class="badge-danger">Vencido</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Recebimento - TechMed</td>
+                      <td>Receita</td>
+                      <td>Venda</td>
+                      <td>20/04/2026</td>
+                      <td>R$ 3.980</td>
+                      <td><span class="badge-warning">Pendente</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

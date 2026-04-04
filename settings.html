@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html" class="active">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Configurações</span>
+            <span class="topbar-subtitle">Preferências gerais e personalização do ambiente</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar configurações..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Configurações do sistema</h1>
+              <p class="page-description">
+                Defina preferências gerais, comportamento visual e parâmetros do ambiente.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-secondary">Restaurar padrão</a>
+              <a href="#" class="btn-primary">Salvar alterações</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="split-grid">
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Preferências visuais</h2>
+                    <p class="page-card-description">Defina a experiência de navegação e exibição.</p>
+                  </div>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Tema claro</span>
+                      <span class="option-description">Utilizar interface limpa e corporativa no ambiente.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Sidebar compacta</span>
+                      <span class="option-description">Reduzir largura da navegação lateral para mais espaço útil.</span>
+                    </div>
+                    <div class="switch"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Exibir atalhos no dashboard</span>
+                      <span class="option-description">Mostrar ações rápidas na visão inicial do sistema.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Notificações</h2>
+                    <p class="page-card-description">Controle alertas e sinais de acompanhamento.</p>
+                  </div>
+                </div>
+
+                <div class="option-list">
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Alertas de vencimento</span>
+                      <span class="option-description">Notificar contas com prazo próximo de vencimento.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Pedidos pendentes</span>
+                      <span class="option-description">Exibir avisos para pedidos aguardando andamento.</span>
+                    </div>
+                    <div class="switch active"></div>
+                  </div>
+
+                  <div class="option-item">
+                    <div class="option-content">
+                      <span class="option-title">Resumo diário</span>
+                      <span class="option-description">Apresentar visão resumida no início do expediente.</span>
+                    </div>
+                    <div class="switch"></div>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="split-grid">
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Parâmetros operacionais</h2>
+                    <p class="page-card-description">Ajustes gerais de funcionamento do sistema.</p>
+                  </div>
+                </div>
+
+                <div class="form-layout">
+                  <div class="form-group">
+                    <label for="language">Idioma do sistema</label>
+                    <select id="language" class="select-default">
+                      <option>Português (Brasil)</option>
+                      <option>English</option>
+                      <option>Español</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="date-format">Formato de data</label>
+                    <select id="date-format" class="select-default">
+                      <option>DD/MM/AAAA</option>
+                      <option>MM/DD/AAAA</option>
+                      <option>AAAA-MM-DD</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="timezone">Fuso horário</label>
+                    <select id="timezone" class="select-default">
+                      <option>America/Sao_Paulo</option>
+                      <option>UTC</option>
+                    </select>
+                  </div>
+                </div>
+              </article>
+
+              <article class="page-card">
+                <div class="page-card-header">
+                  <div>
+                    <h2 class="page-card-title">Módulos prioritários</h2>
+                    <p class="page-card-description">Defina quais áreas terão mais destaque no ambiente.</p>
+                  </div>
+                </div>
+
+                <div class="form-layout">
+                  <div class="form-group">
+                    <label for="main-module">Módulo inicial</label>
+                    <select id="main-module" class="select-default">
+                      <option>Dashboard</option>
+                      <option>Clientes</option>
+                      <option>Vendas</option>
+                      <option>Financeiro</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="priority-module">Módulo prioritário</label>
+                    <select id="priority-module" class="select-default">
+                      <option>Financeiro</option>
+                      <option>Vendas</option>
+                      <option>Relatórios</option>
+                      <option>Produtos</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="startup-view">Visão ao iniciar</label>
+                    <select id="startup-view" class="select-default">
+                      <option>Resumo executivo</option>
+                      <option>Lista de atividades</option>
+                      <option>Métricas principais</option>
+                    </select>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Resumo da configuração atual</h2>
+                  <p class="page-card-description">Visão rápida do ambiente configurado.</p>
+                </div>
+              </div>
+
+              <div class="option-list">
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Tema visual</span>
+                    <span class="option-description">Interface clara com foco em produtividade e leitura.</span>
+                  </div>
+                  <span class="badge-success">Ativo</span>
+                </div>
+
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Idioma principal</span>
+                    <span class="option-description">Português do Brasil definido como padrão.</span>
+                  </div>
+                  <span class="badge-info">Atual</span>
+                </div>
+
+                <div class="option-item">
+                  <div class="option-content">
+                    <span class="option-title">Módulo prioritário</span>
+                    <span class="option-description">Financeiro configurado como foco principal.</span>
+                  </div>
+                  <span class="badge-warning">Config.</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

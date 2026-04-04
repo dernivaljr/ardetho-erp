@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html" class="active">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Produtos</span>
+            <span class="topbar-subtitle">Gestão de itens, serviços e estoque</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar produtos..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Produtos e serviços</h1>
+              <p class="page-description">
+                Organize itens cadastrados, categorias, valores e controle de disponibilidade.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-primary">Novo item</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="status-grid">
+              <article class="status-card">
+                <span class="status-card-label">Total de itens</span>
+                <strong class="status-card-value">342</strong>
+                <span class="status-card-helper">Entre produtos e serviços</span>
+              </article>
+
+              <article class="status-card">
+                <span class="status-card-label">Estoque crítico</span>
+                <strong class="status-card-value">18</strong>
+                <span class="status-card-helper">Itens com necessidade de reposição</span>
+              </article>
+
+              <article class="status-card">
+                <span class="status-card-label">Categorias ativas</span>
+                <strong class="status-card-value">12</strong>
+                <span class="status-card-helper">Distribuição organizada por tipo</span>
+              </article>
+            </section>
+
+            <section class="section-block">
+              <div class="toolbar-row">
+                <div class="toolbar-left">
+                  <div class="search-bar">
+                    <input
+                      type="text"
+                      class="input-default"
+                      placeholder="Pesquisar por nome, categoria ou código"
+                    />
+                  </div>
+                </div>
+
+                <div class="toolbar-right">
+                  <div class="filter-group">
+                    <select class="select-default">
+                      <option>Categoria</option>
+                      <option>Equipamentos</option>
+                      <option>Serviços</option>
+                      <option>Acessórios</option>
+                    </select>
+
+                    <select class="select-default">
+                      <option>Status</option>
+                      <option>Disponível</option>
+                      <option>Baixo estoque</option>
+                      <option>Indisponível</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Código</th>
+                      <th>Item</th>
+                      <th>Categoria</th>
+                      <th>Tipo</th>
+                      <th>Preço</th>
+                      <th>Estoque</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>PRD-001</td>
+                      <td>pHmetro Digital</td>
+                      <td>Equipamentos</td>
+                      <td>Produto</td>
+                      <td>R$ 2.450</td>
+                      <td>18</td>
+                      <td><span class="badge-success">Disponível</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>SRV-004</td>
+                      <td>Calibração de pHmetro</td>
+                      <td>Serviços</td>
+                      <td>Serviço</td>
+                      <td>R$ 380</td>
+                      <td>—</td>
+                      <td><span class="badge-info">Ativo</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>PRD-012</td>
+                      <td>Condutivímetro Portátil</td>
+                      <td>Equipamentos</td>
+                      <td>Produto</td>
+                      <td>R$ 1.980</td>
+                      <td>4</td>
+                      <td><span class="badge-warning">Baixo estoque</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>PRD-020</td>
+                      <td>Eletrodo combinado</td>
+                      <td>Acessórios</td>
+                      <td>Produto</td>
+                      <td>R$ 620</td>
+                      <td>0</td>
+                      <td><span class="badge-danger">Indisponível</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>SRV-009</td>
+                      <td>Manutenção preventiva</td>
+                      <td>Serviços</td>
+                      <td>Serviço</td>
+                      <td>R$ 590</td>
+                      <td>—</td>
+                      <td><span class="badge-success">Disponível</span></td>
+                      <td>
+                        <div class="action-group">
+                          <a href="#" class="btn-secondary">Ver</a>
+                          <a href="#" class="btn-secondary">Editar</a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

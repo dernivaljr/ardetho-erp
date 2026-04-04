@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html" class="active">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Perfil</span>
+            <span class="topbar-subtitle">Informações pessoais e dados de acesso</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Meu perfil</h1>
+              <p class="page-description">
+                Visualize informações pessoais, permissões e detalhes do ambiente atual.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="#" class="btn-secondary">Alterar senha</a>
+              <a href="#" class="btn-primary">Editar perfil</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="profile-layout">
+              <article class="profile-card">
+                <div class="profile-avatar-large">AD</div>
+
+                <div class="profile-info-list">
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">Nome</span>
+                    <span class="profile-info-value">Admin User</span>
+                  </div>
+
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">E-mail</span>
+                    <span class="profile-info-value">admin@ardetho.com</span>
+                  </div>
+
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">Cargo</span>
+                    <span class="profile-info-value">Administrador</span>
+                  </div>
+
+                  <div class="profile-info-item">
+                    <span class="profile-info-label">Último acesso</span>
+                    <span class="profile-info-value">04/04/2026 às 09:25</span>
+                  </div>
+                </div>
+              </article>
+
+              <div class="content-stack">
+                <article class="page-card">
+                  <div class="page-card-header">
+                    <div>
+                      <h2 class="page-card-title">Informações da conta</h2>
+                      <p class="page-card-description">Dados principais do usuário autenticado.</p>
+                    </div>
+                  </div>
+
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label for="full-name">Nome completo</label>
+                      <input id="full-name" class="input-default" type="text" value="Admin User" />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="email">E-mail</label>
+                      <input id="email" class="input-default" type="email" value="admin@ardetho.com" />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="role">Cargo</label>
+                      <input id="role" class="input-default" type="text" value="Administrador" />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="department">Departamento</label>
+                      <input id="department" class="input-default" type="text" value="Gestão" />
+                    </div>
+                  </div>
+                </article>
+
+                <article class="page-card">
+                  <div class="page-card-header">
+                    <div>
+                      <h2 class="page-card-title">Permissões e acesso</h2>
+                      <p class="page-card-description">Resumo do perfil atual no sistema.</p>
+                    </div>
+                  </div>
+
+                  <div class="option-list">
+                    <div class="option-item">
+                      <div class="option-content">
+                        <span class="option-title">Nível de acesso</span>
+                        <span class="option-description">Administrador com acesso completo aos módulos ativos.</span>
+                      </div>
+                      <span class="badge-success">Total</span>
+                    </div>
+
+                    <div class="option-item">
+                      <div class="option-content">
+                        <span class="option-title">Permissão para editar configurações</span>
+                        <span class="option-description">Pode alterar parâmetros do sistema e preferências gerais.</span>
+                      </div>
+                      <span class="badge-success">Permitido</span>
+                    </div>
+
+                    <div class="option-item">
+                      <div class="option-content">
+                        <span class="option-title">Permissão para exportar relatórios</span>
+                        <span class="option-description">Acesso liberado para relatórios operacionais e gerenciais.</span>
+                      </div>
+                      <span class="badge-info">Ativo</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="page-card">
+                  <div class="page-card-header">
+                    <div>
+                      <h2 class="page-card-title">Preferências pessoais</h2>
+                      <p class="page-card-description">Ajustes rápidos do ambiente do usuário.</p>
+                    </div>
+                  </div>
+
+                  <div class="option-list">
+                    <div class="option-item">
+                      <div class="option-content">
+                        <span class="option-title">Receber alertas no dashboard</span>
+                        <span class="option-description">Exibir lembretes e pendências importantes ao entrar no sistema.</span>
+                      </div>
+                      <div class="switch active"></div>
+                    </div>
+
+                    <div class="option-item">
+                      <div class="option-content">
+                        <span class="option-title">Mostrar resumo diário</span>
+                        <span class="option-description">Apresentar métricas resumidas no início do expediente.</span>
+                      </div>
+                      <div class="switch"></div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

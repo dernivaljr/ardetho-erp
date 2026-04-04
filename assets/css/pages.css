@@ -1,0 +1,323 @@
+/* =========================
+   PAGES
+   Ardetho ERP
+========================= */
+
+/* ---------- Generic Page Blocks ---------- */
+
+.page-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-xl);
+}
+
+.page-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.page-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+.page-card-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ---------- Toolbar Enhancements ---------- */
+
+.toolbar-row {
+  padding: 0;
+}
+
+.toolbar-left .search-bar {
+  min-width: 280px;
+}
+
+.toolbar-right .filter-group {
+  justify-content: flex-end;
+}
+
+.filter-group .select-default {
+  min-width: 150px;
+}
+
+/* ---------- Table Actions ---------- */
+
+.table-default td .action-group .btn-secondary {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: var(--font-size-xs);
+}
+
+.table-default tbody td {
+  vertical-align: middle;
+}
+
+/* ---------- Status Overview Blocks ---------- */
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.status-card {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.status-card-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-card-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-main);
+}
+
+.status-card-helper {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Form Layout ---------- */
+
+.form-layout {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.form-section {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.form-section-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+/* ---------- Settings / Modules ---------- */
+
+.option-list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.option-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.option-content {
+  display: grid;
+  gap: 4px;
+}
+
+.option-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+.option-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ---------- Toggle Switch ---------- */
+
+.switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-border-strong);
+  transition: var(--transition-base);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.12);
+  transition: var(--transition-base);
+}
+
+.switch.active {
+  background: var(--color-primary);
+}
+
+.switch.active::after {
+  left: 23px;
+}
+
+/* ---------- Profile Blocks ---------- */
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-xl);
+}
+
+.profile-card {
+  display: grid;
+  gap: var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-xl);
+}
+
+.profile-avatar-large {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.profile-info-list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.profile-info-item {
+  display: grid;
+  gap: 4px;
+}
+
+.profile-info-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.profile-info-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+}
+
+/* ---------- Report Cards ---------- */
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.report-card {
+  display: grid;
+  gap: var(--space-md);
+  min-height: 180px;
+}
+
+/* ---------- Finance Helpers ---------- */
+
+.finance-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.finance-item {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.finance-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.finance-value {
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-main);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .status-grid,
+  .report-grid,
+  .finance-summary,
+  .form-grid-3,
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-left .search-bar {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .filter-group .select-default {
+    min-width: 100%;
+  }
+
+  .page-card-header,
+  .option-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
