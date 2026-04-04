@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="modules">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -58,10 +58,10 @@
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -87,19 +87,19 @@
             <section class="status-grid">
               <article class="status-card">
                 <span class="status-card-label">Módulos ativos</span>
-                <strong class="status-card-value">6</strong>
+                <strong class="status-card-value" id="modules-active-count">6</strong>
                 <span class="status-card-helper">Recursos disponíveis no ambiente atual</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Módulos inativos</span>
-                <strong class="status-card-value">3</strong>
+                <strong class="status-card-value" id="modules-inactive-count">3</strong>
                 <span class="status-card-helper">Podem ser habilitados futuramente</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Personalizações salvas</span>
-                <strong class="status-card-value">12</strong>
+                <strong class="status-card-value" id="modules-customizations-count">9</strong>
                 <span class="status-card-helper">Configurações aplicadas ao perfil atual</span>
               </article>
             </section>
@@ -113,7 +113,7 @@
                   </div>
                 </div>
 
-                <div class="option-list">
+                <div class="option-list" id="modules-main-list">
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Clientes</span>
@@ -156,7 +156,7 @@
                   </div>
                 </div>
 
-                <div class="option-list">
+                <div class="option-list" id="modules-complementary-list">
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Relatórios avançados</span>
@@ -234,5 +234,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/modules.js"></script>
 </body>
 </html>

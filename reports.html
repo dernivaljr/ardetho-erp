@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="reports">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -52,16 +52,17 @@
           <div class="topbar-search">
             <input
               type="text"
+              id="reports-search"
               class="input-default"
               placeholder="Buscar relatórios..."
             />
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -203,7 +204,7 @@
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="reports-table-body">
                     <tr>
                       <td>Resumo comercial mensal</td>
                       <td>Vendas</td>
@@ -251,5 +252,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/reports.js"></script>
 </body>
 </html>

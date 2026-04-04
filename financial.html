@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="financial">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -58,10 +58,10 @@
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -112,6 +112,7 @@
                   <div class="search-bar">
                     <input
                       type="text"
+                      id="financial-search"
                       class="input-default"
                       placeholder="Pesquisar por descrição, cliente ou categoria"
                     />
@@ -120,24 +121,26 @@
 
                 <div class="toolbar-right">
                   <div class="filter-group">
-                    <select class="select-default">
-                      <option>Tipo</option>
-                      <option>Receita</option>
-                      <option>Despesa</option>
+                    <select id="financial-type-filter" class="select-default">
+                      <option value="todos">Tipo</option>
+                      <option value="receita">Receita</option>
+                      <option value="despesa">Despesa</option>
                     </select>
 
-                    <select class="select-default">
-                      <option>Status</option>
-                      <option>Pago</option>
-                      <option>Pendente</option>
-                      <option>Vencido</option>
+                    <select id="financial-status-filter" class="select-default">
+                      <option value="todos">Status</option>
+                      <option value="recebido">Recebido</option>
+                      <option value="pago">Pago</option>
+                      <option value="pendente">Pendente</option>
+                      <option value="agendado">Agendado</option>
+                      <option value="vencido">Vencido</option>
                     </select>
 
-                    <select class="select-default">
-                      <option>Período</option>
-                      <option>Hoje</option>
-                      <option>Últimos 7 dias</option>
-                      <option>Últimos 30 dias</option>
+                    <select id="financial-period-filter" class="select-default">
+                      <option value="todos">Período</option>
+                      <option value="hoje">Hoje</option>
+                      <option value="7dias">Últimos 7 dias</option>
+                      <option value="30dias">Últimos 30 dias</option>
                     </select>
                   </div>
                 </div>
@@ -156,7 +159,7 @@
                       <th>Ações</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="financial-table-body">
                     <tr>
                       <td>Recebimento - NovaLab</td>
                       <td>Receita</td>
@@ -243,5 +246,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/financial.js"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="settings">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -58,10 +58,10 @@
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
 
             <div class="page-header-actions">
               <a href="#" class="btn-secondary">Restaurar padrão</a>
-              <a href="#" class="btn-primary">Salvar alterações</a>
+              <a href="#" class="btn-primary" data-action="save-settings">Salvar alterações</a>
             </div>
           </div>
 
@@ -99,7 +99,7 @@
                       <span class="option-title">Tema claro</span>
                       <span class="option-description">Utilizar interface limpa e corporativa no ambiente.</span>
                     </div>
-                    <div class="switch active"></div>
+                    <div id="setting-theme-light" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
                   </div>
 
                   <div class="option-item">
@@ -107,7 +107,7 @@
                       <span class="option-title">Sidebar compacta</span>
                       <span class="option-description">Reduzir largura da navegação lateral para mais espaço útil.</span>
                     </div>
-                    <div class="switch"></div>
+                    <div id="setting-sidebar-compact" class="switch" data-setting-switch tabindex="0" role="button" aria-pressed="false"></div>
                   </div>
 
                   <div class="option-item">
@@ -115,7 +115,7 @@
                       <span class="option-title">Exibir atalhos no dashboard</span>
                       <span class="option-description">Mostrar ações rápidas na visão inicial do sistema.</span>
                     </div>
-                    <div class="switch active"></div>
+                    <div id="setting-dashboard-shortcuts" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
                   </div>
                 </div>
               </article>
@@ -134,7 +134,7 @@
                       <span class="option-title">Alertas de vencimento</span>
                       <span class="option-description">Notificar contas com prazo próximo de vencimento.</span>
                     </div>
-                    <div class="switch active"></div>
+                    <div id="setting-alerts-expiration" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
                   </div>
 
                   <div class="option-item">
@@ -142,7 +142,7 @@
                       <span class="option-title">Pedidos pendentes</span>
                       <span class="option-description">Exibir avisos para pedidos aguardando andamento.</span>
                     </div>
-                    <div class="switch active"></div>
+                    <div id="setting-alerts-orders" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
                   </div>
 
                   <div class="option-item">
@@ -150,7 +150,7 @@
                       <span class="option-title">Resumo diário</span>
                       <span class="option-description">Apresentar visão resumida no início do expediente.</span>
                     </div>
-                    <div class="switch"></div>
+                    <div id="setting-daily-summary" class="switch" data-setting-switch tabindex="0" role="button" aria-pressed="false"></div>
                   </div>
                 </div>
               </article>
@@ -277,5 +277,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/settings.js"></script>
 </body>
 </html>
