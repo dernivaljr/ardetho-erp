@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/dashboard.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="dashboard">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -58,10 +58,10 @@
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -88,25 +88,25 @@
             <section class="metrics-grid">
               <article class="card metric-card">
                 <span class="metric-label">Clientes ativos</span>
-                <strong class="metric-value">128</strong>
+                <strong class="metric-value" id="metric-active-clients">128</strong>
                 <span class="metric-change">+8% em relação ao último mês</span>
               </article>
 
               <article class="card metric-card">
                 <span class="metric-label">Produtos cadastrados</span>
-                <strong class="metric-value">342</strong>
+                <strong class="metric-value" id="metric-registered-products">342</strong>
                 <span class="metric-change">+14 novos itens esta semana</span>
               </article>
 
               <article class="card metric-card">
                 <span class="metric-label">Vendas do mês</span>
-                <strong class="metric-value">R$ 42.800</strong>
+                <strong class="metric-value" id="metric-monthly-sales">R$ 42.800</strong>
                 <span class="metric-change">+12% em comparação ao mês anterior</span>
               </article>
 
               <article class="card metric-card">
                 <span class="metric-label">Contas pendentes</span>
-                <strong class="metric-value">19</strong>
+                <strong class="metric-value" id="metric-pending-bills">19</strong>
                 <span class="metric-change">5 vencimentos próximos</span>
               </article>
             </section>
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="chart-placeholder">
-                  <div class="chart-bars">
+                  <div class="chart-bars" id="chart-bars">
                     <div class="chart-bar" style="height: 48%;"></div>
                     <div class="chart-bar" style="height: 66%;"></div>
                     <div class="chart-bar" style="height: 54%;"></div>
@@ -128,7 +128,7 @@
                     <div class="chart-bar" style="height: 92%;"></div>
                     <div class="chart-bar" style="height: 78%;"></div>
                   </div>
-                  <div class="chart-labels">
+                  <div class="chart-labels" id="chart-labels">
                     <span>Jan</span>
                     <span>Fev</span>
                     <span>Mar</span>
@@ -176,7 +176,7 @@
                   <a href="reports.html" class="btn-secondary">Ver tudo</a>
                 </div>
 
-                <div class="activity-list">
+                <div class="activity-list" id="activity-list">
                   <div class="activity-item">
                     <div class="activity-dot info"></div>
                     <div class="activity-content">
@@ -220,7 +220,7 @@
                   <h2 class="section-block-title">Status operacional</h2>
                 </div>
 
-                <div class="status-list">
+                <div class="status-list" id="status-list">
                   <div class="status-item">
                     <span class="status-label">CRM / Clientes</span>
                     <span class="badge-success">Ativo</span>
@@ -269,7 +269,7 @@
                       <th>Responsável</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="recent-orders-body">
                     <tr>
                       <td>#2034</td>
                       <td>NovaLab</td>
@@ -314,5 +314,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/dashboard.js"></script>
 </body>
 </html>
