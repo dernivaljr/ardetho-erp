@@ -1,0 +1,838 @@
+# Estrutura oficial do projeto Ardetho ERP
+
+## 1. Visão geral da arquitetura
+
+Como vocês vão usar apenas **HTML, CSS e JavaScript**, a melhor abordagem é montar o projeto com:
+
+* páginas separadas por contexto;
+* arquivos CSS divididos por responsabilidade;
+* JavaScript modular por área;
+* dados simulados centralizados;
+* componentes visuais reutilizáveis.
+
+Mesmo sem framework, dá para trabalhar de forma bem profissional.
+
+---
+
+# 2. Estrutura de páginas
+
+Eu sugiro separar em **área pública** e **área interna**.
+
+## Área pública
+
+Responsável por apresentar o produto.
+
+### Páginas:
+
+* `index.html` → Home
+* `about.html` → Sobre
+* `modules.html` → Módulos
+* `contact.html` → Contato
+* `login.html` → Login
+
+---
+
+## Área interna
+
+Responsável por simular o ERP.
+
+### Páginas:
+
+* `dashboard.html`
+* `clients.html`
+* `products.html`
+* `sales.html`
+* `financial.html`
+* `reports.html`
+* `erp-modules.html`
+* `settings.html`
+* `profile.html`
+
+---
+
+# 3. Estrutura de pastas recomendada
+
+Eu sugiro esta organização:
+
+```text
+ardetho-erp/
+│
+├── index.html
+├── about.html
+├── modules.html
+├── contact.html
+├── login.html
+├── dashboard.html
+├── clients.html
+├── products.html
+├── sales.html
+├── financial.html
+├── reports.html
+├── erp-modules.html
+├── settings.html
+├── profile.html
+│
+├── assets/
+│   ├── css/
+│   │   ├── variables.css
+│   │   ├── reset.css
+│   │   ├── global.css
+│   │   ├── layout.css
+│   │   ├── components.css
+│   │   ├── public.css
+│   │   ├── auth.css
+│   │   ├── dashboard.css
+│   │   ├── pages.css
+│   │   └── responsive.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── auth.js
+│   │   ├── navigation.js
+│   │   ├── dashboard.js
+│   │   ├── clients.js
+│   │   ├── products.js
+│   │   ├── sales.js
+│   │   ├── financial.js
+│   │   ├── reports.js
+│   │   ├── modules.js
+│   │   ├── settings.js
+│   │   ├── profile.js
+│   │   ├── data.js
+│   │   ├── storage.js
+│   │   └── utils.js
+│   │
+│   ├── images/
+│   │   ├── logo/
+│   │   ├── backgrounds/
+│   │   ├── icons/
+│   │   └── mockups/
+│   │
+│   └── fonts/
+│
+└── README.md
+```
+
+---
+
+# 4. Função de cada arquivo CSS
+
+Para o projeto não repetir o problema comum de “um CSS gigante e confuso”, cada arquivo precisa ter função clara.
+
+## `variables.css`
+
+Vai guardar:
+
+* cores;
+* fontes;
+* espaçamentos;
+* bordas;
+* sombras;
+* tamanhos padrão.
+
+Exemplo:
+
+* `--color-bg-main`
+* `--color-primary`
+* `--radius-md`
+* `--shadow-soft`
+
+---
+
+## `reset.css`
+
+Vai normalizar:
+
+* margens;
+* paddings;
+* box-sizing;
+* listas;
+* links;
+* botões;
+* inputs.
+
+---
+
+## `global.css`
+
+Vai conter estilos globais:
+
+* body;
+* tipografia;
+* títulos;
+* textos;
+* containers;
+* utilitários simples.
+
+---
+
+## `layout.css`
+
+Vai controlar:
+
+* sidebar;
+* topbar;
+* grid principal;
+* estrutura das páginas;
+* largura de conteúdo;
+* alinhamento geral.
+
+---
+
+## `components.css`
+
+Vai concentrar os componentes reutilizáveis:
+
+* botões;
+* cards;
+* badges;
+* inputs;
+* tabelas;
+* modais;
+* dropdowns;
+* toasts;
+* filtros;
+* paginação.
+
+Esse arquivo vai ser um dos mais importantes.
+
+---
+
+## `public.css`
+
+Vai estilizar a área pública:
+
+* hero section;
+* seções institucionais;
+* CTA;
+* planos/módulos;
+* contato;
+* navbar pública;
+* footer.
+
+---
+
+## `auth.css`
+
+Vai cuidar da tela de login:
+
+* box de autenticação;
+* campos;
+* botão;
+* mensagens de erro;
+* layout dividido, se houver.
+
+---
+
+## `dashboard.css`
+
+Vai cuidar do dashboard:
+
+* cards de resumo;
+* widgets;
+* área de atividade recente;
+* gráficos simulados;
+* resumo financeiro.
+
+---
+
+## `pages.css`
+
+Vai conter estilos específicos das páginas internas:
+
+* clientes;
+* produtos;
+* vendas;
+* financeiro;
+* relatórios;
+* módulos;
+* configurações;
+* perfil.
+
+---
+
+## `responsive.css`
+
+Vai conter as media queries do sistema todo:
+
+* tablet;
+* mobile;
+* ajustes da sidebar;
+* tabelas responsivas;
+* cards empilhando.
+
+---
+
+# 5. Função de cada arquivo JavaScript
+
+Agora a estrutura lógica.
+
+## `main.js`
+
+Arquivo geral do sistema:
+
+* inicializações globais;
+* tema;
+* comportamento genérico;
+* chamadas de funções comuns.
+
+---
+
+## `auth.js`
+
+Vai controlar:
+
+* login fake;
+* logout;
+* validação de usuário;
+* usuário logado no `localStorage`;
+* redirecionamento simples.
+
+---
+
+## `navigation.js`
+
+Vai controlar:
+
+* destaque da página ativa;
+* toggle da sidebar;
+* dropdown do usuário;
+* comportamento do menu.
+
+---
+
+## `dashboard.js`
+
+Vai renderizar:
+
+* cards do dashboard;
+* resumo de métricas;
+* atividades recentes;
+* dados simulados;
+* widgets.
+
+---
+
+## `clients.js`
+
+Vai controlar:
+
+* listagem de clientes;
+* busca;
+* filtros;
+* modal de novo cliente;
+* edição/exclusão simulada.
+
+---
+
+## `products.js`
+
+Vai controlar:
+
+* produtos e serviços;
+* categorias;
+* status;
+* busca e filtros;
+* tabela ou cards.
+
+---
+
+## `sales.js`
+
+Vai controlar:
+
+* pedidos;
+* status;
+* datas;
+* filtros;
+* resumo comercial.
+
+---
+
+## `financial.js`
+
+Vai controlar:
+
+* contas a pagar;
+* contas a receber;
+* vencimentos;
+* saldos simulados;
+* resumos financeiros.
+
+---
+
+## `reports.js`
+
+Vai cuidar de:
+
+* relatórios simulados;
+* cards analíticos;
+* filtros de período;
+* exportação fictícia.
+
+---
+
+## `modules.js`
+
+Vai cuidar da página mais estratégica do projeto:
+
+* módulos ativos/inativos;
+* toggle visual;
+* descrição de cada módulo;
+* persistência no `localStorage`.
+
+---
+
+## `settings.js`
+
+Vai controlar:
+
+* preferências do sistema;
+* tema;
+* configurações visuais;
+* preferências de exibição.
+
+---
+
+## `profile.js`
+
+Vai renderizar:
+
+* dados do usuário;
+* cargo;
+* e-mail;
+* último acesso;
+* edição simulada.
+
+---
+
+## `data.js`
+
+Esse será o “mini banco” do projeto.
+
+Vai conter:
+
+* usuários fake;
+* clientes fake;
+* produtos fake;
+* pedidos fake;
+* dados financeiros fake;
+* relatórios fake;
+* módulos disponíveis.
+
+Esse arquivo é essencial.
+
+---
+
+## `storage.js`
+
+Vai abstrair o uso do `localStorage`:
+
+* salvar;
+* buscar;
+* remover;
+* resetar dados.
+
+Isso deixa o código mais organizado do que usar `localStorage` solto em vários arquivos.
+
+---
+
+## `utils.js`
+
+Vai ter funções auxiliares:
+
+* formatar moeda;
+* formatar data;
+* gerar ID simples;
+* filtrar listas;
+* validar campos;
+* exibir notificações.
+
+---
+
+# 6. Componentes oficiais do projeto
+
+Agora vamos fechar a biblioteca visual do Ardetho.
+
+## Componentes principais
+
+* logo/header brand;
+* navbar pública;
+* sidebar interna;
+* topbar interna;
+* page header;
+* button primary;
+* button secondary;
+* input default;
+* search bar;
+* filter group;
+* card metric;
+* card module;
+* badge status;
+* table default;
+* modal default;
+* toast notification;
+* user dropdown;
+* empty state;
+* section title.
+
+Esses componentes devem se repetir no projeto inteiro.
+
+---
+
+# 7. Componentes por página
+
+## Home
+
+* navbar pública;
+* hero section;
+* cards de benefícios;
+* seção de módulos;
+* CTA final;
+* footer.
+
+## Login
+
+* auth card;
+* form inputs;
+* botão primário;
+* mensagem de erro;
+* link de retorno.
+
+## Dashboard
+
+* topbar;
+* sidebar;
+* page header;
+* metric cards;
+* tabela de atividades;
+* painel de alertas;
+* gráficos simulados.
+
+## Clientes
+
+* page header;
+* botão novo cliente;
+* campo de busca;
+* filtros;
+* tabela de clientes;
+* modal de cadastro.
+
+## Produtos
+
+* page header;
+* filtros por categoria;
+* tabela ou grid;
+* badges de status;
+* modal de produto.
+
+## Vendas
+
+* cards resumo;
+* tabela de pedidos;
+* filtros de status;
+* busca.
+
+## Financeiro
+
+* cards financeiros;
+* tabela de contas;
+* badges por vencimento;
+* resumo mensal.
+
+## Relatórios
+
+* cards analíticos;
+* filtros de período;
+* seções resumidas;
+* botão exportar fictício.
+
+## Módulos
+
+* grid de módulos;
+* toggle ativar/desativar;
+* descrições curtas;
+* status visual.
+
+## Configurações
+
+* blocos de preferências;
+* alternância de tema;
+* opções gerais.
+
+## Perfil
+
+* card do usuário;
+* informações pessoais;
+* ações rápidas.
+
+---
+
+# 8. Dados mockados necessários
+
+Como não haverá banco, vocês precisam decidir o conjunto de dados falso desde já.
+
+## Usuários
+
+* admin
+* gerente
+* operador
+
+Campos:
+
+* nome
+* e-mail
+* senha fake
+* cargo
+* nível de acesso
+
+---
+
+## Clientes
+
+Campos:
+
+* id
+* nome
+* empresa
+* e-mail
+* telefone
+* status
+* cidade
+
+---
+
+## Produtos e serviços
+
+Campos:
+
+* id
+* nome
+* categoria
+* tipo
+* preço
+* estoque
+* status
+
+---
+
+## Vendas/pedidos
+
+Campos:
+
+* id
+* cliente
+* data
+* valor
+* status
+* responsável
+
+---
+
+## Financeiro
+
+Campos:
+
+* id
+* descrição
+* tipo
+* valor
+* vencimento
+* status
+
+---
+
+## Módulos
+
+Campos:
+
+* id
+* nome
+* descrição
+* status
+* categoria
+
+---
+
+# 9. Estratégia de navegação
+
+Como ainda não existe back-end, recomendo duas regras simples:
+
+## Regra 1
+
+Toda página interna verifica se existe usuário logado no `localStorage`.
+
+Se não existir:
+
+* redireciona para `login.html`.
+
+## Regra 2
+
+O nome da página atual deve ficar destacado na sidebar.
+
+Isso deixa a navegação muito mais profissional.
+
+---
+
+# 10. Ordem ideal de desenvolvimento
+
+Agora vem a parte prática.
+
+## Fase 1 — Fundação
+
+Construir:
+
+* estrutura de pastas;
+* arquivos vazios;
+* variáveis CSS;
+* reset;
+* global;
+* layout base;
+* components base.
+
+Essa fase é a base de tudo.
+
+---
+
+## Fase 2 — Área pública
+
+Construir:
+
+* home;
+* about;
+* modules;
+* contact;
+* login.
+
+Objetivo:
+
+* criar branding;
+* dar cara comercial ao produto;
+* alinhar identidade visual.
+
+---
+
+## Fase 3 — Layout interno
+
+Construir:
+
+* sidebar;
+* topbar;
+* estrutura padrão das páginas internas;
+* navegação ativa;
+* autenticação fake.
+
+Sem isso, não vale avançar nos módulos.
+
+---
+
+## Fase 4 — Dashboard
+
+Construir:
+
+* cards de resumo;
+* painel de atividades;
+* widgets;
+* gráficos simples.
+
+Essa será a “vitrine” do ERP.
+
+---
+
+## Fase 5 — Módulos principais
+
+Construir nesta ordem:
+
+1. clientes
+2. produtos
+3. vendas
+4. financeiro
+5. relatórios
+6. módulos
+7. configurações
+8. perfil
+
+---
+
+## Fase 6 — Refinamento
+
+Construir:
+
+* responsividade;
+* animações suaves;
+* mensagens de feedback;
+* estados vazios;
+* revisão visual;
+* limpeza do código.
+
+---
+
+# 11. Prioridade visual
+
+Se vocês quiserem replicar o nível do projeto X-Men, a prioridade não é “fazer tudo logo”.
+
+A prioridade é:
+
+1. consistência visual
+2. layout forte
+3. navegação limpa
+4. componentes bem feitos
+5. detalhes de UX
+
+Um sistema com menos páginas, mas bem construído, parece muito melhor do que um sistema enorme e inconsistente.
+
+---
+
+# 12. Meu direcionamento prático para vocês
+
+Se eu estivesse montando esse projeto com vocês, a sequência imediata seria esta:
+
+## Passo 1
+
+Definir a estrutura base dos arquivos.
+
+## Passo 2
+
+Criar o sistema de design:
+
+* cores
+* fontes
+* botões
+* cards
+* inputs
+* tabelas
+
+## Passo 3
+
+Criar a home + login.
+
+## Passo 4
+
+Criar o layout interno padrão:
+
+* sidebar
+* topbar
+* conteúdo
+
+## Passo 5
+
+Criar o dashboard.
+
+Só depois disso eu abriria os outros módulos.
+
+---
+
+# 13. Fechamento desta fase
+
+Neste ponto, vocês já têm:
+
+* nome do projeto;
+* conceito visual;
+* lista de requisitos;
+* mapa de páginas;
+* arquitetura de pastas;
+* arquitetura de CSS;
+* arquitetura de JS;
+* ordem de desenvolvimento.
+
+Ou seja: agora o projeto já saiu da ideia e entrou em **planejamento de execução real**.

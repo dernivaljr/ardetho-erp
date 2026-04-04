@@ -1,0 +1,360 @@
+/* =========================
+   PUBLIC PAGES
+   Ardetho ERP
+========================= */
+
+/* ---------- Header ---------- */
+
+.public-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.header-content {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-main);
+  letter-spacing: -0.02em;
+}
+
+.public-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.public-nav a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.public-nav a:hover,
+.public-nav a.active {
+  color: var(--color-text-main);
+}
+
+/* ---------- Hero ---------- */
+
+.hero-section {
+  padding: 72px 0 64px;
+  background:
+    radial-gradient(circle at top right, rgba(47, 128, 237, 0.08), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(47, 128, 237, 0.05), transparent 28%),
+    var(--color-bg-page);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: var(--space-4xl);
+}
+
+.hero-content {
+  max-width: 620px;
+}
+
+.hero-badge,
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--color-text-main);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-content p {
+  max-width: 560px;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-xl);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockup-card.large-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.mockup-card h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-lg);
+}
+
+.mockup-stats {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.mockup-stat {
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+
+.mockup-stat span {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.mockup-stat strong {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  color: var(--color-text-main);
+  font-weight: var(--font-weight-bold);
+}
+
+.floating-card {
+  position: absolute;
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-main);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-soft);
+}
+
+.card-a {
+  top: 24px;
+  right: 0;
+}
+
+.card-b {
+  bottom: 18px;
+  left: 0;
+}
+
+/* ---------- Shared Sections ---------- */
+
+.benefits-section,
+.modules-preview-section,
+.highlight-section,
+.cta-section {
+  padding: 56px 0;
+  background: var(--color-bg-page);
+}
+
+.section-header {
+  max-width: 720px;
+  margin-bottom: var(--space-2xl);
+}
+
+.section-header h2 {
+  font-size: 2.1rem;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+}
+
+/* ---------- Benefits ---------- */
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.benefit-card {
+  min-height: 180px;
+}
+
+.benefit-card h3 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-sm);
+}
+
+.benefit-card p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ---------- Modules Preview ---------- */
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.module-card {
+  min-height: 170px;
+}
+
+.module-card h3 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-sm);
+}
+
+.module-card p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ---------- Highlight ---------- */
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.92fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.highlight-text h2 {
+  font-size: 2rem;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-md);
+}
+
+.highlight-text p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-lg);
+}
+
+.highlight-list {
+  display: grid;
+  gap: var(--space-sm);
+  padding-left: 18px;
+}
+
+.highlight-list li {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+.highlight-cards {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.mini-status-card {
+  padding: 18px 20px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+/* ---------- CTA ---------- */
+
+.cta-box {
+  text-align: center;
+  padding: 40px 28px;
+  border-radius: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.cta-box h2 {
+  font-size: 2rem;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+.cta-box p {
+  max-width: 720px;
+  margin: 0 auto var(--space-xl);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* ---------- Footer ---------- */
+
+.public-footer {
+  background: var(--color-bg-page);
+  padding: 24px 0 36px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.footer-content p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.footer-links a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.footer-links a:hover {
+  color: var(--color-text-main);
+}

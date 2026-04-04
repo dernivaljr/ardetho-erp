@@ -1,0 +1,705 @@
+# Mapa de telas e componentes do Ardetho ERP
+
+## 1. Estrutura geral do projeto
+
+O projeto ficará dividido em:
+
+### Área pública
+
+Responsável por apresentar o produto:
+
+* Home
+* Sobre
+* Módulos
+* Contato
+* Login
+
+### Área interna
+
+Responsável pelo ERP em si:
+
+* Dashboard
+* Clientes
+* Produtos e Serviços
+* Vendas/Pedidos
+* Financeiro
+* Relatórios
+* Módulos do ERP
+* Configurações
+* Perfil
+
+---
+
+# 2. Componentes globais do projeto
+
+Esses componentes devem ser reutilizados em várias telas.
+
+## Componentes da área pública
+
+* Header/Navbar pública
+* Hero section
+* Section title
+* Benefit card
+* Module card
+* CTA section
+* Footer
+
+## Componentes da área interna
+
+* Sidebar
+* Topbar
+* Page header
+* Search bar
+* Filter group
+* Metric card
+* Status badge
+* Data table
+* Form input
+* Select input
+* Modal
+* Toast notification
+* User dropdown
+* Empty state
+* Action button group
+
+---
+
+# 3. Área pública — checklist por página
+
+## **3.1 Home — `index.html`**
+
+### Objetivo
+
+Apresentar o Ardetho ERP como produto moderno, modular e customizável.
+
+### Seções recomendadas
+
+* Header com logo e navegação
+* Hero principal
+* Bloco de benefícios
+* Bloco de módulos
+* Bloco de diferencial
+* CTA final
+* Footer
+
+### Componentes da página
+
+* Navbar pública
+* Hero title
+* Hero subtitle
+* Hero buttons
+* Benefit cards
+* Module preview cards
+* CTA block
+* Footer
+
+### Conteúdo sugerido
+
+* slogan principal;
+* breve resumo do ERP;
+* destaque da modularidade;
+* botão “Explorar módulos”;
+* botão “Acessar sistema”.
+
+---
+
+## **3.2 Sobre — `about.html`**
+
+### Objetivo
+
+Explicar a proposta do projeto.
+
+### Seções recomendadas
+
+* Introdução
+* Missão do sistema
+* Problema que resolve
+* Diferenciais
+* Visão do produto
+
+### Componentes da página
+
+* Page banner
+* Text sections
+* Highlight cards
+* Timeline ou blocos conceituais
+
+### Conteúdo sugerido
+
+* o que é o Ardetho ERP;
+* por que ele é modular;
+* para quem foi pensado;
+* como ele se diferencia.
+
+---
+
+## **3.3 Módulos — `modules.html`**
+
+### Objetivo
+
+Mostrar os principais módulos do ERP.
+
+### Seções recomendadas
+
+* Introdução dos módulos
+* Grid de módulos
+* Benefícios da modularidade
+* CTA para login/demo
+
+### Componentes da página
+
+* Module cards
+* Section title
+* CTA block
+
+### Módulos para exibir
+
+* Clientes
+* Produtos
+* Vendas
+* Financeiro
+* Relatórios
+* Configurações
+* Personalização
+
+---
+
+## **3.4 Contato — `contact.html`**
+
+### Objetivo
+
+Dar cara de produto real e completar área institucional.
+
+### Seções recomendadas
+
+* Bloco de contato
+* Formulário
+* Informações do projeto
+* CTA de demonstração
+
+### Componentes da página
+
+* Contact form
+* Input fields
+* Textarea
+* Submit button
+* Contact info card
+
+### Campos sugeridos
+
+* Nome
+* E-mail
+* Empresa
+* Mensagem
+
+---
+
+## **3.5 Login — `login.html`**
+
+### Objetivo
+
+Ser a porta de entrada do sistema.
+
+### Estrutura recomendada
+
+* bloco central ou layout dividido em 2 colunas;
+* lado esquerdo com branding;
+* lado direito com formulário.
+
+### Componentes da página
+
+* Login card
+* Logo
+* Form inputs
+* Primary button
+* Error message
+* Back to home link
+
+### Campos
+
+* E-mail ou usuário
+* Senha
+
+### Extras
+
+* lembrar usuário
+* mostrar/ocultar senha
+* mensagem de erro simulada
+
+---
+
+# 4. Área interna — estrutura padrão
+
+Todas as páginas internas devem compartilhar a mesma base visual:
+
+## Estrutura fixa
+
+* Sidebar à esquerda
+* Topbar no topo
+* Conteúdo principal no centro
+* Page header no início da área de conteúdo
+
+## Elementos padrão
+
+* Nome da página
+* Subtítulo curto
+* Ações rápidas
+* Busca, quando necessário
+* Filtros, quando necessário
+
+---
+
+# 5. Área interna — checklist por página
+
+## **5.1 Dashboard — `dashboard.html`**
+
+### Objetivo
+
+Ser a vitrine do sistema.
+
+### Blocos recomendados
+
+* Saudação inicial
+* Cards métricos
+* Resumo financeiro
+* Atividades recentes
+* Pedidos recentes
+* Status rápidos
+* Gráfico simples
+
+### Componentes
+
+* Page header
+* Metric cards
+* Activity list
+* Orders table preview
+* Revenue summary
+* Chart placeholder/card
+* Alert panel
+
+### Indicadores sugeridos
+
+* total de clientes
+* total de produtos
+* vendas do mês
+* contas pendentes
+* módulos ativos
+* pedidos em aberto
+
+---
+
+## **5.2 Clientes — `clients.html`**
+
+### Objetivo
+
+Gerenciar clientes simulados.
+
+### Blocos recomendados
+
+* Cabeçalho da página
+* Busca
+* Filtros
+* Botão novo cliente
+* Tabela de clientes
+* Modal de cadastro/edição
+
+### Componentes
+
+* Search bar
+* Filter group
+* Primary button
+* Data table
+* Status badge
+* Modal
+* Empty state
+
+### Colunas sugeridas
+
+* Nome
+* Empresa
+* E-mail
+* Telefone
+* Cidade
+* Status
+* Ações
+
+### Ações
+
+* visualizar
+* editar
+* remover
+
+---
+
+## **5.3 Produtos e Serviços — `products.html`**
+
+### Objetivo
+
+Exibir catálogo interno.
+
+### Blocos recomendados
+
+* Cabeçalho
+* Busca
+* Filtro por categoria
+* Tabela ou cards
+* Botão novo item
+* Modal de cadastro
+
+### Componentes
+
+* Search bar
+* Category filter
+* Data table ou product grid
+* Status badge
+* Modal
+
+### Colunas sugeridas
+
+* Nome
+* Categoria
+* Tipo
+* Preço
+* Estoque
+* Status
+* Ações
+
+---
+
+## **5.4 Vendas/Pedidos — `sales.html`**
+
+### Objetivo
+
+Simular controle comercial.
+
+### Blocos recomendados
+
+* Resumo do período
+* Busca
+* Filtro por status
+* Tabela de pedidos
+
+### Componentes
+
+* Metric cards
+* Search bar
+* Filter group
+* Orders table
+* Status badge
+
+### Colunas sugeridas
+
+* Pedido
+* Cliente
+* Data
+* Valor
+* Responsável
+* Status
+* Ações
+
+### Status sugeridos
+
+* pendente
+* aprovado
+* concluído
+* cancelado
+
+---
+
+## **5.5 Financeiro — `financial.html`**
+
+### Objetivo
+
+Simular contas e fluxo financeiro.
+
+### Blocos recomendados
+
+* Cards com resumo
+* Lista de contas a pagar
+* Lista de contas a receber
+* Filtro por vencimento/status
+
+### Componentes
+
+* Financial metric cards
+* Data table
+* Status badges
+* Filter group
+
+### Indicadores sugeridos
+
+* saldo total
+* contas a pagar
+* contas a receber
+* vencimentos próximos
+
+### Colunas sugeridas
+
+* Descrição
+* Tipo
+* Valor
+* Vencimento
+* Status
+* Ações
+
+---
+
+## **5.6 Relatórios — `reports.html`**
+
+### Objetivo
+
+Exibir visão analítica simulada.
+
+### Blocos recomendados
+
+* Cabeçalho
+* Cards analíticos
+* Filtro por período
+* Resumos visuais
+* Botão exportar
+
+### Componentes
+
+* Analytics cards
+* Period filter
+* Chart card
+* Summary cards
+* Export button
+
+### Relatórios simulados
+
+* vendas do mês
+* clientes ativos
+* produtos mais vendidos
+* fluxo financeiro
+* módulos mais utilizados
+
+---
+
+## **5.7 Módulos do ERP — `erp-modules.html`**
+
+### Objetivo
+
+Mostrar o principal diferencial do projeto.
+
+### Blocos recomendados
+
+* Introdução
+* Grid de módulos
+* Status ativo/inativo
+* Toggle visual
+
+### Componentes
+
+* Module cards
+* Status badge
+* Toggle switch/button
+* Description block
+
+### Módulos sugeridos
+
+* CRM / Clientes
+* Produtos
+* Vendas
+* Financeiro
+* Relatórios
+* RH
+* Agenda
+* Estoque avançado
+
+### Informações por card
+
+* nome do módulo
+* descrição curta
+* status
+* ação ativar/desativar
+
+---
+
+## **5.8 Configurações — `settings.html`**
+
+### Objetivo
+
+Centralizar preferências do sistema.
+
+### Blocos recomendados
+
+* Preferências visuais
+* Tema
+* Notificações
+* Organização da interface
+* Preferências do usuário
+
+### Componentes
+
+* Settings cards
+* Toggle controls
+* Select fields
+* Save button
+
+### Opções simuladas
+
+* dark mode
+* idioma
+* notificações
+* exibição de dashboard
+* módulos prioritários
+
+---
+
+## **5.9 Perfil — `profile.html`**
+
+### Objetivo
+
+Mostrar dados do usuário logado.
+
+### Blocos recomendados
+
+* Card do usuário
+* Informações pessoais
+* Informações de acesso
+* Ações rápidas
+
+### Componentes
+
+* Profile card
+* User info list
+* Edit button
+* Access summary
+
+### Campos sugeridos
+
+* nome
+* e-mail
+* cargo
+* nível de acesso
+* último acesso
+
+---
+
+# 6. Checklist técnico por página
+
+Agora o mais útil: o que cada página precisa ter minimamente.
+
+## Home
+
+* header
+* hero
+* cards de benefícios
+* CTA
+* footer
+
+## Sobre
+
+* banner
+* blocos de texto
+* cards de diferenciais
+
+## Módulos
+
+* grid de módulos
+* CTA
+
+## Contato
+
+* formulário
+* card informativo
+
+## Login
+
+* formulário
+* validação visual
+* redirecionamento
+
+## Dashboard
+
+* layout interno completo
+* cards
+* widgets
+* lista/tabela curta
+
+## Clientes
+
+* tabela
+* busca
+* modal
+
+## Produtos
+
+* tabela ou cards
+* filtro
+* modal
+
+## Vendas
+
+* cards
+* tabela
+* badges
+
+## Financeiro
+
+* cards
+* tabela
+* filtros
+
+## Relatórios
+
+* cards analíticos
+* período
+* exportação fake
+
+## Módulos do ERP
+
+* cards com toggle
+
+## Configurações
+
+* toggles
+* selects
+* salvar preferências
+
+## Perfil
+
+* card de usuário
+* dados
+* ações
+
+---
+
+# 7. Ordem ideal de construção das telas
+
+Para manter o nível alto, eu recomendo esta ordem:
+
+## Etapa 1 — Branding e fundação
+
+1. Home
+2. Login
+
+## Etapa 2 — Estrutura interna
+
+3. Layout padrão interno
+4. Dashboard
+
+## Etapa 3 — Módulos principais
+
+5. Clientes
+6. Produtos
+7. Vendas
+8. Financeiro
+
+## Etapa 4 — Diferencial do projeto
+
+9. Módulos do ERP
+10. Relatórios
+11. Configurações
+12. Perfil
+
+## Etapa 5 — Fechamento da área pública
+
+13. Sobre
+14. Módulos
+15. Contato
+
+Essa ordem faz bastante sentido porque vocês constroem primeiro o que mais impressiona visualmente.
+
+---

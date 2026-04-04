@@ -1,0 +1,91 @@
+ardetho-erp/
+│
+├── index.html
+├── about.html
+├── modules.html
+├── contact.html
+├── login.html
+├── dashboard.html
+├── clients.html
+├── products.html
+├── sales.html
+├── financial.html
+├── reports.html
+├── erp-modules.html
+├── settings.html
+├── profile.html
+│
+├── assets/
+│   ├── css/
+│   │   ├── variables.css
+│   │   ├── reset.css
+│   │   ├── global.css
+│   │   ├── layout.css
+│   │   ├── components.css
+│   │   ├── public.css
+│   │   ├── auth.css
+│   │   ├── dashboard.css
+│   │   ├── pages.css
+│   │   └── responsive.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── auth.js
+│   │   ├── navigation.js
+│   │   ├── dashboard.js
+│   │   ├── clients.js
+│   │   ├── products.js
+│   │   ├── sales.js
+│   │   ├── financial.js
+│   │   ├── reports.js
+│   │   ├── modules.js
+│   │   ├── settings.js
+│   │   ├── profile.js
+│   │   ├── data.js
+│   │   ├── storage.js
+│   │   └── utils.js
+│   │
+│   ├── images/
+│   │   ├── logo/
+│   │   ├── backgrounds/
+│   │   ├── icons/
+│   │   └── mockups/
+│   │
+│   └── fonts/
+│
+└── README.md
+
+Paleta sugerida
+
+Opção forte e elegante
+Fundo principal: azul escuro ou grafite
+Cards: cinza escuro ou branco
+Cor de destaque: azul ciano, verde esmeralda ou roxo
+Texto: branco/cinza claro em dark mode ou cinza escuro em light mode
+
+Minha sugestão para o Ardetho
+
+Primária: azul petróleo / azul escuro
+Secundária: ciano ou azul vibrante
+Apoio: cinza claro e grafite
+Destaque de sucesso: verde
+Alertas: amarelo e vermelho
+
+:root {
+  --color-bg-main: #0F172A;
+  --color-bg-sidebar: #111827;
+  --color-surface: #1E293B;
+  --color-border: #334155;
+
+  --color-primary: #38BDF8;
+  --color-primary-hover: #0EA5E9;
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #38BDF8;
+
+  --color-text-main: #F8FAFC;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+}

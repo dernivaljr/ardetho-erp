@@ -1,0 +1,698 @@
+# Design System Inicial — Ardetho ERP
+
+## 1. Conceito visual do sistema
+
+O **Ardetho ERP** seguirá uma linha:
+
+* **dark corporativo**
+* **moderno e limpo**
+* **premium**
+* **focado em dashboards e gestão**
+* **com destaque em azul/ciano**
+
+A interface deve transmitir:
+
+* confiança;
+* organização;
+* controle;
+* inteligência;
+* escalabilidade.
+
+---
+
+# 2. Tokens visuais principais
+
+## Paleta oficial
+
+### Fundos
+
+* **Background principal:** `#0F172A`
+* **Background secundário / sidebar:** `#111827`
+* **Superfície / cards:** `#1E293B`
+* **Superfície hover:** `#273449`
+
+### Bordas
+
+* **Borda padrão:** `#334155`
+* **Borda suave:** `#2A3A50`
+
+### Destaque principal
+
+* **Primary:** `#38BDF8`
+* **Primary hover:** `#0EA5E9`
+* **Primary soft:** `rgba(56, 189, 248, 0.15)`
+
+### Feedback
+
+* **Success:** `#22C55E`
+* **Warning:** `#F59E0B`
+* **Danger:** `#EF4444`
+* **Info:** `#38BDF8`
+
+### Texto
+
+* **Texto principal:** `#F8FAFC`
+* **Texto secundário:** `#CBD5E1`
+* **Texto discreto:** `#94A3B8`
+
+---
+
+## Exemplo em CSS
+
+```css
+:root {
+  --color-bg-main: #0F172A;
+  --color-bg-secondary: #111827;
+  --color-surface: #1E293B;
+  --color-surface-hover: #273449;
+
+  --color-border: #334155;
+  --color-border-soft: #2A3A50;
+
+  --color-primary: #38BDF8;
+  --color-primary-hover: #0EA5E9;
+  --color-primary-soft: rgba(56, 189, 248, 0.15);
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #38BDF8;
+
+  --color-text-main: #F8FAFC;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+}
+```
+
+---
+
+# 3. Tipografia oficial
+
+## Fonte principal
+
+### **Inter**
+
+Motivos:
+
+* excelente para dashboards;
+* legível em títulos e tabelas;
+* visual moderno;
+* profissional.
+
+## Pesos recomendados
+
+* **400** → texto padrão
+* **500** → destaque leve
+* **600** → subtítulos/cards
+* **700** → títulos principais
+
+---
+
+## Escala tipográfica
+
+### Título principal
+
+* `32px`
+* peso `700`
+
+### Título de página
+
+* `24px`
+* peso `700`
+
+### Título de seção
+
+* `20px`
+* peso `600`
+
+### Título de card
+
+* `16px`
+* peso `600`
+
+### Texto padrão
+
+* `14px` ou `16px`
+* peso `400`
+
+### Texto auxiliar
+
+* `12px`
+* peso `400`
+
+---
+
+# 4. Espaçamento e grid
+
+Para o sistema ficar consistente, é importante trabalhar com uma escala fixa.
+
+## Escala de espaçamento
+
+* `4px`
+* `8px`
+* `12px`
+* `16px`
+* `20px`
+* `24px`
+* `32px`
+* `40px`
+* `48px`
+
+## Variáveis recomendadas
+
+```css
+:root {
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 48px;
+}
+```
+
+## Regra prática
+
+* padding interno de card: `20px` ou `24px`
+* gap entre blocos: `24px`
+* distância entre seções grandes: `40px` ou `48px`
+
+---
+
+# 5. Bordas e cantos
+
+## Border radius
+
+* **small:** `8px`
+* **medium:** `12px`
+* **large:** `16px`
+* **extra-large:** `20px`
+
+## Recomendação de uso
+
+* botões: `10px` a `12px`
+* inputs: `10px` a `12px`
+* cards: `16px`
+* modais: `20px`
+
+---
+
+## Variáveis sugeridas
+
+```css
+:root {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+```
+
+---
+
+# 6. Sombras
+
+Sombras devem ser discretas, sem exagero.
+
+## Sugestões
+
+### Sombra suave
+
+```css
+0 8px 24px rgba(0, 0, 0, 0.18)
+```
+
+### Sombra de hover
+
+```css
+0 12px 32px rgba(0, 0, 0, 0.22)
+```
+
+### Variáveis
+
+```css
+:root {
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+```
+
+---
+
+# 7. Botões
+
+## Botão primário
+
+### Uso
+
+* ações principais
+* login
+* salvar
+* criar novo item
+
+### Estilo
+
+* fundo azul ciano
+* texto branco
+* padding confortável
+* borda arredondada
+* hover mais forte
+
+```css
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-text-main);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+```
+
+---
+
+## Botão secundário
+
+### Uso
+
+* ações neutras
+* voltar
+* cancelar
+* explorar módulos
+
+### Estilo
+
+* fundo transparente ou superfície escura
+* borda sutil
+* texto claro
+
+```css
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--color-surface-hover);
+}
+```
+
+---
+
+## Botão de perigo
+
+### Uso
+
+* excluir
+* cancelar
+* remover
+
+```css
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-text-main);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-weight: 600;
+}
+```
+
+---
+
+# 8. Inputs e formulários
+
+## Input padrão
+
+### Estilo
+
+* fundo escuro
+* borda suave
+* texto claro
+* foco azul ciano
+
+```css
+.input-default {
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-main);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.input-default:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+```
+
+## Placeholder
+
+* cor discreta
+* nunca muito clara
+
+```css
+.input-default::placeholder {
+  color: var(--color-text-muted);
+}
+```
+
+## Labels
+
+* peso `500`
+* tamanho `14px`
+* espaçamento pequeno abaixo
+
+---
+
+# 9. Cards
+
+Os cards serão um dos elementos mais usados.
+
+## Card padrão
+
+```css
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+}
+```
+
+## Regras de uso
+
+* título do card no topo;
+* número ou conteúdo principal em destaque;
+* apoio visual discreto;
+* evitar excesso de informação no mesmo card.
+
+---
+
+## Card métrico
+
+Ideal para dashboard.
+
+### Estrutura
+
+* label pequena
+* valor em destaque
+* variação
+* ícone
+
+Exemplo visual:
+
+* Clientes ativos
+* 124
+* +8% este mês
+
+---
+
+# 10. Badges de status
+
+## Status ativo
+
+```css
+.badge-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--color-success);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+```
+
+## Status pendente
+
+```css
+.badge-warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--color-warning);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+```
+
+## Status erro/cancelado
+
+```css
+.badge-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--color-danger);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+```
+
+## Status info
+
+```css
+.badge-info {
+  background: var(--color-primary-soft);
+  color: var(--color-info);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+```
+
+---
+
+# 11. Tabelas
+
+Como é ERP, tabela precisa ficar boa.
+
+## Estrutura recomendada
+
+* cabeçalho com fundo levemente diferente;
+* linhas com separação sutil;
+* hover nas linhas;
+* padding generoso;
+* texto bem alinhado.
+
+```css
+.table-default {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table-default th,
+.table-default td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.table-default thead {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.table-default tbody tr {
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.table-default tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+```
+
+---
+
+# 12. Sidebar
+
+A sidebar é parte da identidade do ERP.
+
+## Estilo recomendado
+
+* fundo secundário escuro;
+* largura fixa;
+* logo no topo;
+* menu com ícones;
+* item ativo destacado.
+
+### Medidas sugeridas
+
+* largura: `260px`
+* padding: `24px`
+
+### Item ativo
+
+* fundo suave em azul;
+* borda arredondada;
+* texto branco.
+
+---
+
+# 13. Topbar
+
+## Elementos
+
+* título da página;
+* busca;
+* notificações;
+* perfil.
+
+## Estilo
+
+* fundo levemente translúcido ou igual ao principal;
+* alinhamento horizontal;
+* altura confortável.
+
+### Altura sugerida
+
+* `72px` a `80px`
+
+---
+
+# 14. Modais
+
+## Estilo recomendado
+
+* overlay escuro com blur leve;
+* caixa central com fundo escuro;
+* cantos arredondados;
+* sombra suave.
+
+### Estrutura
+
+* título
+* subtítulo opcional
+* formulário
+* ações ao final
+
+---
+
+# 15. Toasts / notificações
+
+## Função
+
+Dar feedback ao usuário.
+
+### Exemplos
+
+* cliente cadastrado
+* login realizado
+* módulo ativado
+* erro de validação
+
+### Estilo
+
+* pequeno card flutuante;
+* cor lateral ou ícone;
+* canto superior direito.
+
+---
+
+# 16. Animações e transições
+
+Use com moderação.
+
+## Recomendação
+
+* duração padrão: `0.3s`
+* easing suave
+* hover em botões e cards
+* foco em inputs
+* entrada leve de modais
+
+```css
+transition: all 0.3s ease;
+```
+
+---
+
+# 17. Regras de consistência visual
+
+Essas regras são muito importantes.
+
+## Regras
+
+* usar sempre a mesma paleta;
+* não inventar novas cores por página;
+* não variar border-radius sem necessidade;
+* manter paddings consistentes;
+* usar no máximo 2 estilos principais de botão;
+* repetir o mesmo padrão de card e tabela;
+* manter títulos com hierarquia fixa;
+* evitar efeitos exagerados.
+
+---
+
+# 18. Classes utilitárias que valem a pena
+
+Vocês podem criar algumas classes de apoio:
+
+```css
+.text-muted
+.text-center
+.flex
+.grid
+.hidden
+.w-full
+.mt-md
+.mb-md
+.gap-md
+```
+
+Mas sem exagerar para não virar pseudo-framework.
+
+---
+
+# 19. Ordem de construção do design system
+
+Eu faria assim:
+
+1. `variables.css`
+2. `reset.css`
+3. `global.css`
+4. `layout.css`
+5. `components.css`
+6. `responsive.css`
+
+Depois disso, aí sim:
+
+* `public.css`
+* `auth.css`
+* `dashboard.css`
+* `pages.css`
+
+---
+
+# 20. Fechamento desta etapa
+
+Com esse design system, vocês já têm base para construir:
+
+* Home
+* Login
+* Dashboard
+* e todas as outras páginas
+
+sem perder consistência.
+

@@ -1,0 +1,593 @@
+# 1. Blueprint da Home — `index.html`
+
+## Objetivo da tela
+
+Apresentar o Ardetho ERP como um sistema:
+
+* moderno;
+* modular;
+* confiável;
+* profissional.
+
+A Home precisa vender a ideia do produto.
+
+---
+
+## Estrutura da página
+
+### 1. Header / Navbar
+
+Fica no topo.
+
+#### Elementos:
+
+* logo “Ardetho ERP” à esquerda;
+* links de navegação ao centro ou direita:
+
+  * Home
+  * Sobre
+  * Módulos
+  * Contato
+* botão de destaque:
+
+  * **Login**
+  * ou **Acessar sistema**
+
+#### Função visual:
+
+* passar organização;
+* já mostrar a identidade premium;
+* facilitar navegação.
+
+---
+
+### 2. Hero Section
+
+É a parte mais forte da Home.
+
+#### Estrutura:
+
+**lado esquerdo**
+
+* título principal forte;
+* subtítulo explicando a proposta;
+* dois botões de ação.
+
+**lado direito**
+
+* mockup/dashboard ilustrativo;
+* ou composição visual com cards flutuantes simulando módulos do sistema.
+
+#### Exemplo do que mostrar:
+
+* um painel estilizado do dashboard;
+* mini cards com:
+
+  * vendas;
+  * clientes;
+  * financeiro;
+  * módulos ativos.
+
+#### Objetivo:
+
+mostrar logo de cara que é um ERP moderno.
+
+---
+
+### 3. Seção de Benefícios
+
+Bloco com 3 ou 4 cards.
+
+#### Sugestões de benefícios:
+
+* Gestão centralizada
+* Modularidade inteligente
+* Interface moderna
+* Expansão escalável
+
+#### Estrutura:
+
+* título da seção;
+* subtítulo curto;
+* grid de cards.
+
+Cada card pode ter:
+
+* ícone;
+* título;
+* descrição curta.
+
+---
+
+### 4. Seção de Módulos em destaque
+
+Aqui vocês mostram os módulos principais.
+
+#### Estrutura:
+
+* título: “Módulos que acompanham o seu negócio”
+* grid com 4 a 6 cards
+
+#### Cards sugeridos:
+
+* Clientes
+* Produtos
+* Vendas
+* Financeiro
+* Relatórios
+* Configurações
+
+#### Cada card deve ter:
+
+* ícone;
+* nome do módulo;
+* resumo em 1 linha;
+* status visual ou seta para explorar.
+
+---
+
+### 5. Seção de diferencial
+
+Aqui entra o grande conceito do projeto.
+
+#### Sugestão:
+
+bloco com fundo levemente diferente, mostrando:
+
+**“Um ERP modular e customizável para diferentes perfis de empresa.”**
+
+#### Pode dividir em 2 colunas:
+
+**coluna 1**
+
+* texto explicativo;
+* lista de diferenciais.
+
+**coluna 2**
+
+* cards/tags com módulos ativos e inativos;
+* imagem conceitual do painel.
+
+---
+
+### 6. CTA Final
+
+Bloco chamando o usuário para ação.
+
+#### Exemplo:
+
+**“Pronto para transformar sua gestão?”**
+
+#### Botões:
+
+* Explorar módulos
+* Acessar sistema
+
+---
+
+### 7. Footer
+
+Rodapé simples e elegante.
+
+#### Elementos:
+
+* nome do projeto;
+* links rápidos;
+* créditos acadêmicos;
+* copyright fictício.
+
+---
+
+## Hierarquia visual da Home
+
+A ordem de impacto deve ser:
+
+1. hero
+2. benefícios
+3. módulos
+4. diferencial
+5. CTA
+
+---
+
+## Blueprint resumido da Home
+
+```text
+HEADER
+ ├─ Logo
+ ├─ Navegação
+ └─ Botão Login
+
+HERO
+ ├─ Título principal
+ ├─ Subtítulo
+ ├─ Botão primário
+ ├─ Botão secundário
+ └─ Mockup visual do sistema
+
+BENEFÍCIOS
+ ├─ Título da seção
+ └─ Grid com 4 cards
+
+MÓDULOS
+ ├─ Título
+ └─ Grid com cards de módulos
+
+DIFERENCIAL
+ ├─ Texto explicativo
+ └─ Visual de modularidade
+
+CTA FINAL
+ ├─ Chamada
+ └─ Botões
+
+FOOTER
+```
+
+---
+
+# 2. Blueprint da Login — `login.html`
+
+## Objetivo da tela
+
+Ser elegante, simples e com cara de produto real.
+
+A tela de login precisa parecer profissional, não só um formulário perdido no centro.
+
+---
+
+## Melhor estrutura
+
+### Layout em 2 colunas
+
+#### Coluna esquerda — Branding
+
+* logo Ardetho ERP;
+* título de impacto;
+* texto curto;
+* mini lista de benefícios;
+* background com elementos visuais suaves.
+
+#### Coluna direita — Formulário
+
+* card de login;
+* campos;
+* botão;
+* links auxiliares.
+
+---
+
+## Estrutura detalhada
+
+### 1. Painel esquerdo
+
+#### Conteúdo:
+
+* logo;
+* frase como:
+  **“Gestão inteligente, do seu jeito.”**
+* pequeno texto de apoio;
+* 3 bullets:
+
+  * controle centralizado
+  * módulos configuráveis
+  * interface moderna
+
+#### Visual:
+
+* fundo em gradiente escuro;
+* alguns shapes sutis;
+* talvez mini cards decorativos.
+
+---
+
+### 2. Painel direito
+
+#### Card de login
+
+Elementos:
+
+* título “Acessar sistema”
+* subtítulo curto
+* input usuário/e-mail
+* input senha
+* checkbox “lembrar acesso”
+* botão entrar
+* mensagem de erro simulada
+* link “voltar para home”
+
+---
+
+## Extras interessantes
+
+* botão para mostrar/ocultar senha;
+* animação sutil no foco dos inputs;
+* feedback de erro em vermelho;
+* login demo.
+
+### Exemplo de acesso demo:
+
+* [admin@ardetho.com](mailto:admin@ardetho.com)
+* 123456
+
+---
+
+## Blueprint resumido da Login
+
+```text
+LOGIN PAGE
+ ├─ COLUNA ESQUERDA
+ │   ├─ Logo
+ │   ├─ Frase de impacto
+ │   ├─ Texto curto
+ │   └─ Lista de benefícios
+ │
+ └─ COLUNA DIREITA
+     └─ LOGIN CARD
+         ├─ Título
+         ├─ Subtítulo
+         ├─ Campo usuário
+         ├─ Campo senha
+         ├─ Checkbox lembrar acesso
+         ├─ Botão entrar
+         ├─ Mensagem de erro
+         └─ Link voltar
+```
+
+---
+
+# 3. Blueprint do Dashboard — `dashboard.html`
+
+## Objetivo da tela
+
+Ser a tela mais impressionante do ERP.
+
+Ela precisa passar logo a sensação de:
+
+* controle;
+* visão gerencial;
+* organização;
+* sofisticação.
+
+---
+
+## Estrutura-base do dashboard
+
+### 1. Sidebar
+
+Fixa à esquerda.
+
+#### Elementos:
+
+* logo no topo;
+* menu principal;
+* item ativo destacado;
+* botão de sair ou perfil no rodapé.
+
+#### Itens:
+
+* Dashboard
+* Clientes
+* Produtos
+* Vendas
+* Financeiro
+* Relatórios
+* Módulos
+* Configurações
+* Perfil
+
+---
+
+### 2. Topbar
+
+Fica no topo da área principal.
+
+#### Elementos:
+
+* título da página;
+* campo de busca;
+* sino de notificações;
+* avatar do usuário;
+* dropdown do perfil.
+
+---
+
+### 3. Conteúdo principal
+
+Aqui entra a composição do dashboard.
+
+---
+
+## Estrutura interna do conteúdo
+
+### Bloco 1 — Header da página
+
+#### Conteúdo:
+
+* título: “Dashboard”
+* subtítulo: resumo rápido da operação
+* botão de ação rápida, se quiser
+
+Exemplo:
+
+* Novo cliente
+* Novo pedido
+
+---
+
+### Bloco 2 — Cards métricos
+
+Grid com 4 a 6 cards.
+
+#### Sugestões:
+
+* Clientes ativos
+* Produtos cadastrados
+* Vendas do mês
+* Contas pendentes
+* Receita mensal
+* Módulos ativos
+
+#### Estrutura do card:
+
+* título pequeno;
+* número em destaque;
+* variação/indicador;
+* ícone.
+
+---
+
+### Bloco 3 — Área de análise rápida
+
+Pode ser dividido em 2 colunas.
+
+#### Coluna esquerda:
+
+* gráfico ou card grande de receita/vendas
+
+#### Coluna direita:
+
+* resumo de status
+* alertas
+* pendências
+
+---
+
+### Bloco 4 — Atividades recentes
+
+Tabela ou lista curta.
+
+#### Exemplo:
+
+* cliente cadastrado
+* pedido aprovado
+* módulo ativado
+* conta vencendo
+* relatório emitido
+
+---
+
+### Bloco 5 — Pedidos ou movimentações recentes
+
+Tabela simples.
+
+#### Colunas:
+
+* ID
+* cliente
+* valor
+* data
+* status
+
+---
+
+## Distribuição ideal do dashboard
+
+### Linha 1
+
+* page header
+
+### Linha 2
+
+* metric cards
+
+### Linha 3
+
+* gráfico principal + painel lateral
+
+### Linha 4
+
+* atividades recentes + tabela resumida
+
+---
+
+## Blueprint resumido do Dashboard
+
+```text
+SIDEBAR
+ ├─ Logo
+ ├─ Navegação
+ └─ Perfil/Logout
+
+TOPBAR
+ ├─ Título da página
+ ├─ Busca
+ ├─ Notificações
+ └─ Avatar/Dropdown
+
+MAIN CONTENT
+ ├─ PAGE HEADER
+ │   ├─ Título
+ │   ├─ Subtítulo
+ │   └─ Ação rápida
+ │
+ ├─ METRIC CARDS
+ │   ├─ Clientes
+ │   ├─ Produtos
+ │   ├─ Vendas
+ │   ├─ Financeiro
+ │   └─ Módulos
+ │
+ ├─ ANALYTICS SECTION
+ │   ├─ Gráfico principal
+ │   └─ Painel de alertas/status
+ │
+ ├─ RECENT ACTIVITIES
+ │   └─ Lista ou tabela curta
+ │
+ └─ RECENT ORDERS
+     └─ Tabela resumida
+```
+
+---
+
+# 4. Padrão estrutural das páginas internas
+
+Depois que o dashboard estiver pronto, quase todas as páginas internas podem seguir esta base:
+
+## Estrutura padrão
+
+* sidebar;
+* topbar;
+* page header;
+* barra de busca e filtros;
+* conteúdo principal em tabela/cards;
+* modais de ação.
+
+---
+
+# 5. Componentes críticos para construir primeiro
+
+Antes de montar tudo, vocês devem criar os componentes-base que serão reaproveitados.
+
+## Ordem recomendada:
+
+1. logo/header brand
+2. botão primário/secundário
+3. input padrão
+4. card padrão
+5. sidebar
+6. topbar
+7. status badge
+8. tabela padrão
+9. modal padrão
+10. toast/feedback
+
+---
+
+# 6. Ordem prática de construção a partir daqui
+
+## Etapa imediata
+
+1. montar a Home
+2. montar a Login
+3. montar o layout-base interno
+4. montar o Dashboard
+
+Depois:
+5. clientes
+6. produtos
+7. vendas
+8. financeiro
+
+---

@@ -1,0 +1,113 @@
+:root {
+  /* =========================
+     COLORS - BASE
+  ========================= */
+  --color-bg-page: #F5F6F8;
+  --color-bg-sidebar: #FFFFFF;
+  --color-bg-topbar: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #FAFBFC;
+  --color-surface-hover: #F0F3F7;
+
+  --color-border: #E7EAF0;
+  --color-border-strong: #D9DEE7;
+  --color-divider: #EEF1F5;
+
+  /* =========================
+     COLORS - TEXT
+  ========================= */
+  --color-text-main: #1F2430;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9AA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  /* =========================
+     COLORS - PRIMARY / ACCENT
+  ========================= */
+  --color-primary: #2F80ED;
+  --color-primary-hover: #1D72E8;
+  --color-primary-soft: #EAF3FF;
+
+  /* =========================
+     STATUS COLORS
+  ========================= */
+  --color-success: #36B37E;
+  --color-success-soft: #E7F7F0;
+
+  --color-warning: #C89B12;
+  --color-warning-soft: #FBF3D8;
+
+  --color-danger: #E05658;
+  --color-danger-soft: #FDEBEC;
+
+  --color-info: #2F80ED;
+  --color-info-soft: #EAF3FF;
+
+  --color-neutral: #7C8798;
+  --color-neutral-soft: #F2F4F7;
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+  --font-family-base: "Inter", sans-serif;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* =========================
+     SPACING
+  ========================= */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 48px;
+  --space-5xl: 64px;
+
+  /* =========================
+     BORDER RADIUS
+  ========================= */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* =========================
+     SHADOWS
+  ========================= */
+  --shadow-soft: 0 4px 16px rgba(17, 24, 39, 0.04);
+  --shadow-card: 0 8px 24px rgba(17, 24, 39, 0.06);
+  --shadow-hover: 0 12px 28px rgba(17, 24, 39, 0.08);
+
+  /* =========================
+     LAYOUT
+  ========================= */
+  --container-width: 1280px;
+  --sidebar-width: 280px;
+  --topbar-height: 88px;
+  --content-max-width: 1440px;
+
+  /* =========================
+     TRANSITIONS
+  ========================= */
+  --transition-base: all 0.25s ease;
+}
