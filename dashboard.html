@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-secondary w-full">Sair</a>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Dashboard</span>
+            <span class="topbar-subtitle">Visão geral da operação</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-search">
+            <input
+              type="text"
+              class="input-default"
+              placeholder="Buscar informações..."
+            />
+          </div>
+
+          <div class="user-chip">
+            <div class="user-avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrador</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Bem-vindo de volta</h1>
+              <p class="page-description">
+                Acompanhe indicadores importantes, atividades recentes e o status
+                geral do seu ambiente de gestão.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="clients.html" class="btn-secondary">Novo cliente</a>
+              <a href="sales.html" class="btn-primary">Novo pedido</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="metrics-grid">
+              <article class="card metric-card">
+                <span class="metric-label">Clientes ativos</span>
+                <strong class="metric-value">128</strong>
+                <span class="metric-change">+8% em relação ao último mês</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Produtos cadastrados</span>
+                <strong class="metric-value">342</strong>
+                <span class="metric-change">+14 novos itens esta semana</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Vendas do mês</span>
+                <strong class="metric-value">R$ 42.800</strong>
+                <span class="metric-change">+12% em comparação ao mês anterior</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Contas pendentes</span>
+                <strong class="metric-value">19</strong>
+                <span class="metric-change">5 vencimentos próximos</span>
+              </article>
+            </section>
+
+            <section class="analytics-grid">
+              <article class="card chart-card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Desempenho financeiro</h2>
+                  <span class="badge-info">Atualizado hoje</span>
+                </div>
+
+                <div class="chart-placeholder">
+                  <div class="chart-bars">
+                    <div class="chart-bar" style="height: 48%;"></div>
+                    <div class="chart-bar" style="height: 66%;"></div>
+                    <div class="chart-bar" style="height: 54%;"></div>
+                    <div class="chart-bar" style="height: 82%;"></div>
+                    <div class="chart-bar" style="height: 72%;"></div>
+                    <div class="chart-bar" style="height: 92%;"></div>
+                    <div class="chart-bar" style="height: 78%;"></div>
+                  </div>
+                  <div class="chart-labels">
+                    <span>Jan</span>
+                    <span>Fev</span>
+                    <span>Mar</span>
+                    <span>Abr</span>
+                    <span>Mai</span>
+                    <span>Jun</span>
+                    <span>Jul</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card summary-card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Resumo rápido</h2>
+                </div>
+
+                <div class="summary-list">
+                  <div class="summary-item">
+                    <span class="summary-label">Módulos ativos</span>
+                    <strong class="summary-value">6</strong>
+                  </div>
+
+                  <div class="summary-item">
+                    <span class="summary-label">Pedidos em aberto</span>
+                    <strong class="summary-value">24</strong>
+                  </div>
+
+                  <div class="summary-item">
+                    <span class="summary-label">Recebimentos previstos</span>
+                    <strong class="summary-value">R$ 18.400</strong>
+                  </div>
+
+                  <div class="summary-item">
+                    <span class="summary-label">Pagamentos agendados</span>
+                    <strong class="summary-value">R$ 7.250</strong>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="split-grid">
+              <article class="card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Atividades recentes</h2>
+                  <a href="reports.html" class="btn-secondary">Ver tudo</a>
+                </div>
+
+                <div class="activity-list">
+                  <div class="activity-item">
+                    <div class="activity-dot info"></div>
+                    <div class="activity-content">
+                      <strong>Novo cliente cadastrado</strong>
+                      <p>Empresa NovaLab adicionada ao sistema.</p>
+                    </div>
+                    <span class="activity-time">09:30</span>
+                  </div>
+
+                  <div class="activity-item">
+                    <div class="activity-dot success"></div>
+                    <div class="activity-content">
+                      <strong>Pedido aprovado</strong>
+                      <p>Pedido #2034 aprovado pelo financeiro.</p>
+                    </div>
+                    <span class="activity-time">10:15</span>
+                  </div>
+
+                  <div class="activity-item">
+                    <div class="activity-dot warning"></div>
+                    <div class="activity-content">
+                      <strong>Conta próxima do vencimento</strong>
+                      <p>Fatura do fornecedor Alpha vence amanhã.</p>
+                    </div>
+                    <span class="activity-time">11:05</span>
+                  </div>
+
+                  <div class="activity-item">
+                    <div class="activity-dot neutral"></div>
+                    <div class="activity-content">
+                      <strong>Relatório exportado</strong>
+                      <p>Resumo mensal enviado pelo módulo de relatórios.</p>
+                    </div>
+                    <span class="activity-time">11:42</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="section-block-header">
+                  <h2 class="section-block-title">Status operacional</h2>
+                </div>
+
+                <div class="status-list">
+                  <div class="status-item">
+                    <span class="status-label">CRM / Clientes</span>
+                    <span class="badge-success">Ativo</span>
+                  </div>
+
+                  <div class="status-item">
+                    <span class="status-label">Financeiro</span>
+                    <span class="badge-success">Ativo</span>
+                  </div>
+
+                  <div class="status-item">
+                    <span class="status-label">Relatórios</span>
+                    <span class="badge-info">Sincronizado</span>
+                  </div>
+
+                  <div class="status-item">
+                    <span class="status-label">Estoque avançado</span>
+                    <span class="badge-warning">Parcial</span>
+                  </div>
+
+                  <div class="status-item">
+                    <span class="status-label">RH</span>
+                    <span class="badge-neutral">Inativo</span>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="section-block">
+              <div class="section-block-header">
+                <h2 class="section-block-title">Pedidos recentes</h2>
+                <div class="section-block-actions">
+                  <a href="sales.html" class="btn-secondary">Ver pedidos</a>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Pedido</th>
+                      <th>Cliente</th>
+                      <th>Data</th>
+                      <th>Valor</th>
+                      <th>Status</th>
+                      <th>Responsável</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#2034</td>
+                      <td>NovaLab</td>
+                      <td>12/04/2026</td>
+                      <td>R$ 4.800</td>
+                      <td><span class="badge-success">Concluído</span></td>
+                      <td>Ana Lima</td>
+                    </tr>
+                    <tr>
+                      <td>#2035</td>
+                      <td>BioAnalytica</td>
+                      <td>12/04/2026</td>
+                      <td>R$ 2.150</td>
+                      <td><span class="badge-warning">Pendente</span></td>
+                      <td>Lucas Rocha</td>
+                    </tr>
+                    <tr>
+                      <td>#2036</td>
+                      <td>QualiTech</td>
+                      <td>13/04/2026</td>
+                      <td>R$ 6.920</td>
+                      <td><span class="badge-info">Em análise</span></td>
+                      <td>Marina Costa</td>
+                    </tr>
+                    <tr>
+                      <td>#2037</td>
+                      <td>LabCore</td>
+                      <td>13/04/2026</td>
+                      <td>R$ 1.740</td>
+                      <td><span class="badge-danger">Cancelado</span></td>
+                      <td>Rafael Mendes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+/* =========================
+   DASHBOARD
+   Ardetho ERP
+========================= */
+
+/* ---------- Chart Card ---------- */
+
+.chart-card,
+.summary-card {
+  min-height: 100%;
+}
+
+.chart-placeholder {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.chart-bars {
+  height: 260px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 8px 0;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(to top, rgba(47, 128, 237, 0.04), transparent),
+    repeating-linear-gradient(
+      to top,
+      transparent,
+      transparent 51px,
+      var(--color-divider) 52px
+    );
+  border: 1px solid var(--color-divider);
+}
+
+.chart-bar {
+  flex: 1;
+  min-width: 18px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, #5AA2FF 0%, var(--color-primary) 100%);
+  box-shadow: inset 0 -10px 16px rgba(255, 255, 255, 0.12);
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.chart-labels span {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Summary Card ---------- */
+
+.summary-list {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.summary-value {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  text-align: right;
+}
+
+/* ---------- Activity List ---------- */
+
+.activity-list {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.activity-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--space-md);
+}
+
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.activity-dot.info {
+  background: var(--color-info);
+}
+
+.activity-dot.success {
+  background: var(--color-success);
+}
+
+.activity-dot.warning {
+  background: var(--color-warning);
+}
+
+.activity-dot.neutral {
+  background: var(--color-neutral);
+}
+
+.activity-content {
+  display: grid;
+  gap: 4px;
+}
+
+.activity-content strong {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+.activity-content p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+.activity-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  padding-top: 1px;
+}
+
+/* ---------- Status List ---------- */
+
+.status-list {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.status-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.status-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+}
+
+/* ---------- Responsive Helpers ---------- */
+
+@media (max-width: 768px) {
+  .chart-bars {
+    height: 220px;
+    gap: 8px;
+    padding: 16px 6px 0;
+  }
+
+  .summary-item,
+  .status-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .activity-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .activity-time {
+    grid-column: 2;
+    padding-top: 0;
+  }
+}
