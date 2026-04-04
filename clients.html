@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
 </head>
-<body>
+<body data-page="clients">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
@@ -52,16 +52,17 @@
           <div class="topbar-search">
             <input
               type="text"
+              id="clients-search"
               class="input-default"
-              placeholder="Buscar clientes..."
+              placeholder="Pesquisar por nome, empresa ou e-mail"
             />
           </div>
 
           <div class="user-chip">
-            <div class="user-avatar">AD</div>
+            <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
-              <span class="user-name">Admin User</span>
-              <span class="user-role">Administrador</span>
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
             </div>
           </div>
         </div>
@@ -97,18 +98,19 @@
 
                 <div class="toolbar-right">
                   <div class="filter-group">
-                    <select class="select-default">
-                      <option>Status</option>
-                      <option>Ativo</option>
-                      <option>Em análise</option>
-                      <option>Inativo</option>
+                    <select id="clients-status-filter" class="select-default">
+                      <option value="todos">Status</option>
+                      <option value="ativo">Ativo</option>
+                      <option value="em análise">Em análise</option>
+                      <option value="inativo">Inativo</option>
+                      <option value="pendente">Pendente</option>
                     </select>
 
-                    <select class="select-default">
-                      <option>Cidade</option>
-                      <option>São Paulo</option>
-                      <option>Santo André</option>
-                      <option>São Bernardo</option>
+                    <select id="clients-city-filter" class="select-default">
+                      <option value="todas">Cidade</option>
+                      <option value="são paulo">São Paulo</option>
+                      <option value="santo andré">Santo André</option>
+                      <option value="são bernardo">São Bernardo</option>
                     </select>
                   </div>
                 </div>
@@ -127,7 +129,7 @@
                       <th>Ações</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="clients-table-body"></tbody>
                     <tr>
                       <td>Juliana Alves</td>
                       <td>NovaLab</td>
@@ -214,5 +216,6 @@
   <script src="assets/js/data.js"></script>
 <script src="assets/js/storage.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/clients.js"></script>
 </body>
 </html>
