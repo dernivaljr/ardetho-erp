@@ -14,12 +14,15 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
 <body data-page="products">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
+        </a>
       </div>
 
       <nav class="sidebar-nav">
@@ -49,14 +52,6 @@
         </div>
 
         <div class="topbar-right">
-          <div class="topbar-search">
-            <input
-              type="text"
-              class="input-default"
-              placeholder="Buscar produtos..."
-            />
-          </div>
-
           <div class="user-chip">
             <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
@@ -86,19 +81,19 @@
             <section class="status-grid">
               <article class="status-card">
                 <span class="status-card-label">Total de itens</span>
-                <strong class="status-card-value">342</strong>
+                <strong class="status-card-value" id="products-total-items">342</strong>
                 <span class="status-card-helper">Entre produtos e serviços</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Estoque crítico</span>
-                <strong class="status-card-value">18</strong>
+                <strong class="status-card-value" id="products-total-items">342</strong>
                 <span class="status-card-helper">Itens com necessidade de reposição</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Categorias ativas</span>
-                <strong class="status-card-value">12</strong>
+                <strong class="status-card-value" id="products-critical-stock">18</strong>
                 <span class="status-card-helper">Distribuição organizada por tipo</span>
               </article>
             </section>

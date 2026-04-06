@@ -14,12 +14,15 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
 <body data-page="sales">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
+        </a>
       </div>
 
       <nav class="sidebar-nav">
@@ -49,14 +52,6 @@
         </div>
 
         <div class="topbar-right">
-          <div class="topbar-search">
-            <input
-              type="text"
-              class="input-default"
-              placeholder="Buscar pedidos..."
-            />
-          </div>
-
           <div class="user-chip">
             <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
@@ -86,19 +81,19 @@
             <section class="status-grid">
               <article class="status-card">
                 <span class="status-card-label">Pedidos no mês</span>
-                <strong class="status-card-value">84</strong>
+                <strong class="status-card-value" id="sales-orders-month">84</strong>
                 <span class="status-card-helper">Movimentação comercial atual</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Pedidos pendentes</span>
-                <strong class="status-card-value">19</strong>
+                <strong class="status-card-value" id="sales-pending-orders">19</strong>
                 <span class="status-card-helper">Aguardando aprovação ou retorno</span>
               </article>
 
               <article class="status-card">
                 <span class="status-card-label">Faturamento do período</span>
-                <strong class="status-card-value">R$ 42.800</strong>
+                <strong class="status-card-value" id="sales-period-revenue">R$ 42.800</strong>
                 <span class="status-card-helper">Resultado consolidado do mês</span>
               </article>
             </section>

@@ -14,12 +14,15 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
 <body data-page="financial">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
+        </a>
       </div>
 
       <nav class="sidebar-nav">
@@ -49,14 +52,6 @@
         </div>
 
         <div class="topbar-right">
-          <div class="topbar-search">
-            <input
-              type="text"
-              class="input-default"
-              placeholder="Buscar lançamentos..."
-            />
-          </div>
-
           <div class="user-chip">
             <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
@@ -87,22 +82,22 @@
             <section class="finance-summary">
               <article class="card finance-item">
                 <span class="finance-label">Saldo atual</span>
-                <strong class="finance-value">R$ 38.420</strong>
+                <strong class="finance-value" id="financial-current-balance">R$ 38.420</strong>
               </article>
 
               <article class="card finance-item">
                 <span class="finance-label">Contas a receber</span>
-                <strong class="finance-value">R$ 18.400</strong>
+                <strong class="finance-value" id="financial-accounts-receivable">R$ 18.400</strong>
               </article>
 
               <article class="card finance-item">
                 <span class="finance-label">Contas a pagar</span>
-                <strong class="finance-value">R$ 7.250</strong>
+                <strong class="finance-value" id="financial-accounts-payable">R$ 7.250</strong>
               </article>
 
               <article class="card finance-item">
                 <span class="finance-label">Vencimentos próximos</span>
-                <strong class="finance-value">5</strong>
+                <strong class="finance-value" id="financial-accounts-payable">R$ 7.250</strong>
               </article>
             </section>
 

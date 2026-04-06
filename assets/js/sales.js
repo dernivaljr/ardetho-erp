@@ -156,8 +156,38 @@ function initializeSalesPage() {
   }
 
   renderSalesUser();
-  renderSalesTable(getSalesData());
+
+  const sales = getSalesData();
+
+  renderSalesSummary(sales);
+  renderSalesTable(sales);
   bindSalesFilters();
 }
 
 document.addEventListener("DOMContentLoaded", initializeSalesPage);
+function renderSalesSummary(sales) {
+  const ordersMonthEl = document.getElementById("sales-orders-month");
+  const pendingOrdersEl = document.getElementById("sales-pending-orders");
+  const periodRevenueEl = document.getElementById("sales-period-revenue");
+
+  const totalOrders = sales.length;
+
+  const pendingOrders = sales.filter((sale) => {
+    const normalizedStatus = sale.status.toLowerCase();
+    return normalizedStatus.includes("pendente") || normalizedStatus.includes("análise");
+  }).length;
+
+  const totalRevenue = sales.reduce((sum, sale) => sum + sale.value, 0);
+
+  if (ordersMonthEl) {
+    ordersMonthEl.textContent = totalOrders;
+  }
+
+  if (pendingOrdersEl) {
+    pendingOrdersEl.textContent = pendingOrders;
+  }
+
+  if (periodRevenueEl) {
+    periodRevenueEl.textContent = formatSalesCurrency(totalRevenue);
+  }
+}

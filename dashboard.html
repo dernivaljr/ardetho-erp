@@ -14,12 +14,15 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/dashboard.css" />
   <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
 <body data-page="dashboard">
   <div class="app-layout">
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <a href="dashboard.html" class="brand">Ardetho ERP</a>
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
+        </a>
       </div>
 
       <nav class="sidebar-nav">
@@ -49,14 +52,6 @@
         </div>
 
         <div class="topbar-right">
-          <div class="topbar-search">
-            <input
-              type="text"
-              class="input-default"
-              placeholder="Buscar informações..."
-            />
-          </div>
-
           <div class="user-chip">
             <div class="user-avatar" data-user="avatar">AD</div>
             <div class="user-meta">
@@ -148,22 +143,22 @@
                 <div class="summary-list">
                   <div class="summary-item">
                     <span class="summary-label">Módulos ativos</span>
-                    <strong class="summary-value">6</strong>
+                    <strong class="summary-value" id="summary-active-modules">6</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Pedidos em aberto</span>
-                    <strong class="summary-value">24</strong>
+                    <strong class="summary-value" id="summary-open-orders">24</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Recebimentos previstos</span>
-                    <strong class="summary-value">R$ 18.400</strong>
+                    <strong class="summary-value" id="summary-expected-income">R$ 18.400</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Pagamentos agendados</span>
-                    <strong class="summary-value">R$ 7.250</strong>
+                    <strong class="summary-value" id="summary-scheduled-payments">R$ 7.250</strong>
                   </div>
                 </div>
               </article>

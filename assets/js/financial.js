@@ -167,8 +167,49 @@ function initializeFinancialPage() {
   }
 
   renderFinancialUser();
-  renderFinancialTable(getFinancialData());
+
+  const financialItems = getFinancialData();
+
+  renderFinancialSummary(financialItems);
+  renderFinancialTable(financialItems);
   bindFinancialFilters();
 }
 
 document.addEventListener("DOMContentLoaded", initializeFinancialPage);
+function renderFinancialSummary(items) {
+  const currentBalanceEl = document.getElementById("financial-current-balance");
+  const accountsReceivableEl = document.getElementById("financial-accounts-receivable");
+  const accountsPayableEl = document.getElementById("financial-accounts-payable");
+  const upcomingDueEl = document.getElementById("financial-upcoming-due");
+
+  const totalReceivable = items
+    .filter((item) => item.type === "Receita")
+    .reduce((sum, item) => sum + item.value, 0);
+
+  const totalPayable = items
+    .filter((item) => item.type === "Despesa")
+    .reduce((sum, item) => sum + item.value, 0);
+
+  const currentBalance = totalReceivable - totalPayable;
+
+  const upcomingDue = items.filter((item) => {
+    const normalizedStatus = item.status.toLowerCase();
+    return normalizedStatus.includes("pendente") || normalizedStatus.includes("agendado");
+  }).length;
+
+  if (currentBalanceEl) {
+    currentBalanceEl.textContent = formatFinancialCurrency(currentBalance);
+  }
+
+  if (accountsReceivableEl) {
+    accountsReceivableEl.textContent = formatFinancialCurrency(totalReceivable);
+  }
+
+  if (accountsPayableEl) {
+    accountsPayableEl.textContent = formatFinancialCurrency(totalPayable);
+  }
+
+  if (upcomingDueEl) {
+    upcomingDueEl.textContent = upcomingDue;
+  }
+}

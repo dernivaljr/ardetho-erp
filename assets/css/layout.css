@@ -297,3 +297,27 @@
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  height: 36px;
+  width: auto;
+  max-width: 100%;
+}
+
+.sidebar-brand .brand-logo {
+  height: 50px;
+}
+
+.public-header .brand-logo {
+  height: 38px;
+}
+
+.login-brand-panel .brand-logo {
+  height: 42px;
+}

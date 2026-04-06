@@ -137,8 +137,37 @@ function initializeProductsPage() {
   }
 
   renderProductsUser();
-  renderProductsTable(getProductsData());
+
+  const products = getProductsData();
+
+  renderProductsSummary(products);
+  renderProductsTable(products);
   bindProductsFilters();
 }
 
 document.addEventListener("DOMContentLoaded", initializeProductsPage);
+function renderProductsSummary(products) {
+  const totalItemsEl = document.getElementById("products-total-items");
+  const criticalStockEl = document.getElementById("products-critical-stock");
+  const activeCategoriesEl = document.getElementById("products-active-categories");
+
+  const totalItems = products.length;
+
+  const criticalStock = products.filter((product) => {
+    return product.type === "Produto" && product.stock !== null && product.stock <= 5;
+  }).length;
+
+  const activeCategories = new Set(products.map((product) => product.category)).size;
+
+  if (totalItemsEl) {
+    totalItemsEl.textContent = totalItems;
+  }
+
+  if (criticalStockEl) {
+    criticalStockEl.textContent = criticalStock;
+  }
+
+  if (activeCategoriesEl) {
+    activeCategoriesEl.textContent = activeCategories;
+  }
+}
