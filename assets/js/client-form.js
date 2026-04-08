@@ -121,6 +121,164 @@ function fillClientForm(client) {
   updateClientPersonTypeFields();
 }
 
+function onlyDigits(value) {
+  return value.replace(/\D/g, "");
+}
+
+function formatCpf(value) {
+  const digits = onlyDigits(value).slice(0, 11);
+
+  return digits
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1-$2");
+}
+
+function formatCnpj(value) {
+  const digits = onlyDigits(value).slice(0, 14);
+
+  return digits
+    .replace(/^(\d{2})(\d)/, "$1.$2")
+    .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1/$2")
+    .replace(/(\d{4})(\d)/, "$1-$2");
+}
+
+function formatPhone(value) {
+  const digits = onlyDigits(value).slice(0, 11);
+
+  if (digits.length <= 10) {
+    return digits
+      .replace(/^(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{4})(\d)/, "$1-$2");
+  }
+
+  return digits
+    .replace(/^(\d{2})(\d)/, "($1) $2")
+    .replace(/(\d{5})(\d)/, "$1-$2");
+}
+
+function formatZipCode(value) {
+  const digits = onlyDigits(value).slice(0, 8);
+  return digits.replace(/^(\d{5})(\d)/, "$1-$2");
+}
+
+function applyInputMasks() {
+  const cpfField = document.getElementById("client-cpf");
+  const cnpjField = document.getElementById("client-cnpj");
+  const phoneField = document.getElementById("client-phone");
+  const whatsappField = document.getElementById("client-whatsapp");
+  const zipCodeField = document.getElementById("client-zip-code");
+  const stateField = document.getElementById("client-state");
+
+  if (cpfField) {
+    cpfField.addEventListener("input", () => {
+      cpfField.value = formatCpf(cpfField.value);
+    });
+  }
+
+  if (cnpjField) {
+    cnpjField.addEventListener("input", () => {
+      cnpjField.value = formatCnpj(cnpjField.value);
+    });
+  }
+
+  if (phoneField) {
+    phoneField.addEventListener("input", () => {
+      phoneField.value = formatPhone(phoneField.value);
+    });
+  }
+
+  if (whatsappField) {
+    whatsappField.addEventListener("input", () => {
+      whatsappField.value = formatPhone(whatsappField.value);
+    });
+  }
+
+  if (zipCodeField) {
+    zipCodeField.addEventListener("input", () => {
+      zipCodeField.value = formatZipCode(zipCodeField.value);
+    });
+  }
+
+  if (stateField) {
+    stateField.addEventListener("input", () => {
+      stateField.value = stateField.value.toUpperCase().slice(0, 2);
+    });
+  }
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidCpf(cpf) {
+  const digits = onlyDigits(cpf);
+
+  if (digits.length !== 11 || /^(\d)\1+$/.test(digits)) {
+    return false;
+  }
+
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    sum += Number(digits[i]) * (10 - i);
+  }
+
+  let firstDigit = (sum * 10) % 11;
+  if (firstDigit === 10) firstDigit = 0;
+
+  if (firstDigit !== Number(digits[9])) {
+    return false;
+  }
+
+  sum = 0;
+  for (let i = 0; i < 10; i++) {
+    sum += Number(digits[i]) * (11 - i);
+  }
+
+  let secondDigit = (sum * 10) % 11;
+  if (secondDigit === 10) secondDigit = 0;
+
+  return secondDigit === Number(digits[10]);
+}
+
+function isValidCnpj(cnpj) {
+  const digits = onlyDigits(cnpj);
+
+  if (digits.length !== 14 || /^(\d)\1+$/.test(digits)) {
+    return false;
+  }
+
+  const calcDigit = (base, factors) => {
+    const total = base.split("").reduce((sum, digit, index) => {
+      return sum + Number(digit) * factors[index];
+    }, 0);
+
+    const remainder = total % 11;
+    return remainder < 2 ? 0 : 11 - remainder;
+  };
+
+  const base12 = digits.slice(0, 12);
+  const digit1 = calcDigit(base12, [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+  const base13 = digits.slice(0, 12) + digit1;
+  const digit2 = calcDigit(base13, [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+
+  return digits === base12 + String(digit1) + String(digit2);
+}
+
+function isValidPhone(phone) {
+  const digits = onlyDigits(phone);
+  return digits.length === 10 || digits.length === 11;
+}
+
+function isValidZipCode(zipCode) {
+  return onlyDigits(zipCode).length === 8;
+}
+
+function isValidState(state) {
+  return /^[A-Z]{2}$/.test(state);
+}
+
 function getClientFormData() {
   return {
     personType: document.getElementById("client-person-type")?.value || "PF",
@@ -148,7 +306,7 @@ function getClientFormData() {
     complement: document.getElementById("client-complement")?.value.trim() || "",
     district: document.getElementById("client-district")?.value.trim() || "",
     city: document.getElementById("client-city")?.value.trim() || "",
-    state: document.getElementById("client-state")?.value.trim() || "",
+    state: document.getElementById("client-state")?.value.trim().toUpperCase() || "",
 
     notes: document.getElementById("client-notes")?.value.trim() || ""
   };
@@ -172,6 +330,30 @@ function validateClientForm(data) {
     }
   }
 
+  if (!isValidEmail(data.mainEmail)) {
+    return "Informe um e-mail principal válido.";
+  }
+
+  if (data.invoiceEmail && !isValidEmail(data.invoiceEmail)) {
+    return "Informe um e-mail de NF válido.";
+  }
+
+  if (!isValidPhone(data.phone)) {
+    return "Informe um telefone válido com DDD.";
+  }
+
+  if (data.whatsapp && !isValidPhone(data.whatsapp)) {
+    return "Informe um WhatsApp válido com DDD.";
+  }
+
+  if (!isValidZipCode(data.zipCode)) {
+    return "Informe um CEP válido.";
+  }
+
+  if (!isValidState(data.state)) {
+    return "Informe uma UF válida com 2 letras.";
+  }
+
   if (data.personType === "PF") {
     const requiredPF = ["fullName", "cpf", "rg", "birthDate"];
 
@@ -179,6 +361,10 @@ function validateClientForm(data) {
       if (!data[field]) {
         return "Preencha todos os campos obrigatórios da pessoa física.";
       }
+    }
+
+    if (!isValidCpf(data.cpf)) {
+      return "Informe um CPF válido.";
     }
   }
 
@@ -189,6 +375,10 @@ function validateClientForm(data) {
       if (!data[field]) {
         return "Preencha todos os campos obrigatórios da pessoa jurídica.";
       }
+    }
+
+    if (!isValidCnpj(data.cnpj)) {
+      return "Informe um CNPJ válido.";
     }
   }
 
@@ -273,6 +463,7 @@ function handleClientFormSubmit(event) {
 function bindClientFormActions() {
   const form = document.getElementById("client-form-page");
   const personTypeField = document.getElementById("client-person-type");
+  const zipCodeField = document.getElementById("client-zip-code");
 
   if (form) {
     form.addEventListener("submit", handleClientFormSubmit);
@@ -280,6 +471,10 @@ function bindClientFormActions() {
 
   if (personTypeField) {
     personTypeField.addEventListener("change", updateClientPersonTypeFields);
+  }
+
+  if (zipCodeField) {
+    zipCodeField.addEventListener("blur", handleZipCodeLookup);
   }
 }
 
@@ -311,7 +506,78 @@ function initializeClientFormPage() {
   renderClientFormUser();
   updateClientFormPageTitle();
   loadClientForEdit();
+  applyInputMasks();
   bindClientFormActions();
 }
 
 document.addEventListener("DOMContentLoaded", initializeClientFormPage);
+async function fetchAddressByZipCode(zipCode) {
+  const digits = onlyDigits(zipCode);
+
+  if (digits.length !== 8) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+
+    if (data.erro) {
+      return null;
+    }
+
+    return {
+      street: data.logradouro || "",
+      district: data.bairro || "",
+      city: data.localidade || "",
+      state: data.uf || ""
+    };
+  } catch (error) {
+    console.error("Error fetching zip code:", error);
+    return null;
+  }
+}
+async function handleZipCodeLookup() {
+  const zipCodeField = document.getElementById("client-zip-code");
+  const streetField = document.getElementById("client-street");
+  const districtField = document.getElementById("client-district");
+  const cityField = document.getElementById("client-city");
+  const stateField = document.getElementById("client-state");
+
+  if (!zipCodeField) {
+    return;
+  }
+
+  const zipCode = zipCodeField.value;
+
+  if (!isValidZipCode(zipCode)) {
+    return;
+  }
+
+  const address = await fetchAddressByZipCode(zipCode);
+
+  if (!address) {
+    return;
+  }
+
+  if (streetField && !streetField.value.trim()) {
+    streetField.value = address.street;
+  }
+
+  if (districtField && !districtField.value.trim()) {
+    districtField.value = address.district;
+  }
+
+  if (cityField && !cityField.value.trim()) {
+    cityField.value = address.city;
+  }
+
+  if (stateField && !stateField.value.trim()) {
+    stateField.value = address.state;
+  }
+}

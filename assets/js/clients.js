@@ -29,10 +29,10 @@ function renderClientsUser() {
 function getClientBadgeClass(status) {
   const normalizedStatus = (status || "").toLowerCase();
 
-  if (normalizedStatus.includes("ativo")) return "badge-success";
+  if (normalizedStatus.includes("inativo")) return "badge-neutral";
   if (normalizedStatus.includes("análise")) return "badge-info";
   if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("inativo")) return "badge-danger";
+  if (normalizedStatus.includes("ativo")) return "badge-success";
 
   return "badge-info";
 }
@@ -154,6 +154,7 @@ function getFilteredClients() {
 }
 
 function refreshClientsTable() {
+  populateCityFilter();
   renderClientsTable(getFilteredClients());
 }
 
@@ -217,9 +218,42 @@ function initializeClientsPage() {
   }
 
   renderClientsUser();
+  populateCityFilter();
   refreshClientsTable();
   bindClientsFilters();
   bindClientActions();
 }
 
 document.addEventListener("DOMContentLoaded", initializeClientsPage);
+function populateCityFilter() {
+  const citySelect = document.getElementById("clients-city-filter");
+
+  if (!citySelect) {
+    return;
+  }
+
+  const currentValue = citySelect.value || "todas";
+  const clients = getClientsData();
+
+  const uniqueCities = [...new Set(
+    clients
+      .map((client) => (client.city || "").trim())
+      .filter((city) => city)
+      .sort((a, b) => a.localeCompare(b, "pt-BR"))
+  )];
+
+  citySelect.innerHTML = `<option value="todas">Cidade</option>`;
+
+  uniqueCities.forEach((city) => {
+    const option = document.createElement("option");
+    option.value = city.toLowerCase();
+    option.textContent = city;
+    citySelect.appendChild(option);
+  });
+
+  const optionExists = [...citySelect.options].some(
+    (option) => option.value === currentValue
+  );
+
+  citySelect.value = optionExists ? currentValue : "todas";
+}
