@@ -313,6 +313,8 @@ function getClientFormData() {
 }
 
 function validateClientForm(data) {
+  clearInvalidFields();
+
   const commonRequired = [
     "mainEmail",
     "phone",
@@ -326,44 +328,74 @@ function validateClientForm(data) {
 
   for (const field of commonRequired) {
     if (!data[field]) {
-      return "Preencha todos os campos obrigatórios de contato e endereço.";
+      markFieldInvalid(`client-${field.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`);
     }
   }
 
-  if (!isValidEmail(data.mainEmail)) {
+  if (!data.mainEmail) {
+    markFieldInvalid("client-main-email");
+  } else if (!isValidEmail(data.mainEmail)) {
+    markFieldInvalid("client-main-email");
     return "Informe um e-mail principal válido.";
   }
 
   if (data.invoiceEmail && !isValidEmail(data.invoiceEmail)) {
+    markFieldInvalid("client-invoice-email");
     return "Informe um e-mail de NF válido.";
   }
 
-  if (!isValidPhone(data.phone)) {
+  if (!data.phone) {
+    markFieldInvalid("client-phone");
+  } else if (!isValidPhone(data.phone)) {
+    markFieldInvalid("client-phone");
     return "Informe um telefone válido com DDD.";
   }
 
   if (data.whatsapp && !isValidPhone(data.whatsapp)) {
+    markFieldInvalid("client-whatsapp");
     return "Informe um WhatsApp válido com DDD.";
   }
 
-  if (!isValidZipCode(data.zipCode)) {
+  if (!data.zipCode) {
+    markFieldInvalid("client-zip-code");
+  } else if (!isValidZipCode(data.zipCode)) {
+    markFieldInvalid("client-zip-code");
     return "Informe um CEP válido.";
   }
 
-  if (!isValidState(data.state)) {
+  if (!data.street) markFieldInvalid("client-street");
+  if (!data.number) markFieldInvalid("client-number");
+  if (!data.district) markFieldInvalid("client-district");
+  if (!data.city) markFieldInvalid("client-city");
+
+  if (!data.state) {
+    markFieldInvalid("client-state");
+  } else if (!isValidState(data.state)) {
+    markFieldInvalid("client-state");
     return "Informe uma UF válida com 2 letras.";
   }
 
   if (data.personType === "PF") {
     const requiredPF = ["fullName", "cpf", "rg", "birthDate"];
 
-    for (const field of requiredPF) {
+    requiredPF.forEach((field) => {
       if (!data[field]) {
-        return "Preencha todos os campos obrigatórios da pessoa física.";
+        const fieldMap = {
+          fullName: "client-full-name",
+          cpf: "client-cpf",
+          rg: "client-rg",
+          birthDate: "client-birth-date"
+        };
+        markFieldInvalid(fieldMap[field]);
       }
+    });
+
+    if (!data.fullName || !data.cpf || !data.rg || !data.birthDate) {
+      return "Preencha todos os campos obrigatórios da pessoa física.";
     }
 
     if (!isValidCpf(data.cpf)) {
+      markFieldInvalid("client-cpf");
       return "Informe um CPF válido.";
     }
   }
@@ -371,15 +403,40 @@ function validateClientForm(data) {
   if (data.personType === "PJ") {
     const requiredPJ = ["companyName", "tradeName", "cnpj", "stateRegistration"];
 
-    for (const field of requiredPJ) {
+    requiredPJ.forEach((field) => {
       if (!data[field]) {
-        return "Preencha todos os campos obrigatórios da pessoa jurídica.";
+        const fieldMap = {
+          companyName: "client-company-name",
+          tradeName: "client-trade-name",
+          cnpj: "client-cnpj",
+          stateRegistration: "client-state-registration"
+        };
+        markFieldInvalid(fieldMap[field]);
       }
+    });
+
+    if (!data.companyName || !data.tradeName || !data.cnpj || !data.stateRegistration) {
+      return "Preencha todos os campos obrigatórios da pessoa jurídica.";
     }
 
     if (!isValidCnpj(data.cnpj)) {
+      markFieldInvalid("client-cnpj");
       return "Informe um CNPJ válido.";
     }
+  }
+
+  const requiredMissing =
+    !data.mainEmail ||
+    !data.phone ||
+    !data.zipCode ||
+    !data.street ||
+    !data.number ||
+    !data.district ||
+    !data.city ||
+    !data.state;
+
+  if (requiredMissing) {
+    return "Preencha todos os campos obrigatórios de contato e endereço.";
   }
 
   return "";
@@ -476,6 +533,25 @@ function bindClientFormActions() {
   if (zipCodeField) {
     zipCodeField.addEventListener("blur", handleZipCodeLookup);
   }
+    const allFields = document.querySelectorAll(
+    "#client-form-page input, #client-form-page select, #client-form-page textarea"
+  );
+
+  allFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+
+    field.addEventListener("change", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+  });
 }
 
 function loadClientForEdit() {
@@ -579,5 +655,23 @@ async function handleZipCodeLookup() {
 
   if (stateField && !stateField.value.trim()) {
     stateField.value = address.state;
+  }
+}
+function clearInvalidFields() {
+  const invalidGroups = document.querySelectorAll("#client-form-page .field-invalid");
+  invalidGroups.forEach((group) => group.classList.remove("field-invalid"));
+}
+
+function markFieldInvalid(fieldId) {
+  const field = document.getElementById(fieldId);
+
+  if (!field) {
+    return;
+  }
+
+  const group = field.closest(".form-group");
+
+  if (group) {
+    group.classList.add("field-invalid");
   }
 }

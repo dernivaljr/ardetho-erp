@@ -368,3 +368,13 @@
   min-height: 120px;
   resize: vertical;
 }
+.field-invalid .input-default,
+.field-invalid .select-default,
+.field-invalid .textarea-default {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.field-invalid label {
+  color: var(--color-danger);
+}

@@ -168,13 +168,15 @@
 }
 
 .card-a {
-  top: 24px;
-  right: 0;
+  /* top: 24px; right: 0; */
+  right: 40px;
+  bottom: -40px;
 }
 
 .card-b {
-  bottom: 18px;
-  left: 0;
+  /* bottom: 18px; left: 0; */
+  left: 40px;
+  bottom: -40px;
 }
 
 /* ---------- Shared Sections ---------- */

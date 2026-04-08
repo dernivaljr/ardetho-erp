@@ -10,7 +10,9 @@ function getLoginFormElements() {
 function showLoginError(message) {
   const { errorMessage } = getLoginFormElements();
 
-  if (!errorMessage) return;
+  if (!errorMessage) {
+    return;
+  }
 
   errorMessage.textContent = message;
   errorMessage.classList.remove("hidden");
@@ -19,7 +21,9 @@ function showLoginError(message) {
 function hideLoginError() {
   const { errorMessage } = getLoginFormElements();
 
-  if (!errorMessage) return;
+  if (!errorMessage) {
+    return;
+  }
 
   errorMessage.textContent = "";
   errorMessage.classList.add("hidden");
@@ -28,10 +32,7 @@ function hideLoginError() {
 function validateCredentials(email, password) {
   const systemUser = appData.currentUser;
 
-  return (
-    email === systemUser.email &&
-    password === systemUser.password
-  );
+  return email === systemUser.email && password === systemUser.password;
 }
 
 function loginUser(email, password) {
@@ -51,36 +52,56 @@ function loginUser(email, password) {
 }
 
 function logoutUser() {
-  storage.remove(STORAGE_KEYS.currentUser);
-  window.location.href = "login.html";
+  try {
+    if (typeof storage !== "undefined" && STORAGE_KEYS?.currentUser) {
+      storage.remove(STORAGE_KEYS.currentUser);
+      localStorage.removeItem(STORAGE_KEYS.currentUser);
+    }
+
+    localStorage.removeItem("ardetho_current_user");
+    sessionStorage.removeItem("ardetho_current_user");
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  window.location.replace("login.html");
 }
 
 function isUserAuthenticated() {
-  const currentUser = storage.get(STORAGE_KEYS.currentUser);
-  return Boolean(currentUser && currentUser.email);
+  try {
+    const currentUser =
+      (typeof storage !== "undefined" && STORAGE_KEYS?.currentUser
+        ? storage.get(STORAGE_KEYS.currentUser)
+        : null) ||
+      JSON.parse(localStorage.getItem("ardetho_current_user") || "null");
+
+    return Boolean(currentUser && currentUser.email);
+  } catch (error) {
+    return false;
+  }
+}
+
+function isLoginPage() {
+  return window.location.pathname.includes("login.html");
 }
 
 function protectInternalPage() {
-  const isLoginPage = window.location.pathname.includes("login.html");
-
-  if (isLoginPage) {
+  if (isLoginPage()) {
     return;
   }
 
   if (!isUserAuthenticated()) {
-    window.location.href = "login.html";
+    window.location.replace("login.html");
   }
 }
 
 function redirectAuthenticatedUserFromLogin() {
-  const isLoginPage = window.location.pathname.includes("login.html");
-
-  if (!isLoginPage) {
+  if (!isLoginPage()) {
     return;
   }
 
   if (isUserAuthenticated()) {
-    window.location.href = "dashboard.html";
+    window.location.replace("dashboard.html");
   }
 }
 
@@ -110,7 +131,7 @@ function handleLoginSubmit(event) {
     return;
   }
 
-  window.location.href = "dashboard.html";
+  window.location.replace("dashboard.html");
 }
 
 function bindLoginForm() {
@@ -124,17 +145,17 @@ function bindLoginForm() {
 }
 
 function bindLogoutButtons() {
-  const logoutButtons = document.querySelectorAll("[data-action='logout']");
+  document.addEventListener("click", function (event) {
+    const logoutButton = event.target.closest("[data-action='logout']");
 
-  if (!logoutButtons.length) {
-    return;
-  }
+    if (!logoutButton) {
+      return;
+    }
 
-  logoutButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      logoutUser();
-    });
+    event.preventDefault();
+    event.stopPropagation();
+
+    logoutUser();
   });
 }
 

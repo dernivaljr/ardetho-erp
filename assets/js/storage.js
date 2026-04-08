@@ -66,12 +66,6 @@ function initializeAppData() {
     storage.save(STORAGE_KEYS.appData, cloneAppData());
   }
 
-  const existingUser = storage.get(STORAGE_KEYS.currentUser);
-
-  if (!existingUser) {
-    storage.save(STORAGE_KEYS.currentUser, appData.currentUser);
-  }
-
   const existingModules = storage.get(STORAGE_KEYS.activeModules);
 
   if (!existingModules) {
@@ -87,7 +81,7 @@ function initializeAppData() {
 
 function resetAppData() {
   storage.save(STORAGE_KEYS.appData, cloneAppData());
-  storage.save(STORAGE_KEYS.currentUser, appData.currentUser);
+  storage.remove(STORAGE_KEYS.currentUser);
 
   const activeModules = appData.modules.map((module) => ({
     id: module.id,
@@ -99,7 +93,7 @@ function resetAppData() {
 }
 
 function getCurrentUser() {
-  return storage.get(STORAGE_KEYS.currentUser, appData.currentUser);
+  return storage.get(STORAGE_KEYS.currentUser, null);
 }
 
 function setCurrentUser(user) {
