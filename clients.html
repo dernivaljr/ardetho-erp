@@ -73,7 +73,7 @@
             </div>
 
             <div class="page-header-actions">
-              <a href="#" class="btn-primary">Novo cliente</a>
+              <a href="client-form.html" class="btn-primary">Novo cliente</a>
             </div>
           </div>
 
@@ -85,7 +85,7 @@
                     <input
                       type="text"
                       class="input-default"
-                      placeholder="Pesquisar por nome, empresa ou e-mail"
+                      placeholder="Pesquisar..."
                     />
                   </div>
                 </div>
@@ -114,91 +114,16 @@
                 <table class="table-default">
                   <thead>
                     <tr>
-                      <th>Cliente</th>
-                      <th>Empresa</th>
-                      <th>E-mail</th>
-                      <th>Telefone</th>
+                      <th>Tipo</th>
+                      <th>Nome / Razão social</th>
+                      <th>Documento</th>
+                      <th>Contato</th>
                       <th>Cidade</th>
                       <th>Status</th>
                       <th>Ações</th>
                     </tr>
                   </thead>
-                  <tbody id="clients-table-body">
-                    <tr>
-                      <td>Juliana Alves</td>
-                      <td>NovaLab</td>
-                      <td>juliana@novalab.com</td>
-                      <td>(11) 99876-1234</td>
-                      <td>Santo André</td>
-                      <td><span class="badge-success">Ativo</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Lucas Mendes</td>
-                      <td>BioAnalytica</td>
-                      <td>lucas@bioanalytica.com</td>
-                      <td>(11) 99711-4422</td>
-                      <td>São Paulo</td>
-                      <td><span class="badge-info">Em análise</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Marina Costa</td>
-                      <td>QualiTech</td>
-                      <td>marina@qualitech.com</td>
-                      <td>(11) 99620-8710</td>
-                      <td>São Bernardo</td>
-                      <td><span class="badge-warning">Pendente</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Rafael Souza</td>
-                      <td>LabCore</td>
-                      <td>rafael@labcore.com</td>
-                      <td>(11) 99455-3399</td>
-                      <td>Santo André</td>
-                      <td><span class="badge-neutral">Inativo</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Ana Ribeiro</td>
-                      <td>TechMed</td>
-                      <td>ana@techmed.com</td>
-                      <td>(11) 99112-7854</td>
-                      <td>São Paulo</td>
-                      <td><span class="badge-success">Ativo</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody id="clients-table-body"></tbody>
                 </table>
               </div>
             </section>
@@ -207,9 +132,192 @@
       </section>
     </main>
   </div>
+  <!-- Modal de cadastro/edição de cliente -->
+  <div class="modal-overlay hidden" id="client-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Cadastrar cliente</h2>
+        <p class="modal-description">
+          Preencha as informações do cliente conforme o tipo de pessoa selecionado.
+        </p>
+      </div>
+
+      <form id="client-form" class="form-layout">
+        <!-- SECTION 1: TYPE AND STATUS -->
+        <div class="form-section">
+          <h3 class="form-section-title">Tipo e status</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="client-person-type">Tipo de pessoa</label>
+              <select id="client-person-type" class="select-default">
+                <option value="PF">Pessoa Física</option>
+                <option value="PJ">Pessoa Jurídica</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="client-status">Status</label>
+              <select id="client-status" class="select-default">
+                <option value="Ativo">Ativo</option>
+                <option value="Em análise">Em análise</option>
+                <option value="Pendente">Pendente</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: PF DATA -->
+        <div class="form-section" id="client-section-pf">
+          <h3 class="form-section-title">Dados da pessoa física</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="client-full-name">Nome completo</label>
+              <input id="client-full-name" class="input-default" type="text" placeholder="Nome completo" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-cpf">CPF</label>
+              <input id="client-cpf" class="input-default" type="text" placeholder="000.000.000-00" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-rg">RG</label>
+              <input id="client-rg" class="input-default" type="text" placeholder="RG" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-birth-date">Data de nascimento</label>
+              <input id="client-birth-date" class="input-default" type="date" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: PJ DATA -->
+        <div class="form-section hidden" id="client-section-pj">
+          <h3 class="form-section-title">Dados da pessoa jurídica</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="client-company-name">Razão social</label>
+              <input id="client-company-name" class="input-default" type="text" placeholder="Razão social" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-trade-name">Nome fantasia</label>
+              <input id="client-trade-name" class="input-default" type="text" placeholder="Nome fantasia" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-cnpj">CNPJ</label>
+              <input id="client-cnpj" class="input-default" type="text" placeholder="00.000.000/0000-00" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-state-registration">Inscrição Estadual</label>
+              <input id="client-state-registration" class="input-default" type="text" placeholder="Inscrição Estadual" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: CONTACT -->
+        <div class="form-section">
+          <h3 class="form-section-title">Contato</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="client-contact-name">Nome do contato / responsável</label>
+              <input id="client-contact-name" class="input-default" type="text" placeholder="Responsável" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-main-email">E-mail principal</label>
+              <input id="client-main-email" class="input-default" type="email" placeholder="email@empresa.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-invoice-email">E-mail para NF</label>
+              <input id="client-invoice-email" class="input-default" type="email" placeholder="fiscal@empresa.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-phone">Telefone</label>
+              <input id="client-phone" class="input-default" type="text" placeholder="(11) 99999-9999" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-whatsapp">WhatsApp</label>
+              <input id="client-whatsapp" class="input-default" type="text" placeholder="(11) 99999-9999" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: ADDRESS -->
+        <div class="form-section">
+          <h3 class="form-section-title">Endereço</h3>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="client-zip-code">CEP</label>
+              <input id="client-zip-code" class="input-default" type="text" placeholder="00000-000" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-street">Logradouro</label>
+              <input id="client-street" class="input-default" type="text" placeholder="Rua / Avenida" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-number">Número</label>
+              <input id="client-number" class="input-default" type="text" placeholder="Número" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-complement">Complemento</label>
+              <input id="client-complement" class="input-default" type="text" placeholder="Complemento" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-district">Bairro</label>
+              <input id="client-district" class="input-default" type="text" placeholder="Bairro" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-city">Cidade</label>
+              <input id="client-city" class="input-default" type="text" placeholder="Cidade" />
+            </div>
+
+            <div class="form-group">
+              <label for="client-state">Estado</label>
+              <input id="client-state" class="input-default" type="text" placeholder="UF" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 6: NOTES -->
+        <div class="form-section">
+          <h3 class="form-section-title">Observações</h3>
+
+          <div class="form-group">
+            <label for="client-notes">Observações internas</label>
+            <textarea id="client-notes" class="textarea-default" placeholder="Observações adicionais"></textarea>
+          </div>
+        </div>
+
+        <p id="client-form-error" class="error-message hidden"></p>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" data-action="close-client-modal">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar cliente</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <script src="assets/js/data.js"></script>
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/clients.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/clients.js"></script>
 </body>
 </html>

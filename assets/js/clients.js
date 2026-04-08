@@ -2,6 +2,10 @@ function getClientsData() {
   return getAppSection("clients", appData.clients);
 }
 
+function saveClientsData(clients) {
+  return updateAppData("clients", clients);
+}
+
 function renderClientsUser() {
   const currentUser = getCurrentUser();
 
@@ -23,14 +27,41 @@ function renderClientsUser() {
 }
 
 function getClientBadgeClass(status) {
-  const normalizedStatus = status.toLowerCase();
+  const normalizedStatus = (status || "").toLowerCase();
 
   if (normalizedStatus.includes("ativo")) return "badge-success";
   if (normalizedStatus.includes("análise")) return "badge-info";
   if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("inativo")) return "badge-neutral";
+  if (normalizedStatus.includes("inativo")) return "badge-danger";
 
   return "badge-info";
+}
+
+function getClientDisplayType(client) {
+  return client.personType || "—";
+}
+
+function getClientDisplayName(client) {
+  if (client.personType === "PF") {
+    return client.fullName || "—";
+  }
+
+  return client.companyName || client.tradeName || "—";
+}
+
+function getClientDisplayDocument(client) {
+  if (client.personType === "PF") {
+    return client.cpf || "—";
+  }
+
+  return client.cnpj || "—";
+}
+
+function getClientDisplayContact(client) {
+  if (client.contactName) return client.contactName;
+  if (client.mainEmail) return client.mainEmail;
+  if (client.phone) return client.phone;
+  return "—";
 }
 
 function renderClientsTable(clients) {
@@ -42,20 +73,34 @@ function renderClientsTable(clients) {
 
   tbody.innerHTML = "";
 
+  if (!clients.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7">
+          <div class="empty-state">
+            <h3>Nenhum cliente encontrado</h3>
+            <p>Não há clientes compatíveis com os filtros atuais.</p>
+          </div>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
   clients.forEach((client) => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td>${client.name}</td>
-      <td>${client.company}</td>
-      <td>${client.email}</td>
-      <td>${client.phone}</td>
-      <td>${client.city}</td>
-      <td><span class="${getClientBadgeClass(client.status)}">${client.status}</span></td>
+      <td>${getClientDisplayType(client)}</td>
+      <td>${getClientDisplayName(client)}</td>
+      <td>${getClientDisplayDocument(client)}</td>
+      <td>${getClientDisplayContact(client)}</td>
+      <td>${client.city || "—"}</td>
+      <td><span class="${getClientBadgeClass(client.status)}">${client.status || "—"}</span></td>
       <td>
         <div class="action-group">
-          <a href="#" class="btn-secondary">Ver</a>
-          <a href="#" class="btn-secondary">Editar</a>
+          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
         </div>
       </td>
     `;
@@ -66,24 +111,50 @@ function renderClientsTable(clients) {
 
 function filterClients(clients, searchTerm, statusFilter, cityFilter) {
   return clients.filter((client) => {
+    const type = (getClientDisplayType(client) || "").toLowerCase();
+    const name = (getClientDisplayName(client) || "").toLowerCase();
+    const documentValue = (getClientDisplayDocument(client) || "").toLowerCase();
+    const contact = (getClientDisplayContact(client) || "").toLowerCase();
+    const city = (client.city || "").toLowerCase();
+    const status = (client.status || "").toLowerCase();
+
     const matchesSearch =
       !searchTerm ||
-      client.name.toLowerCase().includes(searchTerm) ||
-      client.company.toLowerCase().includes(searchTerm) ||
-      client.email.toLowerCase().includes(searchTerm);
+      name.includes(searchTerm) ||
+      documentValue.includes(searchTerm) ||
+      contact.includes(searchTerm) ||
+      type.includes(searchTerm);
 
     const matchesStatus =
       !statusFilter ||
       statusFilter === "todos" ||
-      client.status.toLowerCase() === statusFilter;
+      status === statusFilter;
 
     const matchesCity =
       !cityFilter ||
       cityFilter === "todas" ||
-      client.city.toLowerCase() === cityFilter;
+      city === cityFilter;
 
     return matchesSearch && matchesStatus && matchesCity;
   });
+}
+
+function getFilteredClients() {
+  const clients = getClientsData();
+
+  const searchInput = document.getElementById("clients-search");
+  const statusSelect = document.getElementById("clients-status-filter");
+  const citySelect = document.getElementById("clients-city-filter");
+
+  const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  const statusFilter = statusSelect ? statusSelect.value.toLowerCase() : "";
+  const cityFilter = citySelect ? citySelect.value.toLowerCase() : "";
+
+  return filterClients(clients, searchTerm, statusFilter, cityFilter);
+}
+
+function refreshClientsTable() {
+  renderClientsTable(getFilteredClients());
 }
 
 function bindClientsFilters() {
@@ -91,28 +162,51 @@ function bindClientsFilters() {
   const statusSelect = document.getElementById("clients-status-filter");
   const citySelect = document.getElementById("clients-city-filter");
 
-  const applyFilters = () => {
-    const clients = getClientsData();
-
-    const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : "";
-    const statusFilter = statusSelect ? statusSelect.value.toLowerCase() : "";
-    const cityFilter = citySelect ? citySelect.value.toLowerCase() : "";
-
-    const filteredClients = filterClients(clients, searchTerm, statusFilter, cityFilter);
-    renderClientsTable(filteredClients);
-  };
-
   if (searchInput) {
-    searchInput.addEventListener("input", applyFilters);
+    searchInput.addEventListener("input", refreshClientsTable);
   }
 
   if (statusSelect) {
-    statusSelect.addEventListener("change", applyFilters);
+    statusSelect.addEventListener("change", refreshClientsTable);
   }
 
   if (citySelect) {
-    citySelect.addEventListener("change", applyFilters);
+    citySelect.addEventListener("change", refreshClientsTable);
   }
+}
+
+function deleteClient(clientId) {
+  const clients = getClientsData();
+  const updatedClients = clients.filter((client) => client.id !== clientId);
+
+  saveClientsData(updatedClients);
+  refreshClientsTable();
+}
+
+function bindClientActions() {
+  document.addEventListener("click", (event) => {
+    const deleteButton = event.target.closest("[data-action='delete-client']");
+
+    if (!deleteButton) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const clientId = deleteButton.dataset.clientId;
+
+    if (!clientId) {
+      return;
+    }
+
+    const confirmed = window.confirm("Deseja realmente excluir este cliente?");
+
+    if (!confirmed) {
+      return;
+    }
+
+    deleteClient(clientId);
+  });
 }
 
 function initializeClientsPage() {
@@ -123,8 +217,9 @@ function initializeClientsPage() {
   }
 
   renderClientsUser();
-  renderClientsTable(getClientsData());
+  refreshClientsTable();
   bindClientsFilters();
+  bindClientActions();
 }
 
 document.addEventListener("DOMContentLoaded", initializeClientsPage);

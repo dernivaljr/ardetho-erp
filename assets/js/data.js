@@ -98,53 +98,168 @@ const appData = {
     }
   ],
 
-  clients: [
-    {
-      id: "CLI-001",
-      name: "Juliana Alves",
-      company: "NovaLab",
-      email: "juliana@novalab.com",
-      phone: "(11) 99876-1234",
-      city: "Santo André",
-      status: "Ativo"
-    },
-    {
-      id: "CLI-002",
-      name: "Lucas Mendes",
-      company: "BioAnalytica",
-      email: "lucas@bioanalytica.com",
-      phone: "(11) 99711-4422",
-      city: "São Paulo",
-      status: "Em análise"
-    },
-    {
-      id: "CLI-003",
-      name: "Marina Costa",
-      company: "QualiTech",
-      email: "marina@qualitech.com",
-      phone: "(11) 99620-8710",
-      city: "São Bernardo",
-      status: "Pendente"
-    },
-    {
-      id: "CLI-004",
-      name: "Rafael Souza",
-      company: "LabCore",
-      email: "rafael@labcore.com",
-      phone: "(11) 99455-3399",
-      city: "Santo André",
-      status: "Inativo"
-    },
-    {
-      id: "CLI-005",
-      name: "Ana Ribeiro",
-      company: "TechMed",
-      email: "ana@techmed.com",
-      phone: "(11) 99112-7854",
-      city: "São Paulo",
-      status: "Ativo"
-    }
-  ],
+clients: [
+  {
+    id: "CLI-001",
+    personType: "PJ",
+    status: "Ativo",
+
+    fullName: "",
+    cpf: "",
+    rg: "",
+    birthDate: "",
+
+    companyName: "NovaLab Ltda",
+    tradeName: "NovaLab",
+    cnpj: "12.345.678/0001-90",
+    stateRegistration: "123456789",
+
+    contactName: "Juliana Alves",
+    mainEmail: "juliana@novalab.com",
+    invoiceEmail: "fiscal@novalab.com",
+    phone: "(11) 99876-1234",
+    whatsapp: "(11) 99876-1234",
+
+    zipCode: "09000-000",
+    street: "Rua das Indústrias",
+    number: "123",
+    complement: "Sala 4",
+    district: "Centro",
+    city: "Santo André",
+    state: "SP",
+
+    notes: "Cliente com prioridade comercial.",
+    createdAt: "2026-04-07"
+  },
+  {
+    id: "CLI-002",
+    personType: "PJ",
+    status: "Em análise",
+
+    fullName: "",
+    cpf: "",
+    rg: "",
+    birthDate: "",
+
+    companyName: "BioAnalytica Comércio e Serviços Ltda",
+    tradeName: "BioAnalytica",
+    cnpj: "98.765.432/0001-10",
+    stateRegistration: "987654321",
+
+    contactName: "Lucas Mendes",
+    mainEmail: "lucas@bioanalytica.com",
+    invoiceEmail: "financeiro@bioanalytica.com",
+    phone: "(11) 99711-4422",
+    whatsapp: "(11) 99711-4422",
+
+    zipCode: "01000-000",
+    street: "Avenida Paulista",
+    number: "1500",
+    complement: "Conjunto 12",
+    district: "Bela Vista",
+    city: "São Paulo",
+    state: "SP",
+
+    notes: "Aguardando validação comercial.",
+    createdAt: "2026-04-05"
+  },
+  {
+    id: "CLI-003",
+    personType: "PJ",
+    status: "Pendente",
+
+    fullName: "",
+    cpf: "",
+    rg: "",
+    birthDate: "",
+
+    companyName: "QualiTech Instrumentação Ltda",
+    tradeName: "QualiTech",
+    cnpj: "45.321.678/0001-55",
+    stateRegistration: "456123789",
+
+    contactName: "Marina Costa",
+    mainEmail: "marina@qualitech.com",
+    invoiceEmail: "fiscal@qualitech.com",
+    phone: "(11) 99620-8710",
+    whatsapp: "(11) 99620-8710",
+
+    zipCode: "09700-000",
+    street: "Rua Alfa",
+    number: "88",
+    complement: "",
+    district: "Centro",
+    city: "São Bernardo",
+    state: "SP",
+
+    notes: "Cadastro pendente de aprovação.",
+    createdAt: "2026-04-03"
+  },
+  {
+    id: "CLI-004",
+    personType: "PF",
+    status: "Inativo",
+
+    fullName: "Rafael Souza",
+    cpf: "123.456.789-00",
+    rg: "45.678.901-2",
+    birthDate: "1990-08-15",
+
+    companyName: "",
+    tradeName: "",
+    cnpj: "",
+    stateRegistration: "",
+
+    contactName: "Rafael Souza",
+    mainEmail: "rafael@labcore.com",
+    invoiceEmail: "",
+    phone: "(11) 99455-3399",
+    whatsapp: "(11) 99455-3399",
+
+    zipCode: "09090-000",
+    street: "Rua Beta",
+    number: "45",
+    complement: "Casa",
+    district: "Vila Assunção",
+    city: "Santo André",
+    state: "SP",
+
+    notes: "Cliente PF sem movimentação recente.",
+    createdAt: "2026-03-29"
+  },
+  {
+    id: "CLI-005",
+    personType: "PJ",
+    status: "Ativo",
+
+    fullName: "",
+    cpf: "",
+    rg: "",
+    birthDate: "",
+
+    companyName: "TechMed Soluções em Laboratório Ltda",
+    tradeName: "TechMed",
+    cnpj: "67.890.123/0001-44",
+    stateRegistration: "741258963",
+
+    contactName: "Ana Ribeiro",
+    mainEmail: "ana@techmed.com",
+    invoiceEmail: "nf@techmed.com",
+    phone: "(11) 99112-7854",
+    whatsapp: "(11) 99112-7854",
+
+    zipCode: "01310-100",
+    street: "Rua da Consolação",
+    number: "500",
+    complement: "8º andar",
+    district: "Consolação",
+    city: "São Paulo",
+    state: "SP",
+
+    notes: "Cliente recorrente com bom histórico.",
+    createdAt: "2026-04-01"
+  }
+],
 
   products: [
     {

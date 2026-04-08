@@ -253,10 +253,6 @@
     padding: 14px 12px;
   }
 
-  .modal {
-    padding: 20px;
-  }
-
   .toast {
     top: 16px;
     right: 16px;
@@ -300,5 +296,29 @@
   .cta-actions {
     display: grid;
     grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   CLIENT FORM PAGE
+========================= */
+
+@media (max-width: 768px) {
+  .client-form-grid,
+  .client-form-grid-address {
+    grid-template-columns: 1fr;
+  }
+
+  .client-form-col-span-2 {
+    grid-column: span 1;
+  }
+
+  .client-form-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .client-form-actions .btn-primary,
+  .client-form-actions .btn-secondary {
+    width: 100%;
   }
 }

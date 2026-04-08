@@ -71,12 +71,12 @@
 .input-default,
 .select-default {
   min-height: 44px;
-  padding: 0 14px;
+  padding-left: 14px;
 }
 
 .textarea-default {
   min-height: 120px;
-  padding: 12px 14px;
+  padding: 12px 0 12px 14px;
   resize: vertical;
 }
 
