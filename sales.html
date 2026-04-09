@@ -71,28 +71,28 @@
             </div>
 
             <div class="page-header-actions">
-              <a href="#" class="btn-primary">Novo pedido</a>
+              <a href="sale-form.html" class="btn-primary">Novo pedido</a>
             </div>
           </div>
 
           <div class="content-stack">
             <section class="status-grid">
               <article class="status-card">
-                <span class="status-card-label">Pedidos no mês</span>
-                <strong class="status-card-value" id="sales-orders-month">84</strong>
-                <span class="status-card-helper">Movimentação comercial atual</span>
+                <span class="status-card-label">Total de pedidos</span>
+                <strong class="status-card-value" id="sales-total-orders">0</strong>
+                <span class="status-card-helper">Pedidos registrados no sistema</span>
               </article>
 
               <article class="status-card">
-                <span class="status-card-label">Pedidos pendentes</span>
-                <strong class="status-card-value" id="sales-pending-orders">19</strong>
-                <span class="status-card-helper">Aguardando aprovação ou retorno</span>
+                <span class="status-card-label">Pedidos em análise</span>
+                <strong class="status-card-value" id="sales-analysis-orders">0</strong>
+                <span class="status-card-helper">Aguardando aprovação comercial</span>
               </article>
 
               <article class="status-card">
-                <span class="status-card-label">Faturamento do período</span>
-                <strong class="status-card-value" id="sales-period-revenue">R$ 42.800</strong>
-                <span class="status-card-helper">Resultado consolidado do mês</span>
+                <span class="status-card-label">Faturamento total</span>
+                <strong class="status-card-value" id="sales-total-revenue">R$ 0,00</strong>
+                <span class="status-card-helper">Valor somado dos pedidos cadastrados</span>
               </article>
             </section>
 
@@ -104,7 +104,7 @@
                       type="text"
                       id="sales-search"
                       class="input-default"
-                      placeholder="Pesquisar por pedido, cliente ou responsável"
+                      placeholder="Pesquisar..."
                     />
                   </div>
                 </div>
@@ -120,11 +120,8 @@
                       <option value="em análise">Em análise</option>
                     </select>
 
-                    <select id="sales-period-filter" class="select-default">
-                      <option value="todos">Período</option>
-                      <option value="hoje">Hoje</option>
-                      <option value="7dias">Últimos 7 dias</option>
-                      <option value="30dias">Últimos 30 dias</option>
+                    <select id="sales-client-filter" class="select-default">
+                      <option value="todos">Cliente</option>
                     </select>
                   </div>
                 </div>
@@ -134,91 +131,17 @@
                 <table class="table-default">
                   <thead>
                     <tr>
-                      <th>Pedido</th>
+                      <th>Código</th>
                       <th>Cliente</th>
-                      <th>Data</th>
-                      <th>Responsável</th>
-                      <th>Valor</th>
+                      <th>Item</th>
+                      <th>Tipo</th>
+                      <th>Valor total</th>
                       <th>Status</th>
+                      <th>Data</th>
                       <th>Ações</th>
                     </tr>
                   </thead>
-                  <tbody id="sales-table-body">
-                    <tr>
-                      <td>#2034</td>
-                      <td>NovaLab</td>
-                      <td>12/04/2026</td>
-                      <td>Ana Lima</td>
-                      <td>R$ 4.800</td>
-                      <td><span class="badge-success">Concluído</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>#2035</td>
-                      <td>BioAnalytica</td>
-                      <td>12/04/2026</td>
-                      <td>Lucas Rocha</td>
-                      <td>R$ 2.150</td>
-                      <td><span class="badge-warning">Pendente</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>#2036</td>
-                      <td>QualiTech</td>
-                      <td>13/04/2026</td>
-                      <td>Marina Costa</td>
-                      <td>R$ 6.920</td>
-                      <td><span class="badge-info">Em análise</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>#2037</td>
-                      <td>LabCore</td>
-                      <td>13/04/2026</td>
-                      <td>Rafael Mendes</td>
-                      <td>R$ 1.740</td>
-                      <td><span class="badge-danger">Cancelado</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>#2038</td>
-                      <td>TechMed</td>
-                      <td>14/04/2026</td>
-                      <td>Juliana Alves</td>
-                      <td>R$ 3.980</td>
-                      <td><span class="badge-success">Aprovado</span></td>
-                      <td>
-                        <div class="action-group">
-                          <a href="#" class="btn-secondary">Ver</a>
-                          <a href="#" class="btn-secondary">Editar</a>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody id="sales-table-body"></tbody>
                 </table>
               </div>
             </section>

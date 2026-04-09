@@ -456,48 +456,123 @@ products: [
   }
 ],
 
-  sales: [
-    {
-      id: "PED-2034",
-      client: "NovaLab",
-      date: "12/04/2026",
-      owner: "Ana Lima",
-      value: 4800,
-      status: "Concluído"
-    },
-    {
-      id: "PED-2035",
-      client: "BioAnalytica",
-      date: "12/04/2026",
-      owner: "Lucas Rocha",
-      value: 2150,
-      status: "Pendente"
-    },
-    {
-      id: "PED-2036",
-      client: "QualiTech",
-      date: "13/04/2026",
-      owner: "Marina Costa",
-      value: 6920,
-      status: "Em análise"
-    },
-    {
-      id: "PED-2037",
-      client: "LabCore",
-      date: "13/04/2026",
-      owner: "Rafael Mendes",
-      value: 1740,
-      status: "Cancelado"
-    },
-    {
-      id: "PED-2038",
-      client: "TechMed",
-      date: "14/04/2026",
-      owner: "Juliana Alves",
-      value: 3980,
-      status: "Aprovado"
-    }
-  ],
+sales: [
+  {
+    id: "SAL-001",
+    code: "PED-001",
+    status: "Em análise",
+    saleDate: "2026-04-08",
+
+    clientId: "CLI-001",
+    clientName: "NovaLab Ltda",
+
+    productId: "PRD-001",
+    productName: "Balança Analítica 220g",
+    itemType: "Produto",
+
+    quantity: 1,
+    unitPrice: 4500,
+    totalValue: 4500,
+
+    paymentMethod: "Boleto",
+    paymentTerms: "28 dias",
+    notes: "Entrega programada para próxima semana.",
+
+    createdAt: "2026-04-08"
+  },
+  {
+    id: "SAL-002",
+    code: "PED-002",
+    status: "Aprovado",
+    saleDate: "2026-04-07",
+
+    clientId: "CLI-002",
+    clientName: "BioAnalytica Comércio e Serviços Ltda",
+
+    productId: "PRD-003",
+    productName: "Termômetro Digital de Precisão",
+    itemType: "Produto",
+
+    quantity: 2,
+    unitPrice: 320,
+    totalValue: 640,
+
+    paymentMethod: "Pix",
+    paymentTerms: "À vista",
+    notes: "Pedido confirmado por contato direto.",
+
+    createdAt: "2026-04-07"
+  },
+  {
+    id: "SAL-003",
+    code: "PED-003",
+    status: "Faturado",
+    saleDate: "2026-04-06",
+
+    clientId: "CLI-005",
+    clientName: "TechMed Soluções em Laboratório Ltda",
+
+    productId: "SRV-001",
+    productName: "Calibração de pHmetro",
+    itemType: "Serviço",
+
+    quantity: 3,
+    unitPrice: 280,
+    totalValue: 840,
+
+    paymentMethod: "Faturado",
+    paymentTerms: "21 dias",
+    notes: "Execução em lote para 3 equipamentos.",
+
+    createdAt: "2026-04-06"
+  },
+  {
+    id: "SAL-004",
+    code: "PED-004",
+    status: "Concluído",
+    saleDate: "2026-04-05",
+
+    clientId: "CLI-003",
+    clientName: "QualiTech Instrumentação Ltda",
+
+    productId: "SRV-002",
+    productName: "Manutenção preventiva em espectrofotômetro",
+    itemType: "Serviço",
+
+    quantity: 1,
+    unitPrice: 950,
+    totalValue: 950,
+
+    paymentMethod: "Transferência",
+    paymentTerms: "14 dias",
+    notes: "Serviço concluído e liberado ao cliente.",
+
+    createdAt: "2026-04-05"
+  },
+  {
+    id: "SAL-005",
+    code: "PED-005",
+    status: "Cancelado",
+    saleDate: "2026-04-04",
+
+    clientId: "CLI-004",
+    clientName: "Rafael Souza",
+
+    productId: "PRD-002",
+    productName: "Pipeta Volumétrica 10 mL",
+    itemType: "Produto",
+
+    quantity: 5,
+    unitPrice: 68.5,
+    totalValue: 342.5,
+
+    paymentMethod: "Boleto",
+    paymentTerms: "14 dias",
+    notes: "Pedido cancelado antes do faturamento.",
+
+    createdAt: "2026-04-04"
+  }
+],
 
   financial: [
     {
