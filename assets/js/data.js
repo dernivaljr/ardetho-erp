@@ -261,53 +261,200 @@ clients: [
   }
 ],
 
-  products: [
-    {
-      id: "PRD-001",
-      name: "pHmetro Digital",
-      category: "Equipamentos",
-      type: "Produto",
-      price: 2450,
-      stock: 18,
-      status: "Disponível"
-    },
-    {
-      id: "SRV-004",
-      name: "Calibração de pHmetro",
-      category: "Serviços",
-      type: "Serviço",
-      price: 380,
-      stock: null,
-      status: "Ativo"
-    },
-    {
-      id: "PRD-012",
-      name: "Condutivímetro Portátil",
-      category: "Equipamentos",
-      type: "Produto",
-      price: 1980,
-      stock: 4,
-      status: "Baixo estoque"
-    },
-    {
-      id: "PRD-020",
-      name: "Eletrodo combinado",
-      category: "Acessórios",
-      type: "Produto",
-      price: 620,
-      stock: 0,
-      status: "Indisponível"
-    },
-    {
-      id: "SRV-009",
-      name: "Manutenção preventiva",
-      category: "Serviços",
-      type: "Serviço",
-      price: 590,
-      stock: null,
-      status: "Disponível"
-    }
-  ],
+products: [
+  {
+    id: "PRD-001",
+    itemType: "Produto",
+    status: "Disponível",
+
+    code: "EQP-001",
+    name: "Balança Analítica 220g",
+    category: "Equipamentos",
+    description: "Equipamento para pesagens analíticas de alta precisão.",
+
+    price: 4500,
+    unit: "un",
+
+    brand: "Shimadzu",
+    supplier: "TechMed",
+    stock: 8,
+    minimumStock: 2,
+    ncm: "9016.00.10",
+
+    estimatedDeadline: "",
+    department: "",
+
+    createdAt: "2026-04-08"
+  },
+  {
+    id: "PRD-002",
+    itemType: "Produto",
+    status: "Disponível",
+
+    code: "VID-014",
+    name: "Pipeta Volumétrica 10 mL",
+    category: "Vidrarias",
+    description: "Pipeta volumétrica classe A para uso laboratorial.",
+
+    price: 68.5,
+    unit: "un",
+
+    brand: "GlassLab",
+    supplier: "QualiGlass",
+    stock: 24,
+    minimumStock: 6,
+    ncm: "7017.90.00",
+
+    estimatedDeadline: "",
+    department: "",
+
+    createdAt: "2026-04-06"
+  },
+  {
+    id: "PRD-003",
+    itemType: "Produto",
+    status: "Baixo estoque",
+
+    code: "INS-032",
+    name: "Termômetro Digital de Precisão",
+    category: "Instrumentos",
+    description: "Instrumento para medição de temperatura com alta resolução.",
+
+    price: 320,
+    unit: "un",
+
+    brand: "Instrutherm",
+    supplier: "InstruLab",
+    stock: 2,
+    minimumStock: 3,
+    ncm: "9025.19.90",
+
+    estimatedDeadline: "",
+    department: "",
+
+    createdAt: "2026-04-05"
+  },
+  {
+    id: "PRD-004",
+    itemType: "Produto",
+    status: "Indisponível",
+
+    code: "CON-011",
+    name: "Padrão de Condutividade 12,88 mS/cm",
+    category: "Consumíveis",
+    description: "Solução padrão para verificação e calibração de condutivímetros.",
+
+    price: 89.9,
+    unit: "un",
+
+    brand: "Hexis",
+    supplier: "Hexis",
+    stock: 0,
+    minimumStock: 4,
+    ncm: "3822.90.00",
+
+    estimatedDeadline: "",
+    department: "",
+
+    createdAt: "2026-04-02"
+  },
+  {
+    id: "PRD-005",
+    itemType: "Produto",
+    status: "Inativo",
+
+    code: "EQU-078",
+    name: "Agitador Magnético com Aquecimento",
+    category: "Equipamentos",
+    description: "Agitador magnético para preparo de soluções em bancada.",
+
+    price: 780,
+    unit: "un",
+
+    brand: "Fisatom",
+    supplier: "LabStore",
+    stock: 3,
+    minimumStock: 2,
+    ncm: "8479.82.10",
+
+    estimatedDeadline: "",
+    department: "",
+
+    createdAt: "2026-04-01"
+  },
+  {
+    id: "SRV-001",
+    itemType: "Serviço",
+    status: "Ativo",
+
+    code: "SRV-001",
+    name: "Calibração de pHmetro",
+    category: "Serviços",
+    description: "Serviço de calibração rastreável para medidores de pH.",
+
+    price: 280,
+    unit: "serviço",
+
+    brand: "",
+    supplier: "",
+    stock: null,
+    minimumStock: null,
+    ncm: "",
+
+    estimatedDeadline: "3 dias úteis",
+    department: "Metrologia",
+
+    createdAt: "2026-04-08"
+  },
+  {
+    id: "SRV-002",
+    itemType: "Serviço",
+    status: "Ativo",
+
+    code: "SRV-002",
+    name: "Manutenção preventiva em espectrofotômetro",
+    category: "Serviços",
+    description: "Serviço técnico preventivo para equipamentos UV-Vis.",
+
+    price: 950,
+    unit: "serviço",
+
+    brand: "",
+    supplier: "",
+    stock: null,
+    minimumStock: null,
+    ncm: "",
+
+    estimatedDeadline: "5 dias úteis",
+    department: "Assistência Técnica",
+
+    createdAt: "2026-04-07"
+  },
+  {
+    id: "SRV-003",
+    itemType: "Serviço",
+    status: "Em análise",
+
+    code: "SRV-003",
+    name: "Qualificação operacional de incubadora",
+    category: "Serviços",
+    description: "Execução de testes e documentação de qualificação operacional.",
+
+    price: 1400,
+    unit: "serviço",
+
+    brand: "",
+    supplier: "",
+    stock: null,
+    minimumStock: null,
+    ncm: "",
+
+    estimatedDeadline: "7 dias úteis",
+    department: "Validação",
+
+    createdAt: "2026-04-04"
+  }
+],
 
   sales: [
     {

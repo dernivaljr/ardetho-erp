@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novo Item | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body data-page="product-form">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="clients.html">Clientes</a>
+        <a href="products.html" class="active">Produtos</a>
+        <a href="sales.html">Vendas</a>
+        <a href="financial.html">Financeiro</a>
+        <a href="reports.html">Relatórios</a>
+        <a href="erp-modules.html">Módulos</a>
+        <a href="settings.html">Configurações</a>
+        <a href="profile.html">Perfil</a>
+      </nav>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">Produtos e Serviços</span>
+            <span class="topbar-subtitle">Cadastro completo de item</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="user-chip">
+            <div class="user-avatar" data-user="avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
+            </div>
+            <a href="#" class="user-logout" data-action="logout">Sair</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Novo item</h1>
+              <p class="page-description">
+                Cadastre produtos e serviços com dados comerciais, operacionais e classificação fiscal.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="products.html" class="btn-secondary">Voltar</a>
+            </div>
+          </div>
+
+          <form id="product-form-page" class="content-stack client-form-layout">
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Tipo e status</h2>
+                  <p class="page-card-description">Defina o tipo do item e a situação atual no sistema.</p>
+                </div>
+              </div>
+
+              <div class="client-form-grid">
+                <div class="form-group">
+                  <label for="product-item-type">Tipo do item</label>
+                  <select id="product-item-type" class="select-default">
+                    <option value="Produto">Produto</option>
+                    <option value="Serviço">Serviço</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="product-status">Status</label>
+                  <select id="product-status" class="select-default">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Em análise">Em análise</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Identificação</h2>
+                  <p class="page-card-description">Dados principais de identificação e descrição do item.</p>
+                </div>
+              </div>
+
+              <div class="client-form-grid">
+                <div class="form-group">
+                  <label for="product-code">Código interno</label>
+                  <input id="product-code" class="input-default" type="text" placeholder="Ex.: EQP-001" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-category">Categoria</label>
+                  <input id="product-category" class="input-default" type="text" placeholder="Ex.: Equipamentos" />
+                </div>
+
+                <div class="form-group client-form-col-span-2">
+                  <label for="product-name">Nome do item</label>
+                  <input id="product-name" class="input-default" type="text" placeholder="Nome do produto ou serviço" />
+                </div>
+
+                <div class="form-group client-form-col-span-2">
+                  <label for="product-description">Descrição</label>
+                  <textarea id="product-description" class="textarea-default" placeholder="Descrição resumida do item"></textarea>
+                </div>
+              </div>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Comercial</h2>
+                  <p class="page-card-description">Informações comerciais de venda e unidade.</p>
+                </div>
+              </div>
+
+              <div class="client-form-grid">
+                <div class="form-group">
+                  <label for="product-price">Preço</label>
+                  <input id="product-price" class="input-default" type="text" placeholder="0,00" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-unit">Unidade</label>
+                  <select id="product-unit" class="select-default">
+                    <option value="">Selecione</option>
+                    <option value="un">un</option>
+                    <option value="cx">cx</option>
+                    <option value="kit">kit</option>
+                    <option value="serviço">serviço</option>
+                    <option value="hora">hora</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="page-card" id="product-section-product">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Dados do produto</h2>
+                  <p class="page-card-description">Informações de estoque, fornecedor e classificação fiscal.</p>
+                </div>
+              </div>
+
+              <div class="client-form-grid">
+                <div class="form-group">
+                  <label for="product-stock">Estoque atual</label>
+                  <input id="product-stock" class="input-default" type="number" min="0" placeholder="0" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-minimum-stock">Estoque mínimo</label>
+                  <input id="product-minimum-stock" class="input-default" type="number" min="0" placeholder="0" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-brand">Marca</label>
+                  <input id="product-brand" class="input-default" type="text" placeholder="Marca do produto" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-supplier">Fornecedor</label>
+                  <input id="product-supplier" class="input-default" type="text" placeholder="Nome do fornecedor" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-ncm">NCM</label>
+                  <input id="product-ncm" class="input-default" type="text" placeholder="0000.00.00" />
+                </div>
+              </div>
+            </section>
+
+            <section class="page-card hidden" id="product-section-service">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Dados do serviço</h2>
+                  <p class="page-card-description">Informações operacionais para execução do serviço.</p>
+                </div>
+              </div>
+
+              <div class="client-form-grid">
+                <div class="form-group">
+                  <label for="product-estimated-deadline">Prazo estimado</label>
+                  <input id="product-estimated-deadline" class="input-default" type="text" placeholder="Ex.: 3 dias úteis" />
+                </div>
+
+                <div class="form-group">
+                  <label for="product-department">Setor / responsável</label>
+                  <input id="product-department" class="input-default" type="text" placeholder="Ex.: Metrologia" />
+                </div>
+              </div>
+            </section>
+
+            <p id="product-form-error" class="error-message client-form-error hidden"></p>
+
+            <div class="client-form-actions">
+              <a href="products.html" class="btn-secondary">Cancelar</a>
+              <button type="submit" class="btn-primary">Salvar item</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/product-form.js"></script>
+</body>
+</html>
