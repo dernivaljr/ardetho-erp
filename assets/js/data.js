@@ -574,53 +574,146 @@ sales: [
   }
 ],
 
-  financial: [
-    {
-      id: "FIN-001",
-      description: "Recebimento - NovaLab",
-      type: "Receita",
-      category: "Venda",
-      dueDate: "15/04/2026",
-      value: 4800,
-      status: "Recebido"
-    },
-    {
-      id: "FIN-002",
-      description: "Fornecedor Alpha",
-      type: "Despesa",
-      category: "Compra",
-      dueDate: "16/04/2026",
-      value: 2150,
-      status: "Pendente"
-    },
-    {
-      id: "FIN-003",
-      description: "Serviço técnico - QualiTech",
-      type: "Receita",
-      category: "Serviço",
-      dueDate: "18/04/2026",
-      value: 1980,
-      status: "Agendado"
-    },
-    {
-      id: "FIN-004",
-      description: "Internet corporativa",
-      type: "Despesa",
-      category: "Infraestrutura",
-      dueDate: "10/04/2026",
-      value: 320,
-      status: "Vencido"
-    },
-    {
-      id: "FIN-005",
-      description: "Recebimento - TechMed",
-      type: "Receita",
-      category: "Venda",
-      dueDate: "20/04/2026",
-      value: 3980,
-      status: "Pendente"
-    }
-  ],
+financial: [
+  {
+    id: "FIN-001",
+    code: "LAN-001",
+    entryType: "Receita",
+    status: "Recebido",
+
+    entryDate: "2026-04-08",
+    dueDate: "2026-04-15",
+
+    clientId: "CLI-001",
+    clientName: "NovaLab Ltda",
+
+    saleId: "SAL-001",
+    saleCode: "PED-001",
+
+    category: "Venda",
+    description: "Recebimento referente ao pedido PED-001.",
+    amount: 4500,
+    paymentMethod: "Boleto",
+
+    notes: "Pagamento liquidado no prazo.",
+    createdAt: "2026-04-08"
+  },
+  {
+    id: "FIN-002",
+    code: "LAN-002",
+    entryType: "Receita",
+    status: "Pendente",
+
+    entryDate: "2026-04-07",
+    dueDate: "2026-04-20",
+
+    clientId: "CLI-005",
+    clientName: "TechMed Soluções em Laboratório Ltda",
+
+    saleId: "SAL-003",
+    saleCode: "PED-003",
+
+    category: "Serviço",
+    description: "Recebimento previsto do serviço de calibração.",
+    amount: 840,
+    paymentMethod: "Faturado",
+
+    notes: "Aguardando liquidação pelo cliente.",
+    createdAt: "2026-04-07"
+  },
+  {
+    id: "FIN-003",
+    code: "LAN-003",
+    entryType: "Despesa",
+    status: "Pago",
+
+    entryDate: "2026-04-06",
+    dueDate: "2026-04-10",
+
+    clientId: "",
+    clientName: "",
+
+    saleId: "",
+    saleCode: "",
+
+    category: "Compra",
+    description: "Compra de consumíveis laboratoriais.",
+    amount: 2150,
+    paymentMethod: "Transferência",
+
+    notes: "Fornecedor Alpha quitado no vencimento.",
+    createdAt: "2026-04-06"
+  },
+  {
+    id: "FIN-004",
+    code: "LAN-004",
+    entryType: "Despesa",
+    status: "Pendente",
+
+    entryDate: "2026-04-05",
+    dueDate: "2026-04-18",
+
+    clientId: "",
+    clientName: "",
+
+    saleId: "",
+    saleCode: "",
+
+    category: "Infraestrutura",
+    description: "Licenças e ferramentas operacionais do escritório.",
+    amount: 980,
+    paymentMethod: "Cartão",
+
+    notes: "Despesa recorrente mensal.",
+    createdAt: "2026-04-05"
+  },
+  {
+    id: "FIN-005",
+    code: "LAN-005",
+    entryType: "Receita",
+    status: "Recebido",
+
+    entryDate: "2026-04-04",
+    dueDate: "2026-04-12",
+
+    clientId: "CLI-003",
+    clientName: "QualiTech Instrumentação Ltda",
+
+    saleId: "SAL-004",
+    saleCode: "PED-004",
+
+    category: "Serviço",
+    description: "Recebimento da manutenção preventiva concluída.",
+    amount: 950,
+    paymentMethod: "Pix",
+
+    notes: "Pagamento confirmado pelo financeiro.",
+    createdAt: "2026-04-04"
+  },
+  {
+    id: "FIN-006",
+    code: "LAN-006",
+    entryType: "Despesa",
+    status: "Cancelado",
+
+    entryDate: "2026-04-03",
+    dueDate: "2026-04-09",
+
+    clientId: "",
+    clientName: "",
+
+    saleId: "",
+    saleCode: "",
+
+    category: "Serviços terceiros",
+    description: "Serviço terceirizado cancelado antes da execução.",
+    amount: 650,
+    paymentMethod: "Boleto",
+
+    notes: "Lançamento cancelado internamente.",
+    createdAt: "2026-04-03"
+  }
+],
 
   reports: [
     {
