@@ -71,29 +71,35 @@
             </div>
 
             <div class="page-header-actions">
-              <a href="#" class="btn-secondary">Filtrar período</a>
-              <a href="#" class="btn-primary">Exportar relatório</a>
+              <select id="reports-period-filter" class="select-default">
+                <option value="todos">Todos os períodos</option>
+                <option value="hoje">Hoje</option>
+                <option value="7dias">Últimos 7 dias</option>
+                <option value="30dias">Últimos 30 dias</option>
+                <option value="mes">Este mês</option>
+              </select>
+              <a href="#" class="btn-primary" id="reports-export-button">Exportar relatório</a>
             </div>
           </div>
 
           <div class="content-stack">
             <section class="report-grid">
               <article class="card report-card">
-                <span class="status-card-label">Faturamento mensal</span>
-                <strong class="status-card-value">R$ 42.800</strong>
-                <span class="status-card-helper">Crescimento de 12% em relação ao mês anterior</span>
+                <span class="status-card-label">Receita total</span>
+                <strong class="status-card-value" id="reports-total-revenue">R$ 0,00</strong>
+                <span class="status-card-helper">Somatório das receitas registradas</span>
               </article>
 
               <article class="card report-card">
-                <span class="status-card-label">Clientes ativos</span>
-                <strong class="status-card-value">128</strong>
-                <span class="status-card-helper">Base recorrente em crescimento constante</span>
+                <span class="status-card-label">Saldo consolidado</span>
+                <strong class="status-card-value" id="reports-total-balance">R$ 0,00</strong>
+                <span class="status-card-helper">Receitas menos despesas não canceladas</span>
               </article>
 
               <article class="card report-card">
                 <span class="status-card-label">Pedidos concluídos</span>
-                <strong class="status-card-value">57</strong>
-                <span class="status-card-helper">Taxa de conclusão superior ao período passado</span>
+                <strong class="status-card-value" id="reports-completed-orders">0</strong>
+                <span class="status-card-helper">Pedidos com status concluído</span>
               </article>
             </section>
             <div class="toolbar-row">
@@ -118,33 +124,33 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Desempenho comercial</span>
-                      <span class="option-description">Vendas por período, status e responsáveis.</span>
+                      <span class="option-description" id="reports-available-sales">0 pedidos registrados, 0 concluídos.</span>
                     </div>
-                    <a href="#" class="btn-secondary">Abrir</a>
+                    <a href="sales.html" class="btn-secondary">Abrir</a>
                   </div>
 
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Clientes ativos e inativos</span>
-                      <span class="option-description">Visão da base de clientes e movimentação recente.</span>
+                      <span class="option-description" id="reports-available-clients">0 clientes cadastrados no sistema.</span>
                     </div>
-                    <a href="#" class="btn-secondary">Abrir</a>
+                    <a href="clients.html" class="btn-secondary">Abrir</a>
                   </div>
 
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Financeiro consolidado</span>
-                      <span class="option-description">Resumo de receitas, despesas e saldo operacional.</span>
+                      <span class="option-description" id="reports-available-financial">Receitas, despesas e saldo atualizados.</span>
                     </div>
-                    <a href="#" class="btn-secondary">Abrir</a>
+                    <a href="financial.html" class="btn-secondary">Abrir</a>
                   </div>
 
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Produtos e estoque</span>
-                      <span class="option-description">Itens com maior giro e alertas de baixa disponibilidade.</span>
+                      <span class="option-description" id="reports-available-products">0 itens cadastrados, 0 com atenção de estoque.</span>
                     </div>
-                    <a href="#" class="btn-secondary">Abrir</a>
+                    <a href="products.html" class="btn-secondary">Abrir</a>
                   </div>
                 </div>
               </article>
@@ -158,7 +164,7 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Ticket médio</span>
-                      <span class="option-description">R$ 2.416 por pedido registrado no período.</span>
+                      <span class="option-description" id="reports-average-ticket">R$ 0,00 por pedido registrado.</span>
                     </div>
                     <span class="badge-info">Atual</span>
                   </div>
@@ -166,7 +172,7 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Conversão comercial</span>
-                      <span class="option-description">68% dos pedidos avançaram para aprovação.</span>
+                      <span class="option-description" id="reports-sales-conversion">0% dos pedidos avançaram para aprovação.</span>
                     </div>
                     <span class="badge-success">Positivo</span>
                   </div>
@@ -174,7 +180,7 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Pendências financeiras</span>
-                      <span class="option-description">5 lançamentos com vencimento próximo.</span>
+                      <span class="option-description" id="reports-financial-pending">0 lançamentos com status pendente.</span>
                     </div>
                     <span class="badge-warning">Atenção</span>
                   </div>
@@ -182,7 +188,7 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Módulos em uso</span>
-                      <span class="option-description">6 módulos ativos no ambiente atual.</span>
+                      <span class="option-description" id="reports-active-modules">0 módulos ativos no ambiente atual.</span>
                     </div>
                     <span class="badge-neutral">Base</span>
                   </div>
@@ -192,58 +198,22 @@
 
             <section class="section-block">
               <div class="section-block-header">
-                <h2 class="section-block-title">Histórico de exportações</h2>
+                <h2 class="section-block-title">Últimos lançamentos financeiros</h2>
               </div>
 
               <div class="table-wrapper">
                 <table class="table-default">
                   <thead>
                     <tr>
-                      <th>Relatório</th>
+                      <th>Código</th>
+                      <th>Tipo</th>
                       <th>Categoria</th>
-                      <th>Período</th>
-                      <th>Gerado por</th>
-                      <th>Data</th>
+                      <th>Descrição</th>
+                      <th>Valor</th>
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody id="reports-table-body">
-                    <tr>
-                      <td>Resumo comercial mensal</td>
-                      <td>Vendas</td>
-                      <td>Março/2026</td>
-                      <td>Admin User</td>
-                      <td>12/04/2026</td>
-                      <td><span class="badge-success">Exportado</span></td>
-                    </tr>
-
-                    <tr>
-                      <td>Financeiro consolidado</td>
-                      <td>Financeiro</td>
-                      <td>Últimos 30 dias</td>
-                      <td>Ana Lima</td>
-                      <td>11/04/2026</td>
-                      <td><span class="badge-info">Gerado</span></td>
-                    </tr>
-
-                    <tr>
-                      <td>Produtos com baixo estoque</td>
-                      <td>Produtos</td>
-                      <td>Abril/2026</td>
-                      <td>Lucas Rocha</td>
-                      <td>10/04/2026</td>
-                      <td><span class="badge-warning">Pendente</span></td>
-                    </tr>
-
-                    <tr>
-                      <td>Clientes ativos</td>
-                      <td>Clientes</td>
-                      <td>Últimos 90 dias</td>
-                      <td>Marina Costa</td>
-                      <td>09/04/2026</td>
-                      <td><span class="badge-success">Exportado</span></td>
-                    </tr>
-                  </tbody>
+                  <tbody id="reports-table-body"></tbody>
                 </table>
               </div>
             </section>
