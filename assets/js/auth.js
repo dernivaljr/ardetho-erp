@@ -158,12 +158,93 @@ function bindLogoutButtons() {
     logoutUser();
   });
 }
+function getCurrentPageName() {
+  const path = window.location.pathname.split("/").pop();
+  return path || "dashboard.html";
+}
+
+function getModulePageMap() {
+  return {
+    clients: "clients.html",
+    products: "products.html",
+    sales: "sales.html",
+    financial: "financial.html",
+    reports: "reports.html",
+    hr: "hr.html",
+    schedule: "schedule.html",
+    inventory: "inventory.html"
+  };
+}
+
+function getAlwaysAllowedPages() {
+  return [
+    "dashboard.html",
+    "erp-modules.html",
+    "settings.html",
+    "profile.html",
+    "login.html"
+  ];
+}
+
+function getInactiveModulePages() {
+  const activeModules = getActiveModules();
+  const pageMap = getModulePageMap();
+
+  return activeModules
+    .filter((module) => !module.active && pageMap[module.slug])
+    .map((module) => pageMap[module.slug]);
+}
+
+function protectInactiveModulePage() {
+  const currentPage = getCurrentPageName();
+
+  if (getAlwaysAllowedPages().includes(currentPage)) {
+    return;
+  }
+
+  const inactivePages = getInactiveModulePages();
+
+  if (inactivePages.includes(currentPage)) {
+    window.location.replace("dashboard.html");
+  }
+}
+
+function updateSidebarVisibility() {
+  const activeModules = getActiveModules();
+  const pageMap = getModulePageMap();
+
+  const pageToSlugMap = Object.entries(pageMap).reduce((acc, [slug, page]) => {
+    acc[page] = slug;
+    return acc;
+  }, {});
+
+  const activeMap = new Map(
+    activeModules.map((module) => [module.slug, Boolean(module.active)])
+  );
+
+  const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
+
+  sidebarLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    const slug = pageToSlugMap[href];
+
+    if (!slug) {
+      link.style.display = "";
+      return;
+    }
+
+    const isActive = activeMap.has(slug) ? activeMap.get(slug) : true;
+    link.style.display = isActive ? "" : "none";
+  });
+}
 
 function initializeAuth() {
   redirectAuthenticatedUserFromLogin();
   protectInternalPage();
+  protectInactiveModulePage();
   bindLoginForm();
   bindLogoutButtons();
+  updateSidebarVisibility();
 }
 
 document.addEventListener("DOMContentLoaded", initializeAuth);
