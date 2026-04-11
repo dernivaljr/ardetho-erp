@@ -238,6 +238,46 @@ function updateSidebarVisibility() {
   });
 }
 
+function getGlobalSettings() {
+  const fallbackSettings = {
+    themeLight: true,
+    sidebarCompact: false,
+    dashboardShortcuts: true
+  };
+
+  try {
+    if (typeof storage !== "undefined") {
+      const stored = storage.get("ardetho_settings", null);
+      return stored ? { ...fallbackSettings, ...stored } : fallbackSettings;
+    }
+
+    const raw = localStorage.getItem("ardetho_settings");
+    return raw ? { ...fallbackSettings, ...JSON.parse(raw) } : fallbackSettings;
+  } catch (error) {
+    return fallbackSettings;
+  }
+}
+
+function applyGlobalVisualSettings() {
+  const settings = getGlobalSettings();
+  const sidebar = document.querySelector(".sidebar");
+  const body = document.body;
+  const dashboardShortcuts = document.getElementById("dashboard-shortcuts");
+
+  if (sidebar) {
+    sidebar.classList.toggle("sidebar-compact", Boolean(settings.sidebarCompact));
+  }
+
+  if (body) {
+    body.classList.toggle("theme-light", Boolean(settings.themeLight));
+    body.classList.toggle("theme-alt", !settings.themeLight);
+  }
+
+  if (dashboardShortcuts) {
+    dashboardShortcuts.style.display = settings.dashboardShortcuts ? "" : "none";
+  }
+}
+
 function initializeAuth() {
   redirectAuthenticatedUserFromLogin();
   protectInternalPage();
@@ -245,6 +285,7 @@ function initializeAuth() {
   bindLoginForm();
   bindLogoutButtons();
   updateSidebarVisibility();
+  applyGlobalVisualSettings();
 }
 
 document.addEventListener("DOMContentLoaded", initializeAuth);

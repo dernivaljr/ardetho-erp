@@ -36,7 +36,6 @@
         <a href="settings.html" class="active">Configurações</a>
         <a href="profile.html">Perfil</a>
       </nav>
-
     </aside>
 
     <main class="app-main">
@@ -56,16 +55,6 @@
               <span class="user-role" data-user="role">Administrador</span>
             </div>
             <a href="#" class="user-logout" data-action="logout">Sair</a>
-          </div>
-        </div>
-      </header>
-
-      <section class="app-content">
-        <div class="content-container">
-          <div class="page-header">
-            <div class="page-header-content">
-              <h1 class="page-title">Configurações do sistema</h1>
-              <p class="page-description">
           </div>
         </div>
       </header>
@@ -172,26 +161,26 @@
                   <div class="form-group">
                     <label for="language">Idioma do sistema</label>
                     <select id="language" class="select-default">
-                      <option>Português (Brasil)</option>
-                      <option>English</option>
-                      <option>Español</option>
+                      <option value="Português (Brasil)">Português (Brasil)</option>
+                      <option value="English">English</option>
+                      <option value="Español">Español</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="date-format">Formato de data</label>
                     <select id="date-format" class="select-default">
-                      <option>DD/MM/AAAA</option>
-                      <option>MM/DD/AAAA</option>
-                      <option>AAAA-MM-DD</option>
+                      <option value="DD/MM/AAAA">DD/MM/AAAA</option>
+                      <option value="MM/DD/AAAA">MM/DD/AAAA</option>
+                      <option value="AAAA-MM-DD">AAAA-MM-DD</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="timezone">Fuso horário</label>
                     <select id="timezone" class="select-default">
-                      <option>America/Sao_Paulo</option>
-                      <option>UTC</option>
+                      <option value="America/Sao_Paulo">America/Sao_Paulo</option>
+                      <option value="UTC">UTC</option>
                     </select>
                   </div>
                 </div>
@@ -209,29 +198,29 @@
                   <div class="form-group">
                     <label for="main-module">Módulo inicial</label>
                     <select id="main-module" class="select-default">
-                      <option>Dashboard</option>
-                      <option>Clientes</option>
-                      <option>Vendas</option>
-                      <option>Financeiro</option>
+                      <option value="Dashboard">Dashboard</option>
+                      <option value="Clientes">Clientes</option>
+                      <option value="Vendas">Vendas</option>
+                      <option value="Financeiro">Financeiro</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="priority-module">Módulo prioritário</label>
                     <select id="priority-module" class="select-default">
-                      <option>Financeiro</option>
-                      <option>Vendas</option>
-                      <option>Relatórios</option>
-                      <option>Produtos</option>
+                      <option value="Financeiro">Financeiro</option>
+                      <option value="Vendas">Vendas</option>
+                      <option value="Relatórios">Relatórios</option>
+                      <option value="Produtos">Produtos</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="startup-view">Visão ao iniciar</label>
                     <select id="startup-view" class="select-default">
-                      <option>Resumo executivo</option>
-                      <option>Lista de atividades</option>
-                      <option>Métricas principais</option>
+                      <option value="Resumo executivo">Resumo executivo</option>
+                      <option value="Lista de atividades">Lista de atividades</option>
+                      <option value="Métricas principais">Métricas principais</option>
                     </select>
                   </div>
                 </div>
@@ -250,25 +239,25 @@
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Tema visual</span>
-                    <span class="option-description">Interface clara com foco em produtividade e leitura.</span>
+                    <span class="option-description" id="settings-summary-theme">Interface clara com foco em produtividade e leitura.</span>
                   </div>
-                  <span class="badge-success">Ativo</span>
+                  <span class="badge-success" id="settings-summary-theme-badge">Ativo</span>
                 </div>
 
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Idioma principal</span>
-                    <span class="option-description">Português do Brasil definido como padrão.</span>
+                    <span class="option-description" id="settings-summary-language">Português do Brasil definido como padrão.</span>
                   </div>
-                  <span class="badge-info">Atual</span>
+                  <span class="badge-info" id="settings-summary-language-badge">Atual</span>
                 </div>
 
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Módulo prioritário</span>
-                    <span class="option-description">Financeiro configurado como foco principal.</span>
+                    <span class="option-description" id="settings-summary-priority-module">Financeiro configurado como foco principal.</span>
                   </div>
-                  <span class="badge-warning">Config.</span>
+                  <span class="badge-warning" id="settings-summary-priority-badge">Config.</span>
                 </div>
               </div>
             </section>
@@ -277,9 +266,10 @@
       </section>
     </main>
   </div>
+
   <script src="assets/js/data.js"></script>
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/settings.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/settings.js"></script>
 </body>
 </html>

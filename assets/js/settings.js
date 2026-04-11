@@ -1,5 +1,22 @@
+const SETTINGS_STORAGE_KEY = "ardetho_settings";
+
+const DEFAULT_SETTINGS = {
+  themeLight: true,
+  sidebarCompact: false,
+  dashboardShortcuts: true,
+  alertsExpiration: true,
+  alertsOrders: true,
+  dailySummary: false,
+  language: "Português (Brasil)",
+  dateFormat: "DD/MM/AAAA",
+  timezone: "America/Sao_Paulo",
+  mainModule: "Dashboard",
+  priorityModule: "Financeiro",
+  startupView: "Resumo executivo"
+};
+
 function renderSettingsUser() {
-  const currentUser = getCurrentUser();
+  const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
   const userRoleEls = document.querySelectorAll("[data-user='role']");
@@ -18,9 +35,17 @@ function renderSettingsUser() {
   });
 }
 
-function getSettingsPreferences() {
-  const currentUser = getCurrentUser();
-  return currentUser.preferences || appData.currentUser.preferences;
+function getStoredSettings() {
+  const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+  return stored ? { ...DEFAULT_SETTINGS, ...stored } : { ...DEFAULT_SETTINGS };
+}
+
+function saveStoredSettings(settings) {
+  return storage.save(SETTINGS_STORAGE_KEY, settings);
+}
+
+function resetStoredSettings() {
+  return storage.save(SETTINGS_STORAGE_KEY, { ...DEFAULT_SETTINGS });
 }
 
 function setSwitchState(element, isActive) {
@@ -28,103 +53,175 @@ function setSwitchState(element, isActive) {
     return;
   }
 
-  element.classList.toggle("active", isActive);
-  element.setAttribute("aria-pressed", String(isActive));
+  element.classList.toggle("active", Boolean(isActive));
+  element.setAttribute("aria-pressed", Boolean(isActive) ? "true" : "false");
 }
 
-function renderSettingsPreferences() {
-  const preferences = getSettingsPreferences();
-
-  setSwitchState(document.getElementById("setting-theme-light"), preferences.theme === "light");
-  setSwitchState(document.getElementById("setting-sidebar-compact"), false);
-  setSwitchState(document.getElementById("setting-dashboard-shortcuts"), true);
-
-  setSwitchState(document.getElementById("setting-alerts-expiration"), true);
-  setSwitchState(document.getElementById("setting-alerts-orders"), true);
-  setSwitchState(document.getElementById("setting-daily-summary"), preferences.showDailySummary);
-
-  const languageField = document.getElementById("language");
-  const dateFormatField = document.getElementById("date-format");
-  const timezoneField = document.getElementById("timezone");
-  const mainModuleField = document.getElementById("main-module");
-  const priorityModuleField = document.getElementById("priority-module");
-  const startupViewField = document.getElementById("startup-view");
-
-  if (languageField) {
-    languageField.value = "Português (Brasil)";
-  }
-
-  if (dateFormatField) {
-    dateFormatField.value = "DD/MM/AAAA";
-  }
-
-  if (timezoneField) {
-    timezoneField.value = "America/Sao_Paulo";
-  }
-
-  if (mainModuleField) {
-    mainModuleField.value = "Dashboard";
-  }
-
-  if (priorityModuleField) {
-    priorityModuleField.value = preferences.priorityModule || "Financeiro";
-  }
-
-  if (startupViewField) {
-    startupViewField.value = preferences.startupView || "Resumo executivo";
-  }
+function getSwitchState(element) {
+  return element ? element.classList.contains("active") : false;
 }
 
-function bindSettingsSwitches() {
-  const switches = document.querySelectorAll("[data-setting-switch]");
+function applySettingsToForm() {
+  const settings = getStoredSettings();
 
-  switches.forEach((switchElement) => {
-    switchElement.addEventListener("click", () => {
-      const isActive = switchElement.classList.contains("active");
-      setSwitchState(switchElement, !isActive);
-    });
+  setSwitchState(document.getElementById("setting-theme-light"), settings.themeLight);
+  setSwitchState(document.getElementById("setting-sidebar-compact"), settings.sidebarCompact);
+  setSwitchState(document.getElementById("setting-dashboard-shortcuts"), settings.dashboardShortcuts);
 
-    switchElement.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        const isActive = switchElement.classList.contains("active");
-        setSwitchState(switchElement, !isActive);
-      }
-    });
-  });
+  setSwitchState(document.getElementById("setting-alerts-expiration"), settings.alertsExpiration);
+  setSwitchState(document.getElementById("setting-alerts-orders"), settings.alertsOrders);
+  setSwitchState(document.getElementById("setting-daily-summary"), settings.dailySummary);
+
+  const language = document.getElementById("language");
+  const dateFormat = document.getElementById("date-format");
+  const timezone = document.getElementById("timezone");
+  const mainModule = document.getElementById("main-module");
+  const priorityModule = document.getElementById("priority-module");
+  const startupView = document.getElementById("startup-view");
+
+  if (language) language.value = settings.language;
+  if (dateFormat) dateFormat.value = settings.dateFormat;
+  if (timezone) timezone.value = settings.timezone;
+  if (mainModule) mainModule.value = settings.mainModule;
+  if (priorityModule) priorityModule.value = settings.priorityModule;
+  if (startupView) startupView.value = settings.startupView;
 }
 
-function saveSettingsPreferences() {
-  const currentUser = getCurrentUser();
-
-  const updatedUser = {
-    ...currentUser,
-    preferences: {
-      ...currentUser.preferences,
-      theme: document.getElementById("setting-theme-light")?.classList.contains("active")
-        ? "light"
-        : "light",
-      showDailySummary: document.getElementById("setting-daily-summary")?.classList.contains("active") || false,
-      language: "pt-BR",
-      startupView: document.getElementById("startup-view")?.value || "Resumo executivo",
-      priorityModule: document.getElementById("priority-module")?.value || "Financeiro"
-    }
+function getSettingsFormData() {
+  return {
+    themeLight: getSwitchState(document.getElementById("setting-theme-light")),
+    sidebarCompact: getSwitchState(document.getElementById("setting-sidebar-compact")),
+    dashboardShortcuts: getSwitchState(document.getElementById("setting-dashboard-shortcuts")),
+    alertsExpiration: getSwitchState(document.getElementById("setting-alerts-expiration")),
+    alertsOrders: getSwitchState(document.getElementById("setting-alerts-orders")),
+    dailySummary: getSwitchState(document.getElementById("setting-daily-summary")),
+    language: document.getElementById("language")?.value || DEFAULT_SETTINGS.language,
+    dateFormat: document.getElementById("date-format")?.value || DEFAULT_SETTINGS.dateFormat,
+    timezone: document.getElementById("timezone")?.value || DEFAULT_SETTINGS.timezone,
+    mainModule: document.getElementById("main-module")?.value || DEFAULT_SETTINGS.mainModule,
+    priorityModule: document.getElementById("priority-module")?.value || DEFAULT_SETTINGS.priorityModule,
+    startupView: document.getElementById("startup-view")?.value || DEFAULT_SETTINGS.startupView
   };
-
-  setCurrentUser(updatedUser);
 }
 
-function bindSettingsSaveButton() {
-  const saveButton = document.querySelector("[data-action='save-settings']");
+function renderSettingsSummary() {
+  const settings = getStoredSettings();
 
-  if (!saveButton) {
+  const themeSummary = document.getElementById("settings-summary-theme");
+  const themeBadge = document.getElementById("settings-summary-theme-badge");
+  const languageSummary = document.getElementById("settings-summary-language");
+  const languageBadge = document.getElementById("settings-summary-language-badge");
+  const prioritySummary = document.getElementById("settings-summary-priority-module");
+  const priorityBadge = document.getElementById("settings-summary-priority-badge");
+
+  if (themeSummary) {
+    themeSummary.textContent = settings.themeLight
+      ? "Interface clara com foco em produtividade e leitura."
+      : "Interface alternativa configurada para o ambiente.";
+  }
+
+  if (themeBadge) {
+    themeBadge.textContent = settings.themeLight ? "Ativo" : "Custom.";
+    themeBadge.className = settings.themeLight ? "badge-success" : "badge-warning";
+  }
+
+  if (languageSummary) {
+    languageSummary.textContent = `${settings.language} definido como idioma principal do sistema.`;
+  }
+
+  if (languageBadge) {
+    languageBadge.textContent = "Atual";
+    languageBadge.className = "badge-info";
+  }
+
+  if (prioritySummary) {
+    prioritySummary.textContent = `${settings.priorityModule} configurado como foco principal do ambiente.`;
+  }
+
+  if (priorityBadge) {
+    priorityBadge.textContent = "Config.";
+    priorityBadge.className = "badge-warning";
+  }
+}
+
+function applyVisualSettings() {
+  const settings = getStoredSettings();
+  const sidebar = document.querySelector(".sidebar");
+  const body = document.body;
+
+  if (sidebar) {
+    sidebar.classList.toggle("sidebar-compact", Boolean(settings.sidebarCompact));
+  }
+
+  if (body) {
+    body.classList.toggle("theme-light", Boolean(settings.themeLight));
+    body.classList.toggle("theme-alt", !settings.themeLight);
+  }
+}
+
+function refreshSettingsPage() {
+  applySettingsToForm();
+  renderSettingsSummary();
+  applyVisualSettings();
+}
+
+function toggleSettingSwitch(element) {
+  if (!element) {
     return;
   }
 
-  saveButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    saveSettingsPreferences();
-    alert("Configurações salvas com sucesso.");
+  const isActive = element.classList.contains("active");
+  setSwitchState(element, !isActive);
+}
+
+function saveSettings() {
+  const data = getSettingsFormData();
+  saveStoredSettings(data);
+  refreshSettingsPage();
+  alert("Configurações salvas com sucesso.");
+}
+
+function resetSettings() {
+  resetStoredSettings();
+  refreshSettingsPage();
+  alert("Configurações restauradas para o padrão.");
+}
+
+function bindSettingsActions() {
+  document.addEventListener("click", (event) => {
+    const switchButton = event.target.closest("[data-setting-switch]");
+    const resetButton = event.target.closest("[data-action='reset-settings']");
+    const saveButton = event.target.closest("[data-action='save-settings']");
+
+    if (switchButton) {
+      event.preventDefault();
+      toggleSettingSwitch(switchButton);
+      return;
+    }
+
+    if (resetButton) {
+      event.preventDefault();
+      resetSettings();
+      return;
+    }
+
+    if (saveButton) {
+      event.preventDefault();
+      saveSettings();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const switchButton = event.target.closest("[data-setting-switch]");
+
+    if (!switchButton) {
+      return;
+    }
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleSettingSwitch(switchButton);
+    }
   });
 }
 
@@ -136,9 +233,8 @@ function initializeSettingsPage() {
   }
 
   renderSettingsUser();
-  renderSettingsPreferences();
-  bindSettingsSwitches();
-  bindSettingsSaveButton();
+  refreshSettingsPage();
+  bindSettingsActions();
 }
 
 document.addEventListener("DOMContentLoaded", initializeSettingsPage);
