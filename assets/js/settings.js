@@ -1,7 +1,7 @@
 const SETTINGS_STORAGE_KEY = "ardetho_settings";
 
 const DEFAULT_SETTINGS = {
-  themeLight: true,
+  themeMode: "light",
   sidebarCompact: false,
   dashboardShortcuts: true,
   alertsExpiration: true,
@@ -64,7 +64,8 @@ function getSwitchState(element) {
 function applySettingsToForm() {
   const settings = getStoredSettings();
 
-  setSwitchState(document.getElementById("setting-theme-light"), settings.themeLight);
+  const themeMode = document.getElementById("theme-mode");
+  if (themeMode) themeMode.value = settings.themeMode || "light";
   setSwitchState(document.getElementById("setting-sidebar-compact"), settings.sidebarCompact);
   setSwitchState(document.getElementById("setting-dashboard-shortcuts"), settings.dashboardShortcuts);
 
@@ -89,7 +90,7 @@ function applySettingsToForm() {
 
 function getSettingsFormData() {
   return {
-    themeLight: getSwitchState(document.getElementById("setting-theme-light")),
+    themeMode: document.getElementById("theme-mode")?.value || DEFAULT_SETTINGS.themeMode,
     sidebarCompact: getSwitchState(document.getElementById("setting-sidebar-compact")),
     dashboardShortcuts: getSwitchState(document.getElementById("setting-dashboard-shortcuts")),
     alertsExpiration: getSwitchState(document.getElementById("setting-alerts-expiration")),
@@ -115,14 +116,15 @@ function renderSettingsSummary() {
   const priorityBadge = document.getElementById("settings-summary-priority-badge");
 
   if (themeSummary) {
-    themeSummary.textContent = settings.themeLight
-      ? "Interface clara com foco em produtividade e leitura."
-      : "Interface alternativa configurada para o ambiente.";
+    themeSummary.textContent =
+      settings.themeMode === "dark"
+        ? "Tema escuro configurado para o ambiente."
+        : "Interface clara com foco em produtividade e leitura.";
   }
 
   if (themeBadge) {
-    themeBadge.textContent = settings.themeLight ? "Ativo" : "Custom.";
-    themeBadge.className = settings.themeLight ? "badge-success" : "badge-warning";
+    themeBadge.textContent = settings.themeMode === "dark" ? "Escuro" : "Claro";
+    themeBadge.className = settings.themeMode === "dark" ? "badge-warning" : "badge-success";
   }
 
   if (languageSummary) {
@@ -154,8 +156,8 @@ function applyVisualSettings() {
   }
 
   if (body) {
-    body.classList.toggle("theme-light", Boolean(settings.themeLight));
-    body.classList.toggle("theme-alt", !settings.themeLight);
+  body.classList.toggle("theme-light", settings.themeMode === "light");
+  body.classList.toggle("theme-dark", settings.themeMode === "dark");
   }
 }
 

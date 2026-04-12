@@ -321,3 +321,70 @@
 .login-brand-panel .brand-logo {
   height: 42px;
 }
+.brand-logo-icon {
+  display: none;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  min-width: 20px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.nav-label {
+  display: inline-block;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar.sidebar-compact {
+  width: 96px;
+}
+
+.sidebar.sidebar-compact .brand-logo-full {
+  display: none;
+}
+
+.sidebar.sidebar-compact .brand-logo-icon {
+  display: block;
+  margin: 0 auto;
+}
+
+.sidebar.sidebar-compact .sidebar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.sidebar-compact .brand-link {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sidebar.sidebar-compact .sidebar-nav a {
+  justify-content: center;
+  gap: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar.sidebar-compact .nav-label {
+  display: none;
+}
+
+.sidebar.sidebar-compact .nav-icon {
+  width: 100%;
+  font-size: 18px;
+}

@@ -181,3 +181,109 @@ small {
 .gap-lg {
   gap: var(--space-lg);
 }
+body.theme-dark {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+body.theme-dark .app-main,
+body.theme-dark .app-content,
+body.theme-dark .content-container {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+body.theme-dark .page-card,
+body.theme-dark .card,
+body.theme-dark .section-block,
+body.theme-dark .table-wrapper,
+body.theme-dark .option-item,
+body.theme-dark .summary-item,
+body.theme-dark .status-item,
+body.theme-dark .activity-item {
+  background-color: #111827;
+  color: #e5e7eb;
+  border-color: #1f2937;
+}
+
+body.theme-dark .topbar,
+body.theme-dark .sidebar {
+  background-color: #111827;
+  border-color: #1f2937;
+}
+
+body.theme-dark .sidebar-nav a,
+body.theme-dark .page-title,
+body.theme-dark .page-card-title,
+body.theme-dark .section-block-title,
+body.theme-dark .topbar-title,
+body.theme-dark .user-name,
+body.theme-dark .option-title,
+body.theme-dark .summary-label,
+body.theme-dark .status-label,
+body.theme-dark strong,
+body.theme-dark th,
+body.theme-dark td,
+body.theme-dark label {
+  color: #f9fafb;
+}
+
+body.theme-dark .page-description,
+body.theme-dark .topbar-subtitle,
+body.theme-dark .user-role,
+body.theme-dark .option-description,
+body.theme-dark .summary-value,
+body.theme-dark .metric-change,
+body.theme-dark .activity-content p {
+  color: #cbd5e1;
+}
+
+body.theme-dark .input-default,
+body.theme-dark .select-default,
+body.theme-dark .textarea-default {
+  background-color: #0b1220;
+  color: #f9fafb;
+  border-color: #334155;
+}
+
+body.theme-dark .table-default thead th {
+  background-color: #0b1220;
+}
+
+body.theme-dark .table-default tbody tr {
+  background-color: #111827;
+}
+
+body.theme-dark .sidebar-nav a:hover,
+body.theme-dark .sidebar-nav a.active {
+  background-color: #1f2937;
+}
+body.theme-dark .app-layout {
+  background-color: #0f172a;
+}
+
+body.theme-dark .user-chip {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #f9fafb;
+}
+
+body.theme-dark .status-card,
+body.theme-dark .profile-card {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #f9fafb;
+}
+
+body.theme-dark .status-card-label,
+body.theme-dark .profile-label,
+body.theme-dark .profile-meta,
+body.theme-dark .user-role {
+  color: #cbd5e1;
+}
+
+body.theme-dark .status-card-value,
+body.theme-dark .profile-name,
+body.theme-dark .user-name {
+  color: #f9fafb;
+}

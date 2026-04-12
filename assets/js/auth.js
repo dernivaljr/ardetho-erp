@@ -239,11 +239,11 @@ function updateSidebarVisibility() {
 }
 
 function getGlobalSettings() {
-  const fallbackSettings = {
-    themeLight: true,
-    sidebarCompact: false,
-    dashboardShortcuts: true
-  };
+    const fallbackSettings = {
+      themeMode: "light",
+      sidebarCompact: false,
+      dashboardShortcuts: true
+    };
 
   try {
     if (typeof storage !== "undefined") {
@@ -269,8 +269,8 @@ function applyGlobalVisualSettings() {
   }
 
   if (body) {
-    body.classList.toggle("theme-light", Boolean(settings.themeLight));
-    body.classList.toggle("theme-alt", !settings.themeLight);
+  body.classList.toggle("theme-light", settings.themeMode === "light");
+  body.classList.toggle("theme-dark", settings.themeMode === "dark");
   }
 
   if (dashboardShortcuts) {

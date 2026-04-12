@@ -18,25 +18,61 @@
 </head>
 <body data-page="settings">
   <div class="app-layout">
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <a href="dashboard.html" class="brand brand-link">
-          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
-        </a>
-      </div>
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <a href="dashboard.html" class="brand brand-link">
+      <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
+      <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
+    </a>
+  </div>
 
-      <nav class="sidebar-nav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="clients.html">Clientes</a>
-        <a href="products.html">Produtos</a>
-        <a href="sales.html">Vendas</a>
-        <a href="financial.html">Financeiro</a>
-        <a href="reports.html">Relatórios</a>
-        <a href="erp-modules.html">Módulos</a>
-        <a href="settings.html" class="active">Configurações</a>
-        <a href="profile.html">Perfil</a>
-      </nav>
-    </aside>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+
+    <a href="clients.html">
+      <span class="nav-icon">👥</span>
+      <span class="nav-label">Clientes</span>
+    </a>
+
+    <a href="products.html">
+      <span class="nav-icon">📦</span>
+      <span class="nav-label">Produtos</span>
+    </a>
+
+    <a href="sales.html">
+      <span class="nav-icon">🛒</span>
+      <span class="nav-label">Vendas</span>
+    </a>
+
+    <a href="financial.html">
+      <span class="nav-icon">💰</span>
+      <span class="nav-label">Financeiro</span>
+    </a>
+
+    <a href="reports.html">
+      <span class="nav-icon">📊</span>
+      <span class="nav-label">Relatórios</span>
+    </a>
+
+    <a href="erp-modules.html">
+      <span class="nav-icon">🧩</span>
+      <span class="nav-label">Módulos</span>
+    </a>
+
+    <a href="settings.html" class="active">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">Configurações</span>
+    </a>
+
+    <a href="profile.html">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Perfil</span>
+    </a>
+  </nav>
+</aside>
 
     <main class="app-main">
       <header class="topbar">
@@ -86,12 +122,12 @@
                 </div>
 
                 <div class="option-list">
-                  <div class="option-item">
-                    <div class="option-content">
-                      <span class="option-title">Tema claro</span>
-                      <span class="option-description">Utilizar interface limpa e corporativa no ambiente.</span>
-                    </div>
-                    <div id="setting-theme-light" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
+                  <div class="form-group">
+                    <label for="theme-mode">Tema do sistema</label>
+                    <select id="theme-mode" class="select-default">
+                      <option value="light">Claro</option>
+                      <option value="dark">Escuro</option>
+                    </select>
                   </div>
 
                   <div class="option-item">
