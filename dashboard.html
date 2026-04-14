@@ -113,29 +113,23 @@
           </div>
 
           <div class="content-stack">
-            <section class="metrics-grid" id="dashboard-metrics-section">
-              <article class="card metric-card">
-                <span class="metric-label">Clientes ativos</span>
-                <strong class="metric-value" id="metric-active-clients">128</strong>
-                <span class="metric-change">+8% em relação ao último mês</span>
+            <section class="dashboard-notification-grid" id="dashboard-notification-cards">
+              <article class="card metric-card" id="dashboard-alert-expiration-card">
+                <span class="metric-label">Alertas de vencimento</span>
+                <strong class="metric-value" id="dashboard-alert-expiration-value">0</strong>
+                <span class="metric-change" id="dashboard-alert-expiration-text">Nenhum vencimento próximo.</span>
               </article>
 
-              <article class="card metric-card">
-                <span class="metric-label">Produtos cadastrados</span>
-                <strong class="metric-value" id="metric-registered-products">342</strong>
-                <span class="metric-change">+14 novos itens esta semana</span>
+              <article class="card metric-card" id="dashboard-alert-orders-card">
+                <span class="metric-label">Pedidos pendentes</span>
+                <strong class="metric-value" id="dashboard-alert-orders-value">0</strong>
+                <span class="metric-change" id="dashboard-alert-orders-text">Nenhum pedido pendente.</span>
               </article>
 
-              <article class="card metric-card">
-                <span class="metric-label">Vendas do mês</span>
-                <strong class="metric-value" id="metric-monthly-sales">R$ 42.800</strong>
-                <span class="metric-change">+12% em comparação ao mês anterior</span>
-              </article>
-
-              <article class="card metric-card">
-                <span class="metric-label">Contas pendentes</span>
-                <strong class="metric-value" id="metric-pending-bills">19</strong>
-                <span class="metric-change">5 vencimentos próximos</span>
+              <article class="card metric-card" id="dashboard-daily-summary-card">
+                <span class="metric-label">Resumo diário</span>
+                <strong class="metric-value" id="dashboard-daily-summary-value">R$ 0,00</strong>
+                <span class="metric-change" id="dashboard-daily-summary-text">Saldo consolidado do dia.</span>
               </article>
             </section>
 
@@ -148,22 +142,8 @@
 
                 <div class="chart-placeholder">
                   <div class="chart-bars" id="chart-bars">
-                    <div class="chart-bar" style="height: 48%;"></div>
-                    <div class="chart-bar" style="height: 66%;"></div>
-                    <div class="chart-bar" style="height: 54%;"></div>
-                    <div class="chart-bar" style="height: 82%;"></div>
-                    <div class="chart-bar" style="height: 72%;"></div>
-                    <div class="chart-bar" style="height: 92%;"></div>
-                    <div class="chart-bar" style="height: 78%;"></div>
                   </div>
                   <div class="chart-labels" id="chart-labels">
-                    <span>Jan</span>
-                    <span>Fev</span>
-                    <span>Mar</span>
-                    <span>Abr</span>
-                    <span>Mai</span>
-                    <span>Jun</span>
-                    <span>Jul</span>
                   </div>
                 </div>
               </article>
@@ -176,24 +156,50 @@
                 <div class="summary-list">
                   <div class="summary-item">
                     <span class="summary-label">Módulos ativos</span>
-                    <strong class="summary-value" id="summary-active-modules">6</strong>
+                    <strong class="summary-value" id="summary-active-modules">0</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Pedidos em aberto</span>
-                    <strong class="summary-value" id="summary-open-orders">24</strong>
+                    <strong class="summary-value" id="summary-open-orders">0</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Recebimentos previstos</span>
-                    <strong class="summary-value" id="summary-expected-income">R$ 18.400</strong>
+                    <strong class="summary-value" id="summary-expected-income">R$ 0,00</strong>
                   </div>
 
                   <div class="summary-item">
                     <span class="summary-label">Pagamentos agendados</span>
-                    <strong class="summary-value" id="summary-scheduled-payments">R$ 7.250</strong>
+                    <strong class="summary-value" id="summary-scheduled-payments">R$ 0,00</strong>
                   </div>
                 </div>
+              </article>
+            </section>
+
+            <section class="metrics-grid" id="dashboard-metrics-section">
+              <article class="card metric-card">
+                <span class="metric-label">Clientes ativos</span>
+                <strong class="metric-value" id="metric-active-clients">0</strong>
+                <span class="metric-change" id="metric-active-clients-text">0 clientes com status ativo no sistema.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Produtos cadastrados</span>
+                <strong class="metric-value" id="metric-registered-products">0</strong>
+                <span class="metric-change" id="metric-registered-products-text">0 itens disponíveis na base atual.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Vendas do mês</span>
+                <strong class="metric-value" id="metric-monthly-sales">R$ 0,00</strong>
+                <span class="metric-change" id="metric-monthly-sales-text">Receitas registradas no financeiro.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Contas pendentes</span>
+                <strong class="metric-value" id="metric-pending-bills">0</strong>
+                <span class="metric-change" id="metric-pending-bills-text">0 lançamentos aguardando movimentação.</span>
               </article>
             </section>
 
@@ -204,43 +210,7 @@
                   <a href="reports.html" class="btn-secondary">Ver tudo</a>
                 </div>
 
-                <div class="activity-list" id="activity-list">
-                  <div class="activity-item">
-                    <div class="activity-dot info"></div>
-                    <div class="activity-content">
-                      <strong>Novo cliente cadastrado</strong>
-                      <p>Empresa NovaLab adicionada ao sistema.</p>
-                    </div>
-                    <span class="activity-time">09:30</span>
-                  </div>
-
-                  <div class="activity-item">
-                    <div class="activity-dot success"></div>
-                    <div class="activity-content">
-                      <strong>Pedido aprovado</strong>
-                      <p>Pedido #2034 aprovado pelo financeiro.</p>
-                    </div>
-                    <span class="activity-time">10:15</span>
-                  </div>
-
-                  <div class="activity-item">
-                    <div class="activity-dot warning"></div>
-                    <div class="activity-content">
-                      <strong>Conta próxima do vencimento</strong>
-                      <p>Fatura do fornecedor Alpha vence amanhã.</p>
-                    </div>
-                    <span class="activity-time">11:05</span>
-                  </div>
-
-                  <div class="activity-item">
-                    <div class="activity-dot neutral"></div>
-                    <div class="activity-content">
-                      <strong>Relatório exportado</strong>
-                      <p>Resumo mensal enviado pelo módulo de relatórios.</p>
-                    </div>
-                    <span class="activity-time">11:42</span>
-                  </div>
-                </div>
+                <div class="activity-list" id="activity-list"></div>
               </article>
 
               <article class="card">
@@ -248,32 +218,7 @@
                   <h2 class="section-block-title">Status operacional</h2>
                 </div>
 
-                <div class="status-list" id="status-list">
-                  <div class="status-item">
-                    <span class="status-label">CRM / Clientes</span>
-                    <span class="badge-success">Ativo</span>
-                  </div>
-
-                  <div class="status-item">
-                    <span class="status-label">Financeiro</span>
-                    <span class="badge-success">Ativo</span>
-                  </div>
-
-                  <div class="status-item">
-                    <span class="status-label">Relatórios</span>
-                    <span class="badge-info">Sincronizado</span>
-                  </div>
-
-                  <div class="status-item">
-                    <span class="status-label">Estoque avançado</span>
-                    <span class="badge-warning">Parcial</span>
-                  </div>
-
-                  <div class="status-item">
-                    <span class="status-label">RH</span>
-                    <span class="badge-neutral">Inativo</span>
-                  </div>
-                </div>
+                <div class="status-list" id="status-list"></div>
               </article>
             </section>
 
@@ -297,40 +242,7 @@
                       <th>Responsável</th>
                     </tr>
                   </thead>
-                  <tbody id="recent-orders-body">
-                    <tr>
-                      <td>#2034</td>
-                      <td>NovaLab</td>
-                      <td>12/04/2026</td>
-                      <td>R$ 4.800</td>
-                      <td><span class="badge-success">Concluído</span></td>
-                      <td>Ana Lima</td>
-                    </tr>
-                    <tr>
-                      <td>#2035</td>
-                      <td>BioAnalytica</td>
-                      <td>12/04/2026</td>
-                      <td>R$ 2.150</td>
-                      <td><span class="badge-warning">Pendente</span></td>
-                      <td>Lucas Rocha</td>
-                    </tr>
-                    <tr>
-                      <td>#2036</td>
-                      <td>QualiTech</td>
-                      <td>13/04/2026</td>
-                      <td>R$ 6.920</td>
-                      <td><span class="badge-info">Em análise</span></td>
-                      <td>Marina Costa</td>
-                    </tr>
-                    <tr>
-                      <td>#2037</td>
-                      <td>LabCore</td>
-                      <td>13/04/2026</td>
-                      <td>R$ 1.740</td>
-                      <td><span class="badge-danger">Cancelado</span></td>
-                      <td>Rafael Mendes</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="recent-orders-body"></tbody>
                 </table>
               </div>
             </section>
@@ -339,9 +251,10 @@
       </section>
     </main>
   </div>
+
   <script src="assets/js/data.js"></script>
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/dashboard.js"></script>
 </body>
 </html>

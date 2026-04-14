@@ -1,7 +1,7 @@
 const SETTINGS_STORAGE_KEY = "ardetho_settings";
 
 const DEFAULT_SETTINGS = {
-  themeLight: true,
+  themeMode: "light",
   sidebarCompact: false,
   dashboardShortcuts: true,
   alertsExpiration: true,
@@ -60,6 +60,24 @@ function getActiveModulesData() {
   return getActiveModules();
 }
 
+function getDashboardNotificationSettings() {
+  try {
+    const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+
+    return {
+      alertsExpiration: stored?.alertsExpiration ?? true,
+      alertsOrders: stored?.alertsOrders ?? true,
+      dailySummary: stored?.dailySummary ?? false
+    };
+  } catch (error) {
+    return {
+      alertsExpiration: true,
+      alertsOrders: true,
+      dailySummary: false
+    };
+  }
+}
+
 function formatDashboardCurrency(value) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -97,13 +115,19 @@ function formatDashboardDate(dateString) {
 function renderDashboardMetrics() {
   const clients = getClientsData();
   const products = getProductsData();
-  const sales = getSalesData();
   const financial = getFinancialData();
 
   const activeClientsEl = document.getElementById("metric-active-clients");
+  const activeClientsTextEl = document.getElementById("metric-active-clients-text");
+
   const registeredProductsEl = document.getElementById("metric-registered-products");
+  const registeredProductsTextEl = document.getElementById("metric-registered-products-text");
+
   const monthlySalesEl = document.getElementById("metric-monthly-sales");
+  const monthlySalesTextEl = document.getElementById("metric-monthly-sales-text");
+
   const pendingBillsEl = document.getElementById("metric-pending-bills");
+  const pendingBillsTextEl = document.getElementById("metric-pending-bills-text");
 
   const activeClients = clients.filter((client) => {
     return (client.status || "").toLowerCase() === "ativo";
@@ -127,6 +151,128 @@ function renderDashboardMetrics() {
   if (registeredProductsEl) registeredProductsEl.textContent = registeredProducts;
   if (monthlySalesEl) monthlySalesEl.textContent = formatDashboardCurrency(monthlySales);
   if (pendingBillsEl) pendingBillsEl.textContent = pendingBills;
+
+  if (activeClientsTextEl) {
+    activeClientsTextEl.textContent = `${activeClients} cliente(s) com status ativo no sistema.`;
+  }
+
+  if (registeredProductsTextEl) {
+    registeredProductsTextEl.textContent = `${registeredProducts} item(ns) disponíveis na base atual.`;
+  }
+
+  if (monthlySalesTextEl) {
+    monthlySalesTextEl.textContent = "Receitas registradas no módulo financeiro.";
+  }
+
+  if (pendingBillsTextEl) {
+    pendingBillsTextEl.textContent = `${pendingBills} lançamento(s) aguardando movimentação.`;
+  }
+}
+
+function renderDashboardNotificationCards() {
+  const settings = getDashboardNotificationSettings();
+  const sales = getSalesData();
+  const financial = getFinancialData();
+  const clients = getClientsData();
+
+  const notificationSection = document.getElementById("dashboard-notification-cards");
+
+  const expirationCard = document.getElementById("dashboard-alert-expiration-card");
+  const ordersCard = document.getElementById("dashboard-alert-orders-card");
+  const summaryCard = document.getElementById("dashboard-daily-summary-card");
+
+  const expirationValueEl = document.getElementById("dashboard-alert-expiration-value");
+  const expirationTextEl = document.getElementById("dashboard-alert-expiration-text");
+
+  const ordersValueEl = document.getElementById("dashboard-alert-orders-value");
+  const ordersTextEl = document.getElementById("dashboard-alert-orders-text");
+
+  const summaryValueEl = document.getElementById("dashboard-daily-summary-value");
+  const summaryTextEl = document.getElementById("dashboard-daily-summary-text");
+
+  if (expirationCard) {
+    expirationCard.style.display = settings.alertsExpiration ? "" : "none";
+  }
+
+  if (ordersCard) {
+    ordersCard.style.display = settings.alertsOrders ? "" : "none";
+  }
+
+  if (summaryCard) {
+    summaryCard.style.display = settings.dailySummary ? "" : "none";
+  }
+
+  if (settings.alertsExpiration) {
+    const pendingFinancial = financial.filter((entry) => {
+      return (entry.status || "").toLowerCase() === "pendente";
+    });
+
+    if (expirationValueEl) {
+      expirationValueEl.textContent = pendingFinancial.length;
+    }
+
+    if (expirationTextEl) {
+      expirationTextEl.textContent =
+        pendingFinancial.length > 0
+          ? `${pendingFinancial.length} lançamento(s) com vencimento próximo.`
+          : "Nenhum vencimento próximo.";
+    }
+  }
+
+  if (settings.alertsOrders) {
+    const pendingOrders = sales.filter((sale) => {
+      const status = (sale.status || "").toLowerCase();
+      return status === "em análise" || status === "aprovado" || status === "faturado";
+    });
+
+    if (ordersValueEl) {
+      ordersValueEl.textContent = pendingOrders.length;
+    }
+
+    if (ordersTextEl) {
+      ordersTextEl.textContent =
+        pendingOrders.length > 0
+          ? `${pendingOrders.length} pedido(s) aguardando andamento.`
+          : "Nenhum pedido pendente.";
+    }
+  }
+
+  if (settings.dailySummary) {
+    const activeClients = clients.filter((client) => {
+      return (client.status || "").toLowerCase() === "ativo";
+    }).length;
+
+    const validFinancial = financial.filter((entry) => {
+      return (entry.status || "").toLowerCase() !== "cancelado";
+    });
+
+    const totalRevenue = validFinancial.reduce((sum, entry) => {
+      return entry.entryType === "Receita" ? sum + (Number(entry.amount) || 0) : sum;
+    }, 0);
+
+    const totalExpenses = validFinancial.reduce((sum, entry) => {
+      return entry.entryType === "Despesa" ? sum + (Number(entry.amount) || 0) : sum;
+    }, 0);
+
+    const balance = totalRevenue - totalExpenses;
+
+    if (summaryValueEl) {
+      summaryValueEl.textContent = formatDashboardCurrency(balance);
+    }
+
+    if (summaryTextEl) {
+      summaryTextEl.textContent = `${activeClients} cliente(s) ativos no ambiente atual.`;
+    }
+  }
+
+  if (notificationSection) {
+    const allDisabled =
+      !settings.alertsExpiration &&
+      !settings.alertsOrders &&
+      !settings.dailySummary;
+
+    notificationSection.style.display = allDisabled ? "none" : "grid";
+  }
 }
 
 function renderDashboardSummary() {
@@ -164,6 +310,41 @@ function renderDashboardSummary() {
   if (scheduledPaymentsEl) scheduledPaymentsEl.textContent = formatDashboardCurrency(scheduledPayments);
 }
 
+function renderDashboardFinancialChart() {
+  const chartBars = document.getElementById("chart-bars");
+  const chartLabels = document.getElementById("chart-labels");
+
+  if (!chartBars || !chartLabels) {
+    return;
+  }
+
+  const financial = getFinancialData()
+    .filter((entry) => (entry.status || "").toLowerCase() !== "cancelado")
+    .slice(-7);
+
+  chartBars.innerHTML = "";
+  chartLabels.innerHTML = "";
+
+  if (!financial.length) {
+    chartBars.innerHTML = `<div class="empty-state">Sem dados financeiros</div>`;
+    return;
+  }
+
+  const values = financial.map((entry) => Number(entry.amount) || 0);
+  const maxValue = Math.max(...values, 1);
+
+  financial.forEach((entry, index) => {
+    const bar = document.createElement("div");
+    bar.className = "chart-bar";
+    bar.style.height = `${Math.max((values[index] / maxValue) * 100, 12)}%`;
+    chartBars.appendChild(bar);
+
+    const label = document.createElement("span");
+    label.textContent = entry.code || `L${index + 1}`;
+    chartLabels.appendChild(label);
+  });
+}
+
 function renderDashboardActivities() {
   const activityList = document.getElementById("activity-list");
 
@@ -171,44 +352,74 @@ function renderDashboardActivities() {
     return;
   }
 
-  const sales = [...getSalesData()].slice(0, 2);
-  const clients = [...getClientsData()].slice(0, 1);
-  const financial = [...getFinancialData()].filter((entry) => {
-    return (entry.status || "").toLowerCase() === "pendente";
-  }).slice(0, 1);
+  const settings = getDashboardNotificationSettings();
+  const sales = [...getSalesData()];
+  const clients = [...getClientsData()];
+  const financial = [...getFinancialData()];
 
-  const activities = [];
+  const urgentActivities = [];
+  const normalActivities = [];
 
-  if (clients[0]) {
-    activities.push({
+  if (settings.alertsExpiration) {
+    financial
+      .filter((entry) => (entry.status || "").toLowerCase() === "pendente")
+      .slice(0, 2)
+      .forEach((entry) => {
+        urgentActivities.push({
+          type: "warning",
+          title: "Vencimento próximo",
+          description: `${entry.description || "Lançamento"} com previsão para ${formatDashboardDate(entry.dueDate)}.`,
+          time: "Recente"
+        });
+      });
+  }
+
+  if (settings.alertsOrders) {
+    sales
+      .filter((sale) => {
+        const status = (sale.status || "").toLowerCase();
+        return status === "em análise" || status === "aprovado" || status === "faturado";
+      })
+      .slice(0, 2)
+      .forEach((sale) => {
+        normalActivities.push({
+          type: "success",
+          title: "Pedido em andamento",
+          description: `${sale.code || "Pedido"} está com status ${sale.status || "em aberto"}.`,
+          time: "Recente"
+        });
+      });
+  }
+
+  const latestClient = clients[0];
+  if (latestClient) {
+    normalActivities.push({
       type: "info",
-      title: "Novo cliente cadastrado",
-      description: `${clients[0].companyName || clients[0].fullName || "Cliente"} adicionado ao sistema.`,
+      title: "Cliente cadastrado",
+      description: `${latestClient.companyName || latestClient.fullName || "Cliente"} foi adicionado ao sistema.`,
       time: "Recente"
     });
   }
 
-  sales.forEach((sale) => {
-    activities.push({
-      type: "success",
-      title: "Pedido atualizado",
-      description: `${sale.code || "Pedido"} com status ${sale.status || "atualizado"}.`,
-      time: "Recente"
-    });
-  });
-
-  if (financial[0]) {
-    activities.push({
-      type: "warning",
-      title: "Lançamento pendente",
-      description: `${financial[0].description || "Lançamento"} com vencimento em ${formatDashboardDate(financial[0].dueDate)}.`,
-      time: "Recente"
-    });
-  }
+  const activities = [...urgentActivities, ...normalActivities].slice(0, 4);
 
   activityList.innerHTML = "";
 
-  activities.slice(0, 4).forEach((activity) => {
+  if (!activities.length) {
+    activityList.innerHTML = `
+      <div class="activity-item">
+        <div class="activity-dot neutral"></div>
+        <div class="activity-content">
+          <strong>Nenhuma atividade recente</strong>
+          <p>Não há eventos relevantes para exibir no momento.</p>
+        </div>
+        <span class="activity-time">Agora</span>
+      </div>
+    `;
+    return;
+  }
+
+  activities.forEach((activity) => {
     const item = document.createElement("div");
     item.className = "activity-item";
 
@@ -233,8 +444,9 @@ function renderDashboardStatus() {
   }
 
   const modules = getActiveModulesData();
+
   const moduleNameMap = {
-    clients: "CRM / Clientes",
+    clients: "Clientes",
     products: "Produtos",
     sales: "Vendas",
     financial: "Financeiro",
@@ -246,13 +458,27 @@ function renderDashboardStatus() {
 
   statusList.innerHTML = "";
 
+  if (!modules.length) {
+    statusList.innerHTML = `
+      <div class="status-item">
+        <span class="status-label">Nenhum módulo encontrado</span>
+        <span class="badge-neutral">Indefinido</span>
+      </div>
+    `;
+    return;
+  }
+
   modules.forEach((module) => {
     const item = document.createElement("div");
     item.className = "status-item";
 
+    const label = moduleNameMap[module.slug] || module.name || module.slug;
+    const badgeClass = module.active ? "badge-success" : "badge-neutral";
+    const badgeText = module.active ? "Ativo" : "Inativo";
+
     item.innerHTML = `
-      <span class="status-label">${moduleNameMap[module.slug] || module.slug}</span>
-      <span class="${module.active ? "badge-success" : "badge-neutral"}">${module.active ? "Ativo" : "Inativo"}</span>
+      <span class="status-label">${label}</span>
+      <span class="${badgeClass}">${badgeText}</span>
     `;
 
     statusList.appendChild(item);
@@ -297,14 +523,49 @@ function renderDashboardRecentOrders() {
   });
 }
 
+function reorderDashboardSections() {
+  const settings = getDashboardSettings();
+  const contentStack = document.querySelector(".content-stack");
+
+  const notificationSection = document.getElementById("dashboard-notification-cards");
+  const metricsSection = document.getElementById("dashboard-metrics-section");
+  const analyticsSection = document.getElementById("dashboard-analytics-section");
+  const activitySection = document.getElementById("dashboard-activity-section");
+  const ordersSection = document.getElementById("dashboard-orders-section");
+
+  if (!contentStack) {
+    return;
+  }
+
+  const sections = {
+    notification: notificationSection,
+    metrics: metricsSection,
+    analytics: analyticsSection,
+    activity: activitySection,
+    orders: ordersSection
+  };
+
+  const orderMap = {
+    "Resumo executivo": ["notification", "analytics", "metrics", "activity", "orders"],
+    "Métricas principais": ["metrics", "notification", "analytics", "activity", "orders"],
+    "Lista de atividades": ["activity", "notification", "metrics", "analytics", "orders"]
+  };
+
+  const selectedOrder = orderMap[settings.startupView] || orderMap["Resumo executivo"];
+
+  selectedOrder.forEach((key) => {
+    const section = sections[key];
+    if (section) {
+      contentStack.appendChild(section);
+    }
+  });
+}
+
 function applyDashboardSettings() {
   const settings = getDashboardSettings();
 
   const sidebar = document.querySelector(".sidebar");
   const shortcuts = document.getElementById("dashboard-shortcuts");
-  const metricsSection = document.getElementById("dashboard-metrics-section");
-  const analyticsSection = document.getElementById("dashboard-analytics-section");
-  const activitySection = document.getElementById("dashboard-activity-section");
 
   if (sidebar) {
     sidebar.classList.toggle("sidebar-compact", Boolean(settings.sidebarCompact));
@@ -314,24 +575,7 @@ function applyDashboardSettings() {
     shortcuts.style.display = settings.dashboardShortcuts ? "" : "none";
   }
 
-  if (metricsSection) metricsSection.style.order = "";
-  if (analyticsSection) analyticsSection.style.order = "";
-  if (activitySection) activitySection.style.order = "";
-
-  if (settings.startupView === "Métricas principais") {
-    if (metricsSection) metricsSection.style.order = "-2";
-    if (analyticsSection) analyticsSection.style.order = "-1";
-  }
-
-  if (settings.startupView === "Lista de atividades") {
-    if (activitySection) activitySection.style.order = "-2";
-    if (metricsSection) metricsSection.style.order = "-1";
-  }
-
-  if (settings.startupView === "Resumo executivo") {
-    if (analyticsSection) analyticsSection.style.order = "-2";
-    if (metricsSection) metricsSection.style.order = "-1";
-  }
+  reorderDashboardSections();
 }
 
 function initializeDashboardPage() {
@@ -343,7 +587,9 @@ function initializeDashboardPage() {
 
   renderDashboardUser();
   renderDashboardMetrics();
+  renderDashboardNotificationCards();
   renderDashboardSummary();
+  renderDashboardFinancialChart();
   renderDashboardActivities();
   renderDashboardStatus();
   renderDashboardRecentOrders();
