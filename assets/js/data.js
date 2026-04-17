@@ -95,7 +95,68 @@ const appData = {
       }
     }
   ],
-
+hr: [
+  {
+    id: "EMP-001",
+    fullName: "Carlos Souza",
+    email: "carlos.souza@ardetho.com",
+    phone: "(11) 99811-2233",
+    role: "Técnico de Campo",
+    department: "Operações",
+    salary: 4200,
+    admissionDate: "2025-08-12",
+    status: "Ativo",
+    notes: "Responsável por visitas técnicas e suporte externo."
+  },
+  {
+    id: "EMP-002",
+    fullName: "Juliana Alves",
+    email: "juliana.alves@ardetho.com",
+    phone: "(11) 99722-1144",
+    role: "Analista Financeiro",
+    department: "Financeiro",
+    salary: 5100,
+    admissionDate: "2024-11-03",
+    status: "Ativo",
+    notes: "Atua no controle de receitas, despesas e fluxo de caixa."
+  },
+  {
+    id: "EMP-003",
+    fullName: "Marina Costa",
+    email: "marina.costa@ardetho.com",
+    phone: "(11) 99633-5566",
+    role: "Assistente Comercial",
+    department: "Comercial",
+    salary: 3200,
+    admissionDate: "2025-02-17",
+    status: "Férias",
+    notes: "Apoio ao time comercial e follow-up de propostas."
+  },
+  {
+    id: "EMP-004",
+    fullName: "Lucas Mendes",
+    email: "lucas.mendes@ardetho.com",
+    phone: "(11) 99544-7788",
+    role: "Analista de Qualidade",
+    department: "Validação",
+    salary: 4700,
+    admissionDate: "2023-09-25",
+    status: "Afastado",
+    notes: "Responsável por documentação técnica e qualificação."
+  },
+  {
+    id: "EMP-005",
+    fullName: "Ana Ribeiro",
+    email: "ana.ribeiro@ardetho.com",
+    phone: "(11) 99455-8899",
+    role: "Coordenadora Administrativa",
+    department: "Gestão",
+    salary: 6800,
+    admissionDate: "2022-06-06",
+    status: "Desligado",
+    notes: "Desligamento registrado no último ciclo administrativo."
+  }
+],
   modules: [
     {
       id: "MOD-001",
@@ -150,7 +211,7 @@ const appData = {
       name: "RH",
       slug: "hr",
       description: "Gestão de colaboradores, cargos e registros internos.",
-      active: false,
+      active: true,
       category: "complementar"
     },
     {

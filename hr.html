@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RH | Ardetho ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
+</head>
+<body data-page="hr">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
+          <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+
+        <a href="clients.html">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Clientes</span>
+        </a>
+
+        <a href="products.html">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Produtos</span>
+        </a>
+
+        <a href="sales.html">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Vendas</span>
+        </a>
+
+        <a href="financial.html">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">Financeiro</span>
+        </a>
+
+        <a href="reports.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Relatórios</span>
+        </a>
+
+        <a href="hr.html" class="active">
+          <span class="nav-icon">🧑‍💼</span>
+          <span class="nav-label">RH</span>
+        </a>
+
+        <a href="erp-modules.html">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">Módulos</span>
+        </a>
+
+        <a href="settings.html">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Configurações</span>
+        </a>
+
+        <a href="profile.html">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title-group">
+            <span class="topbar-title">RH</span>
+            <span class="topbar-subtitle">Gestão de colaboradores e estrutura interna</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="user-chip">
+            <div class="user-avatar" data-user="avatar">AD</div>
+            <div class="user-meta">
+              <span class="user-name" data-user="name">Admin User</span>
+              <span class="user-role" data-user="role">Administrador</span>
+            </div>
+            <a href="#" class="user-logout" data-action="logout">Sair</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="app-content">
+        <div class="content-container">
+          <div class="page-header">
+            <div class="page-header-content">
+              <h1 class="page-title">Colaboradores</h1>
+              <p class="page-description">
+                Cadastre, acompanhe e organize os colaboradores da empresa por cargo, departamento e status.
+              </p>
+            </div>
+
+            <div class="page-header-actions">
+              <a href="hr-form.html" class="btn-primary">Novo colaborador</a>
+            </div>
+          </div>
+
+          <div class="content-stack">
+            <section class="metrics-grid" id="hr-metrics-section">
+              <article class="card metric-card">
+                <span class="metric-label">Colaboradores ativos</span>
+                <strong class="metric-value" id="hr-metric-active">0</strong>
+                <span class="metric-change" id="hr-metric-active-text">Nenhum colaborador ativo.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Em férias</span>
+                <strong class="metric-value" id="hr-metric-vacation">0</strong>
+                <span class="metric-change" id="hr-metric-vacation-text">Nenhum colaborador em férias.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Afastados</span>
+                <strong class="metric-value" id="hr-metric-away">0</strong>
+                <span class="metric-change" id="hr-metric-away-text">Nenhum colaborador afastado.</span>
+              </article>
+
+              <article class="card metric-card">
+                <span class="metric-label">Folha estimada</span>
+                <strong class="metric-value" id="hr-metric-payroll">R$ 0,00</strong>
+                <span class="metric-change" id="hr-metric-payroll-text">Soma salarial dos colaboradores ativos.</span>
+              </article>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Filtros e busca</h2>
+                  <p class="page-card-description">Encontre colaboradores por nome, cargo, departamento ou status.</p>
+                </div>
+              </div>
+
+              <div class="action-group">
+                <div class="search-bar">
+                  <input
+                    id="hr-search"
+                    type="text"
+                    class="input-default"
+                    placeholder="Buscar colaborador..."
+                  />
+                </div>
+
+                <div class="filter-group">
+                  <select id="hr-status-filter" class="select-default">
+                    <option value="all">Todos os status</option>
+                    <option value="Ativo">Ativo</option>
+                    <option value="Férias">Férias</option>
+                    <option value="Afastado">Afastado</option>
+                    <option value="Desligado">Desligado</option>
+                  </select>
+
+                  <select id="hr-department-filter" class="select-default">
+                    <option value="all">Todos os departamentos</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="page-card">
+              <div class="page-card-header">
+                <div>
+                  <h2 class="page-card-title">Lista de colaboradores</h2>
+                  <p class="page-card-description">Visão geral da equipe cadastrada no módulo.</p>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="table-default">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Cargo</th>
+                      <th>Departamento</th>
+                      <th>Salário</th>
+                      <th>Admissão</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="hr-table-body"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/hr.js"></script>
+</body>
+</html>
