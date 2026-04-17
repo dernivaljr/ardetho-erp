@@ -74,8 +74,8 @@
   min-height: 34px;
   padding: 0 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
+  color: var(--brand-primary-custom);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   margin-bottom: var(--space-lg);

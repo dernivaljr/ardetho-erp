@@ -1,159 +1,362 @@
-function getProfileUser() {
-  return getCurrentUser();
+function getProfileElements() {
+  return {
+    fullNameInput: document.getElementById("profile-full-name"),
+    emailInput: document.getElementById("profile-email-input"),
+    roleInput: document.getElementById("profile-role-input"),
+    departmentInput: document.getElementById("profile-department-input"),
+
+    companyNameInput: document.getElementById("company-name"),
+    companyDisplayNameInput: document.getElementById("company-display-name"),
+    companyLogoUrlInput: document.getElementById("company-logo-url"),
+    companyIconUrlInput: document.getElementById("company-icon-url"),
+    brandPrimaryColorInput: document.getElementById("brand-primary-color"),
+    brandAccentColorInput: document.getElementById("brand-accent-color"),
+
+    profileAvatarLarge: document.getElementById("profile-avatar-large"),
+    profileName: document.getElementById("profile-name"),
+    profileEmail: document.getElementById("profile-email"),
+    profileRole: document.getElementById("profile-role"),
+    profileCompanyName: document.getElementById("profile-company-name"),
+
+    brandPrimaryPreview: document.getElementById("brand-primary-preview"),
+    brandAccentPreview: document.getElementById("brand-accent-preview"),
+
+    saveButton: document.querySelector("[data-action='save-profile']"),
+    resetButton: document.querySelector("[data-action='reset-profile']"),
+
+    sidebarBrandLogoFull: document.getElementById("sidebar-brand-logo-full"),
+    sidebarBrandLogoIcon: document.getElementById("sidebar-brand-logo-icon")
+  };
 }
 
-function renderProfileTopbarUser() {
-  const currentUser = getProfileUser();
+function getProfileInitials(name) {
+  if (!name) return "AD";
 
-  const userNameEls = document.querySelectorAll("[data-user='name']");
-  const userRoleEls = document.querySelectorAll("[data-user='role']");
-  const userAvatarEls = document.querySelectorAll("[data-user='avatar']");
+  const parts = name.trim().split(/\s+/).filter(Boolean);
 
-  userNameEls.forEach((el) => {
-    el.textContent = currentUser.name;
+  if (parts.length === 1) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+
+  return `${parts[0][0] || ""}${parts[1][0] || ""}`.toUpperCase();
+}
+
+function getProfileSessionUser() {
+  if (typeof getCurrentUser === "function") {
+    return getCurrentUser();
+  }
+
+  return null;
+}
+
+function getProfileSessionCompany() {
+  if (typeof getCurrentCompany === "function") {
+    return getCurrentCompany();
+  }
+
+  return null;
+}
+
+function fillProfilePage() {
+  const els = getProfileElements();
+  const user = getProfileSessionUser();
+  const company = getProfileSessionCompany();
+
+  if (!user || !company) {
+    console.warn("Profile page: missing current user or current company.");
+    return;
+  }
+
+  if (els.fullNameInput) els.fullNameInput.value = user.name || "";
+  if (els.emailInput) els.emailInput.value = user.email || "";
+  if (els.roleInput) els.roleInput.value = user.role || "";
+  if (els.departmentInput) els.departmentInput.value = user.department || "";
+
+  if (els.companyNameInput) els.companyNameInput.value = company.companyName || "";
+  if (els.companyDisplayNameInput) els.companyDisplayNameInput.value = company.companyDisplayName || "";
+  if (els.companyLogoUrlInput) els.companyLogoUrlInput.value = company.companyLogoUrl || "";
+  if (els.companyIconUrlInput) els.companyIconUrlInput.value = company.companyIconUrl || "";
+  if (els.brandPrimaryColorInput) els.brandPrimaryColorInput.value = company.brandPrimaryColor || "";
+  if (els.brandAccentColorInput) els.brandAccentColorInput.value = company.brandAccentColor || "";
+
+  const initials = getProfileInitials(user.name || "");
+
+  if (els.profileAvatarLarge) els.profileAvatarLarge.textContent = initials;
+  if (els.profileName) els.profileName.textContent = user.name || "";
+  if (els.profileEmail) els.profileEmail.textContent = user.email || "";
+  if (els.profileRole) els.profileRole.textContent = user.role || "";
+  if (els.profileCompanyName) {
+    els.profileCompanyName.textContent = company.companyDisplayName || company.companyName || "";
+  }
+
+  document.querySelectorAll("[data-user='name']").forEach((el) => {
+    el.textContent = user.name || "";
   });
 
-  userRoleEls.forEach((el) => {
-    el.textContent = currentUser.role;
+  document.querySelectorAll("[data-user='role']").forEach((el) => {
+    el.textContent = user.role || "";
   });
 
-  userAvatarEls.forEach((el) => {
-    el.textContent = currentUser.avatar || "AD";
+  document.querySelectorAll("[data-user='avatar']").forEach((el) => {
+    el.textContent = initials;
   });
-}
 
-function renderProfileCard() {
-  const currentUser = getProfileUser();
-
-  const largeAvatar = document.getElementById("profile-avatar-large");
-  const profileName = document.getElementById("profile-name");
-  const profileEmail = document.getElementById("profile-email");
-  const profileRole = document.getElementById("profile-role");
-  const profileLastAccess = document.getElementById("profile-last-access");
-
-  if (largeAvatar) {
-    largeAvatar.textContent = currentUser.avatar || "AD";
+  if (els.sidebarBrandLogoFull) {
+    els.sidebarBrandLogoFull.src = company.companyLogoUrl || "";
+    els.sidebarBrandLogoFull.alt = company.companyDisplayName || company.companyName || "Empresa";
   }
 
-  if (profileName) {
-    profileName.textContent = currentUser.name;
+  if (els.sidebarBrandLogoIcon) {
+    els.sidebarBrandLogoIcon.src = company.companyIconUrl || company.companyLogoUrl || "";
+    els.sidebarBrandLogoIcon.alt = company.companyDisplayName || company.companyName || "Empresa";
   }
 
-  if (profileEmail) {
-    profileEmail.textContent = currentUser.email;
+  if (els.brandPrimaryPreview) {
+    els.brandPrimaryPreview.style.background = company.brandPrimaryColor || "#2563EB";
   }
 
-  if (profileRole) {
-    profileRole.textContent = currentUser.role;
+  if (els.brandAccentPreview) {
+    els.brandAccentPreview.style.background = company.brandAccentColor || "#60A5FA";
   }
 
-  if (profileLastAccess) {
-    profileLastAccess.textContent = currentUser.lastAccess || "—";
-  }
-}
+  document.documentElement.style.setProperty(
+    "--brand-primary-custom",
+    company.brandPrimaryColor || "#2563EB"
+  );
 
-function renderProfileForm() {
-  const currentUser = getProfileUser();
+  document.documentElement.style.setProperty(
+    "--brand-accent-custom",
+    company.brandAccentColor || "#60A5FA"
+  );
 
-  const fullNameField = document.getElementById("full-name");
-  const emailField = document.getElementById("email");
-  const roleField = document.getElementById("role");
-  const departmentField = document.getElementById("department");
+  const favicon =
+    document.querySelector("link[rel='icon']") ||
+    document.querySelector("link[rel='shortcut icon']");
 
-  if (fullNameField) {
-    fullNameField.value = currentUser.name || "";
-  }
-
-  if (emailField) {
-    emailField.value = currentUser.email || "";
-  }
-
-  if (roleField) {
-    roleField.value = currentUser.role || "";
-  }
-
-  if (departmentField) {
-    departmentField.value = currentUser.department || "";
+  if (favicon) {
+    favicon.href = company.companyIconUrl || company.companyLogoUrl || "";
   }
 }
 
-function renderProfilePermissions() {
-  const currentUser = getProfileUser();
-  const permissions = currentUser.permissions || {};
+function saveProfilePage() {
+  const els = getProfileElements();
+  const currentUser = getProfileSessionUser();
+  const currentCompany = getProfileSessionCompany();
 
-  const accessLevel = document.getElementById("profile-access-level");
-  const settingsPermission = document.getElementById("profile-settings-permission");
-  const reportsPermission = document.getElementById("profile-reports-permission");
-
-  if (accessLevel) {
-    accessLevel.textContent = permissions.fullAccess ? "Total" : "Parcial";
-    accessLevel.className = permissions.fullAccess ? "badge-success" : "badge-warning";
+  if (!currentUser || !currentCompany) {
+    alert("Não foi possível localizar a sessão atual.");
+    return;
   }
 
-  if (settingsPermission) {
-    settingsPermission.textContent = permissions.canEditSettings ? "Permitido" : "Restrito";
-    settingsPermission.className = permissions.canEditSettings ? "badge-success" : "badge-warning";
+  const updatedUser = {
+    ...currentUser,
+    name: els.fullNameInput?.value.trim() || currentUser.name,
+    email: els.emailInput?.value.trim() || currentUser.email,
+    role: els.roleInput?.value.trim() || currentUser.role,
+    department: els.departmentInput?.value.trim() || currentUser.department
+  };
+
+  const updatedCompany = {
+    ...currentCompany,
+    companyName: els.companyNameInput?.value.trim() || currentCompany.companyName,
+    companyDisplayName:
+      els.companyDisplayNameInput?.value.trim() || currentCompany.companyDisplayName,
+    companyLogoUrl:
+      els.companyLogoUrlInput?.value.trim() || currentCompany.companyLogoUrl,
+    companyIconUrl:
+      els.companyIconUrlInput?.value.trim() || currentCompany.companyIconUrl,
+    brandPrimaryColor:
+      els.brandPrimaryColorInput?.value.trim() || currentCompany.brandPrimaryColor,
+    brandAccentColor:
+      els.brandAccentColorInput?.value.trim() || currentCompany.brandAccentColor
+  };
+
+  const userSaved =
+    typeof setCurrentUser === "function" ? setCurrentUser(updatedUser) : false;
+
+  const companySaved =
+    typeof setCurrentCompany === "function" ? setCurrentCompany(updatedCompany) : false;
+
+  if (!userSaved || !companySaved) {
+    alert("Erro ao salvar perfil.");
+    return;
   }
 
-  if (reportsPermission) {
-    reportsPermission.textContent = permissions.canExportReports ? "Ativo" : "Inativo";
-    reportsPermission.className = permissions.canExportReports ? "badge-info" : "badge-neutral";
-  }
+  fillProfilePage();
+  alert("Perfil salvo com sucesso.");
 }
 
-function renderProfilePreferences() {
-  const currentUser = getProfileUser();
-  const preferences = currentUser.preferences || {};
+function resetProfilePage() {
+  const currentUser = getProfileSessionUser();
+  const currentCompany = getProfileSessionCompany();
 
-  const dashboardAlertsSwitch = document.getElementById("profile-dashboard-alerts");
-  const dailySummarySwitch = document.getElementById("profile-daily-summary");
-
-  if (dashboardAlertsSwitch) {
-    dashboardAlertsSwitch.classList.toggle("active", Boolean(preferences.receiveDashboardAlerts));
-    dashboardAlertsSwitch.setAttribute("aria-pressed", String(Boolean(preferences.receiveDashboardAlerts)));
+  if (!currentUser || !currentCompany) {
+    alert("Não foi possível restaurar o perfil.");
+    return;
   }
 
-  if (dailySummarySwitch) {
-    dashboardAlertsSwitch?.classList.contains("active");
-    dailySummarySwitch.classList.toggle("active", Boolean(preferences.showDailySummary));
-    dailySummarySwitch.setAttribute("aria-pressed", String(Boolean(preferences.showDailySummary)));
+  const resetUser = {
+    ...currentUser,
+    name: "Admin User",
+    email: "admin@ardetho.com",
+    role: "Administrador",
+    department: "Gestão"
+  };
+
+  const resetCompany = {
+    ...currentCompany,
+    companyName: "Ardetho ERP",
+    companyDisplayName: "Ardetho ERP",
+    companyLogoUrl: "assets/images/ardetho-logo.png",
+    companyIconUrl: "assets/images/ardetho-icon.png",
+    brandPrimaryColor: "#2563EB",
+    brandAccentColor: "#60A5FA"
+  };
+
+  const userSaved =
+    typeof setCurrentUser === "function" ? setCurrentUser(resetUser) : false;
+
+  const companySaved =
+    typeof setCurrentCompany === "function" ? setCurrentCompany(resetCompany) : false;
+
+  if (!userSaved || !companySaved) {
+    alert("Erro ao restaurar perfil.");
+    return;
   }
+
+  fillProfilePage();
+  alert("Perfil restaurado para o padrão.");
 }
 
-function bindProfileSwitches() {
-  const switches = document.querySelectorAll("[data-profile-switch]");
+function bindProfileButtons() {
+  const els = getProfileElements();
 
-  switches.forEach((switchElement) => {
-    switchElement.addEventListener("click", () => {
-      const isActive = switchElement.classList.contains("active");
-      switchElement.classList.toggle("active", !isActive);
-      switchElement.setAttribute("aria-pressed", String(!isActive));
+  if (els.saveButton) {
+    els.saveButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      saveProfilePage();
     });
+  }
 
-    switchElement.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        const isActive = switchElement.classList.contains("active");
-        switchElement.classList.toggle("active", !isActive);
-        switchElement.setAttribute("aria-pressed", String(!isActive));
+  if (els.resetButton) {
+    els.resetButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      resetProfilePage();
+    });
+  }
+}
+
+function bindProfileLivePreview() {
+  const els = getProfileElements();
+
+  const inputs = [
+    els.fullNameInput,
+    els.emailInput,
+    els.roleInput,
+    els.departmentInput,
+    els.companyNameInput,
+    els.companyDisplayNameInput,
+    els.companyLogoUrlInput,
+    els.companyIconUrlInput,
+    els.brandPrimaryColorInput,
+    els.brandAccentColorInput
+  ];
+
+  inputs.forEach((input) => {
+    if (!input) return;
+
+    input.addEventListener("input", function () {
+      const currentUser = getProfileSessionUser();
+      const currentCompany = getProfileSessionCompany();
+
+      if (!currentUser || !currentCompany) return;
+
+      const previewUser = {
+        ...currentUser,
+        name: els.fullNameInput?.value.trim() || currentUser.name,
+        email: els.emailInput?.value.trim() || currentUser.email,
+        role: els.roleInput?.value.trim() || currentUser.role,
+        department: els.departmentInput?.value.trim() || currentUser.department
+      };
+
+      const previewCompany = {
+        ...currentCompany,
+        companyName: els.companyNameInput?.value.trim() || currentCompany.companyName,
+        companyDisplayName:
+          els.companyDisplayNameInput?.value.trim() || currentCompany.companyDisplayName,
+        companyLogoUrl:
+          els.companyLogoUrlInput?.value.trim() || currentCompany.companyLogoUrl,
+        companyIconUrl:
+          els.companyIconUrlInput?.value.trim() || currentCompany.companyIconUrl,
+        brandPrimaryColor:
+          els.brandPrimaryColorInput?.value.trim() || currentCompany.brandPrimaryColor,
+        brandAccentColor:
+          els.brandAccentColorInput?.value.trim() || currentCompany.brandAccentColor
+      };
+
+      const initials = getProfileInitials(previewUser.name || "");
+
+      if (els.profileAvatarLarge) els.profileAvatarLarge.textContent = initials;
+      if (els.profileName) els.profileName.textContent = previewUser.name || "";
+      if (els.profileEmail) els.profileEmail.textContent = previewUser.email || "";
+      if (els.profileRole) els.profileRole.textContent = previewUser.role || "";
+      if (els.profileCompanyName) {
+        els.profileCompanyName.textContent =
+          previewCompany.companyDisplayName || previewCompany.companyName || "";
       }
+
+      document.querySelectorAll("[data-user='name']").forEach((el) => {
+        el.textContent = previewUser.name || "";
+      });
+
+      document.querySelectorAll("[data-user='role']").forEach((el) => {
+        el.textContent = previewUser.role || "";
+      });
+
+      document.querySelectorAll("[data-user='avatar']").forEach((el) => {
+        el.textContent = initials;
+      });
+
+      if (els.sidebarBrandLogoFull) {
+        els.sidebarBrandLogoFull.src = previewCompany.companyLogoUrl || "";
+      }
+
+      if (els.sidebarBrandLogoIcon) {
+        els.sidebarBrandLogoIcon.src =
+          previewCompany.companyIconUrl || previewCompany.companyLogoUrl || "";
+      }
+
+      if (els.brandPrimaryPreview) {
+        els.brandPrimaryPreview.style.background =
+          previewCompany.brandPrimaryColor || "#2563EB";
+      }
+
+      if (els.brandAccentPreview) {
+        els.brandAccentPreview.style.background =
+          previewCompany.brandAccentColor || "#60A5FA";
+      }
+
+      document.documentElement.style.setProperty(
+        "--brand-primary-custom",
+        previewCompany.brandPrimaryColor || "#2563EB"
+      );
+
+      document.documentElement.style.setProperty(
+        "--brand-accent-custom",
+        previewCompany.brandAccentColor || "#60A5FA"
+      );
     });
   });
 }
 
 function initializeProfilePage() {
-  const profilePage = document.body.dataset.page === "profile";
-
-  if (!profilePage) {
+  if (document.body.dataset.page !== "profile") {
     return;
   }
 
-  renderProfileTopbarUser();
-  renderProfileCard();
-  renderProfileForm();
-  renderProfilePermissions();
-  renderProfilePreferences();
-  bindProfileSwitches();
+  fillProfilePage();
+  bindProfileButtons();
+  bindProfileLivePreview();
 }
 
 document.addEventListener("DOMContentLoaded", initializeProfilePage);

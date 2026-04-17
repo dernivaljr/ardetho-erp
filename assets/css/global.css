@@ -20,8 +20,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
+  background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
+  color: var(--brand-primary-custom);
 }
 
 a {
@@ -286,4 +286,8 @@ body.theme-dark .status-card-value,
 body.theme-dark .profile-name,
 body.theme-dark .user-name {
   color: #f9fafb;
+}
+:root {
+  --brand-primary-custom: #2563EB;
+  --brand-accent-custom: #60A5FA;
 }

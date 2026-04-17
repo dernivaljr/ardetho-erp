@@ -28,25 +28,54 @@ function hideLoginError() {
   errorMessage.textContent = "";
   errorMessage.classList.add("hidden");
 }
+function getUsersData() {
+  return getAppSection("users", appData.users || []);
+}
 
+function getCompaniesData() {
+  return getAppSection("companies", appData.companies || []);
+}
+
+function findUserByCredentials(email, password) {
+  const users = getUsersData();
+
+  return (
+    users.find((user) => {
+      return user.email === email && user.password === password;
+    }) || null
+  );
+}
+
+function findCompanyById(companyId) {
+  const companies = getCompaniesData();
+
+  return (
+    companies.find((company) => {
+      return company.id === companyId;
+    }) || null
+  );
+}
 function validateCredentials(email, password) {
-  const systemUser = appData.currentUser;
-
-  return email === systemUser.email && password === systemUser.password;
+  return Boolean(findUserByCredentials(email, password));
 }
 
 function loginUser(email, password) {
-  if (!validateCredentials(email, password)) {
+  const user = findUserByCredentials(email, password);
+
+  if (!user) {
     return false;
   }
 
-  const authenticatedUser = {
-    ...appData.currentUser
-  };
-
+  const authenticatedUser = { ...user };
   delete authenticatedUser.password;
 
   setCurrentUser(authenticatedUser);
+
+  const company = findCompanyById(user.companyId);
+
+  if (company) {
+    setCurrentCompany(company);
+  }
 
   return true;
 }
@@ -60,6 +89,14 @@ function logoutUser() {
 
     localStorage.removeItem("ardetho_current_user");
     sessionStorage.removeItem("ardetho_current_user");
+    
+    if (typeof storage !== "undefined" && STORAGE_KEYS?.currentCompany) {
+      storage.remove(STORAGE_KEYS.currentCompany);
+      localStorage.removeItem(STORAGE_KEYS.currentCompany);
+    }
+
+    localStorage.removeItem("ardetho_current_company_profile");
+    sessionStorage.removeItem("ardetho_current_company_profile");
   } catch (error) {
     console.error("Logout error:", error);
   }
@@ -277,6 +314,98 @@ function applyGlobalVisualSettings() {
     dashboardShortcuts.style.display = settings.dashboardShortcuts ? "" : "none";
   }
 }
+const COMPANY_PROFILE_STORAGE_KEY = "ardetho_current_company_profile";
+
+const DEFAULT_COMPANY_PROFILE = {
+  companyName: "Ardetho ERP",
+  companyDisplayName: "Ardetho ERP",
+  companyLogoUrl: "assets/images/ardetho-logo.png",
+  companyIconUrl: "assets/images/ardetho-icon.png",
+  brandPrimaryColor: "#2563EB",
+  brandAccentColor: "#60A5FA"
+};
+
+function getCurrentCompanyProfile() {
+  try {
+    if (typeof storage !== "undefined") {
+      const stored = storage.get(COMPANY_PROFILE_STORAGE_KEY, null);
+      return stored ? { ...DEFAULT_COMPANY_PROFILE, ...stored } : { ...DEFAULT_COMPANY_PROFILE };
+    }
+
+    const raw = localStorage.getItem(COMPANY_PROFILE_STORAGE_KEY);
+    return raw ? { ...DEFAULT_COMPANY_PROFILE, ...JSON.parse(raw) } : { ...DEFAULT_COMPANY_PROFILE };
+  } catch (error) {
+    return { ...DEFAULT_COMPANY_PROFILE };
+  }
+}
+
+function applyGlobalCompanyBranding() {
+  const companyProfile = getCurrentCompanyProfile();
+  const root = document.documentElement;
+
+  if (root) {
+    root.style.setProperty("--brand-primary-custom", companyProfile.brandPrimaryColor);
+    root.style.setProperty("--brand-accent-custom", companyProfile.brandAccentColor);
+  }
+
+  const fullLogos = document.querySelectorAll(".brand-logo-full");
+  const iconLogos = document.querySelectorAll(".brand-logo-icon");
+
+  fullLogos.forEach((logo) => {
+    logo.src = companyProfile.companyLogoUrl || DEFAULT_COMPANY_PROFILE.companyLogoUrl;
+    logo.alt = companyProfile.companyDisplayName || companyProfile.companyName || "Empresa";
+  });
+
+  iconLogos.forEach((logo) => {
+    logo.src = companyProfile.companyIconUrl || DEFAULT_COMPANY_PROFILE.companyIconUrl;
+    logo.alt = companyProfile.companyDisplayName || companyProfile.companyName || "Empresa";
+  });
+
+  const favicon =
+  document.querySelector("link[rel='icon']") ||
+  document.querySelector("link[rel='shortcut icon']");
+  if (favicon) {
+    favicon.href = companyProfile.companyIconUrl || DEFAULT_COMPANY_PROFILE.companyIconUrl;
+  }
+}
+function applyCurrentUserToInterface() {
+  const currentUser =
+    typeof getCurrentUser === "function" ? getCurrentUser() : null;
+
+  if (!currentUser) {
+    return;
+  }
+
+  const userName = currentUser.name || "Admin User";
+  const userRole = currentUser.role || "Administrador";
+  const userInitials = getUserInitialsFromName(userName);
+
+  document.querySelectorAll("[data-user='name']").forEach((el) => {
+    el.textContent = userName;
+  });
+
+  document.querySelectorAll("[data-user='role']").forEach((el) => {
+    el.textContent = userRole;
+  });
+
+  document.querySelectorAll("[data-user='avatar']").forEach((el) => {
+    el.textContent = userInitials;
+  });
+}
+
+function getUserInitialsFromName(name) {
+  if (!name) {
+    return "AD";
+  }
+
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+
+  if (parts.length === 1) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+
+  return `${parts[0][0] || ""}${parts[1][0] || ""}`.toUpperCase();
+}
 
 function initializeAuth() {
   redirectAuthenticatedUserFromLogin();
@@ -286,6 +415,8 @@ function initializeAuth() {
   bindLogoutButtons();
   updateSidebarVisibility();
   applyGlobalVisualSettings();
+  applyGlobalCompanyBranding();
+  applyCurrentUserToInterface();
 }
 
 document.addEventListener("DOMContentLoaded", initializeAuth);

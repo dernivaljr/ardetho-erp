@@ -1,6 +1,7 @@
 const STORAGE_KEYS = {
   appData: "ardetho_app_data",
   currentUser: "ardetho_current_user",
+  currentCompany: "ardetho_current_company_profile",
   activeModules: "ardetho_active_modules"
 };
 
@@ -77,11 +78,27 @@ function initializeAppData() {
 
     storage.save(STORAGE_KEYS.activeModules, activeModules);
   }
+
+  const existingCompany = storage.get(STORAGE_KEYS.currentCompany);
+
+  if (!existingCompany) {
+    const companies = appData.companies || [];
+    const defaultCompany = companies.find(
+      (company) => company.id === appData.currentUser.companyId
+    );
+
+    if (defaultCompany) {
+      storage.save(STORAGE_KEYS.currentCompany, defaultCompany);
+    }
+  }
 }
 
 function resetAppData() {
   storage.save(STORAGE_KEYS.appData, cloneAppData());
-  storage.remove(STORAGE_KEYS.currentUser);
+
+  const defaultUser = { ...appData.currentUser };
+  delete defaultUser.password;
+  storage.save(STORAGE_KEYS.currentUser, defaultUser);
 
   const activeModules = appData.modules.map((module) => ({
     id: module.id,
@@ -90,6 +107,15 @@ function resetAppData() {
   }));
 
   storage.save(STORAGE_KEYS.activeModules, activeModules);
+
+  const companies = appData.companies || [];
+  const defaultCompany = companies.find(
+    (company) => company.id === appData.currentUser.companyId
+  );
+
+  if (defaultCompany) {
+    storage.save(STORAGE_KEYS.currentCompany, defaultCompany);
+  }
 }
 
 function getCurrentUser() {
@@ -135,6 +161,14 @@ function getAppSection(section, fallback = []) {
   }
 
   return currentData[section];
+}
+
+function getCurrentCompany() {
+  return storage.get(STORAGE_KEYS.currentCompany, null);
+}
+
+function setCurrentCompany(company) {
+  return storage.save(STORAGE_KEYS.currentCompany, company);
 }
 
 initializeAppData();

@@ -193,7 +193,7 @@
 }
 
 .switch.active {
-  background: var(--color-primary);
+  background: var(--brand-primary-custom);
 }
 
 .switch.active::after {
@@ -222,8 +222,8 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
+  color: var(--brand-primary-custom);
   display: grid;
   place-items: center;
   font-size: 1.25rem;

@@ -59,13 +59,13 @@
 }
 
 .sidebar-nav a:hover {
-  background: var(--color-surface-hover);
-  color: var(--color-text-main);
+  background: color-mix(in srgb, var(--brand-primary-custom) 8%, white);
+  color: var(--brand-primary-custom);
 }
 
 .sidebar-nav a.active {
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
+  color: var(--brand-primary-custom);
 }
 
 .sidebar-footer {
@@ -273,8 +273,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
+  color: var(--brand-primary-custom);
   display: grid;
   place-items: center;
   font-size: var(--font-size-xs);

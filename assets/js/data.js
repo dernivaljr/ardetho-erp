@@ -1,13 +1,14 @@
 const appData = {
   currentUser: {
     id: "USR-001",
-    name: "Admin User",
+    name: "Admin Ardetho",
     email: "admin@ardetho.com",
     password: "123456",
-    role: "Administrador",
+    role: "Administrador master",
     department: "Gestão",
-    avatar: "AD",
+    avatar: "AA",
     lastAccess: "04/04/2026 às 09:25",
+    companyId: "COM-001",
     permissions: {
       fullAccess: true,
       canEditSettings: true,
@@ -22,6 +23,78 @@ const appData = {
       priorityModule: "Financeiro"
     }
   },
+
+  companies: [
+    {
+      id: "COM-001",
+      companyName: "Ardetho ERP",
+      companyDisplayName: "Ardetho ERP",
+      companyLogoUrl: "assets/images/ardetho-logo.png",
+      companyIconUrl: "assets/images/ardetho-icon.png",
+      brandPrimaryColor: "#2563EB",
+      brandAccentColor: "#60A5FA"
+    },
+    {
+      id: "COM-002",
+      companyName: "Mecânica XYZ",
+      companyDisplayName: "Mecânica XYZ",
+      companyLogoUrl: "assets/images/mecanica-xyz-logo.png",
+      companyIconUrl: "assets/images/mecanica-xyz-icon.png",
+      brandPrimaryColor: "#DC2626",
+      brandAccentColor: "#F59E0B"
+    }
+  ],
+
+  users: [
+    {
+      id: "USR-001",
+      name: "Admin Ardetho",
+      email: "admin@ardetho.com",
+      password: "123456",
+      role: "Administrador master",
+      department: "Gestão",
+      avatar: "AA",
+      lastAccess: "04/04/2026 às 09:25",
+      companyId: "COM-001",
+      permissions: {
+        fullAccess: true,
+        canEditSettings: true,
+        canExportReports: true
+      },
+      preferences: {
+        receiveDashboardAlerts: true,
+        showDailySummary: false,
+        theme: "light",
+        language: "pt-BR",
+        startupView: "Resumo executivo",
+        priorityModule: "Financeiro"
+      }
+    },
+    {
+      id: "USR-002",
+      name: "Carlos Souza",
+      email: "admin@mecanicaxyz.com",
+      password: "123456",
+      role: "Administrador",
+      department: "Operações",
+      avatar: "CS",
+      lastAccess: "16/04/2026 às 08:40",
+      companyId: "COM-002",
+      permissions: {
+        fullAccess: true,
+        canEditSettings: true,
+        canExportReports: true
+      },
+      preferences: {
+        receiveDashboardAlerts: true,
+        showDailySummary: true,
+        theme: "light",
+        language: "pt-BR",
+        startupView: "Resumo executivo",
+        priorityModule: "Vendas"
+      }
+    }
+  ],
 
   modules: [
     {
