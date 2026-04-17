@@ -40,8 +40,8 @@ const appData = {
       companyDisplayName: "Mecânica XYZ",
       companyLogoUrl: "assets/images/mecanica-xyz-logo.png",
       companyIconUrl: "assets/images/mecanica-xyz-icon.png",
-      brandPrimaryColor: "#DC2626",
-      brandAccentColor: "#F59E0B"
+      brandPrimaryColor: "#F37021",
+      brandAccentColor: "#1A2B49"
     }
   ],
 
