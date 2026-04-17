@@ -1,39 +1,93 @@
 # Ardetho ERP
 
+![Ardetho ERP Preview](assets/images/preview-dashboard.png)
+
 Ardetho ERP is a modular and customizable enterprise resource planning system developed as an academic front-end project.  
-The proposal is to offer a modern, organized and scalable environment for managing core business areas such as clients, products, sales, finance, reports, settings, profile customization, and human resources.
+The project was created to simulate a modern ERP environment with public presentation pages and an internal authenticated area, focusing on usability, modularity, branding customization, and interface consistency.
+
+---
 
 ## Overview
 
-The system was designed with a modular concept, allowing the environment to be adapted according to the company's profile and operational needs.  
-It includes both a public presentation area and an internal authenticated ERP area.
+The main idea of Ardetho ERP is to provide a management platform that can be adapted according to different business profiles.  
+The environment was structured to support a modular approach, allowing the system to grow progressively with the company.
+
+The project includes:
+
+- a public presentation area
+- an internal ERP area
+- module activation and deactivation
+- company branding customization
+- HR management
+- dashboard visualization
+- LocalStorage-based persistence
+
+---
 
 ## Main Features
 
-- Authentication flow with login and protected internal pages
-- Dashboard with dynamic cards, notifications, summary and financial visualization
-- Clients module with PF/PJ registration structure
+### Public pages
+- Home page
+- About page
+- Modules page
+- Contact page
+
+### Internal ERP pages
+- Login
+- Dashboard
+- Clients
+- Products
+- Sales
+- Financial
+- Reports
+- ERP Modules
+- Settings
+- Profile
+- HR
+- HR Form
+
+### Functional highlights
+- Authentication with protected internal routes
+- Multi-user simulation with different company identities
+- Company branding customization:
+  - company name
+  - display name
+  - logo
+  - favicon
+  - primary color
+  - accent color
+- Dynamic dashboard with:
+  - metrics
+  - notifications
+  - summary
+  - activities
+  - financial chart
+  - operational status
+- Clients module with PF/PJ structure
 - Products and services module
 - Sales module
-- Financial module with income and expense structure
-- Reports module connected to internal data
-- ERP modules page with activation/deactivation of features
-- Settings page with visual and dashboard customization
-- Profile page with company branding customization
-- Human Resources (HR) module with employee registration, filters and editing
-- Public pages:
-  - Home
-  - About
-  - Modules
-  - Contact
+- Financial module with income and expenses
+- Reports connected to internal data
+- ERP modules activation/deactivation
+- HR module with:
+  - employee listing
+  - salary field
+  - status filter
+  - department filter
+  - employee form
+  - create/edit/delete operations
+
+---
 
 ## Technologies Used
 
 - HTML5
 - CSS3
 - JavaScript (Vanilla JS)
-- LocalStorage for persistence
+- LocalStorage
 - Google Fonts (Inter)
+
+---
 
 ## Project Structure
 
@@ -59,7 +113,47 @@ It includes both a public presentation area and an internal authenticated ERP ar
 ├── erp-modules.html
 ├── settings.html
 ├── profile.html
-└── assets/
-    ├── css/
-    ├── js/
-    └── images/
+│
+├── assets/
+│   ├── css/
+│   │   ├── variables.css
+│   │   ├── reset.css
+│   │   ├── global.css
+│   │   ├── layout.css
+│   │   ├── components.css
+│   │   ├── public.css
+│   │   ├── auth.css
+│   │   ├── dashboard.css
+│   │   ├── pages.css
+│   │   └── responsive.css
+│   │
+│   ├── js/
+│   │   ├── data.js
+│   │   ├── storage.js
+│   │   ├── auth.js
+│   │   ├── dashboard.js
+│   │   ├── clients.js
+│   │   ├── client-form.js
+│   │   ├── products.js
+│   │   ├── product-form.js
+│   │   ├── sales.js
+│   │   ├── sale-form.js
+│   │   ├── financial.js
+│   │   ├── financial-form.js
+│   │   ├── reports.js
+│   │   ├── modules.js
+│   │   ├── settings.js
+│   │   ├── profile.js
+│   │   ├── hr.js
+│   │   └── hr-form.js
+│   │
+│   └── images/
+│       ├── ardetho-logo.png
+│       ├── ardetho-icon.png
+│       ├── preview-dashboard.png
+│       ├── mecanica-xyz-logo.png
+│       └── mecanica-xyz-icon.png
+│
+├── README.md
+├── LICENSE
+└── .gitignore
