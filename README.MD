@@ -91,7 +91,6 @@ The project includes:
 
 ## Project Structure
 
-```text
 /
 ├── index.html
 ├── about.html
@@ -157,3 +156,157 @@ The project includes:
 ├── README.md
 ├── LICENSE
 └── .gitignore
+
+> Note: Some image files may vary according to the assets used in the local project version.
+
+## Public Navigation
+
+The project includes a public presentation flow before login:
+
+- `index.html`
+- `about.html`
+- `modules.html`
+- `contact.html`
+
+These pages were created to make the repository look more complete and professional, simulating a real product presentation website.
+
+## Internal Modules
+
+### Dashboard
+Displays key operational information, metrics, summaries, notifications, and internal activity.
+
+### Clients
+Handles company and individual clients, with full address and registration details.
+
+### Products
+Manages products and services, including category, supplier, stock, price, and status.
+
+### Sales
+Organizes orders, clients, products/services, payment methods, and sales workflow.
+
+### Financial
+Tracks income and expenses, payment status, due dates, descriptions, and financial summaries.
+
+### Reports
+Provides views connected to internal data and export-oriented summaries.
+
+### ERP Modules
+Allows activation and deactivation of modules according to the desired environment profile.
+
+### Settings
+Provides visual and behavior customization of the system.
+
+### Profile
+Allows editing the current user and company branding:
+
+- name
+- email
+- role
+- department
+- company identity
+- logo
+- favicon
+- colors
+
+### HR
+Handles employee records with:
+
+- full name
+- email
+- phone
+- role
+- department
+- salary
+- admission date
+- status
+- notes
+
+## Authentication Example
+
+The project simulates different environments through different accounts.
+
+### Master environment
+- Email: `admin@ardetho.com`
+- Password: `123456`
+
+### Client environment
+- Email: `admin@mecanicaxyz.com`
+- Password: `123456`
+
+When logging in with different users, the environment can reflect different company branding.
+
+## Branding Customization
+
+One of the strongest aspects of the project is the branding customization flow available through the Profile page.
+
+The system supports:
+
+- custom company name
+- custom display name
+- custom logo
+- custom favicon
+- custom primary color
+- custom accent color
+
+This allows the ERP to simulate white-label or client-specific environments.
+
+## Data Persistence
+
+The project uses `LocalStorage` as the persistence layer.
+
+Main stored structures include:
+
+- application data
+- current user
+- current company
+- active modules
+- settings and visual preferences
+
+Because the project evolved over time, if a new structure is added to `data.js`, the browser may still keep an older `LocalStorage` version.
+
+In that case, you can reset the local environment in the browser console with:
+
+```javascript
+resetAppData();
+
+
+---
+
+### 7. Educational Purpose
+Depois de Data Persistence.
+
+```md id="51737"
+## Educational Purpose
+
+This project was developed for academic and portfolio purposes, with focus on:
+
+- front-end architecture
+- modular systems
+- interface consistency
+- LocalStorage persistence
+- customization logic
+- dashboard composition
+- public + private navigation structure
+
+## Future Improvements
+
+Possible future improvements include:
+
+- real backend integration
+- multi-tenant separated datasets
+- advanced user and permission management
+- real public contact form integration
+- advanced analytics and reports
+- stronger HR workflows
+- inventory expansion
+- better synchronization between user session and editable profile
+- attachment/image upload flow instead of manual URL fields
+
+## How to Run
+
+Because this is a front-end project with static files and LocalStorage persistence, you can run it locally by opening the HTML files in the browser or by using a simple local server.
+
+Examples:
+
+- open `index.html`
+- or serve the project folder with a local development server
