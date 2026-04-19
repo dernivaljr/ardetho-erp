@@ -40,11 +40,10 @@ The project includes:
 - Sales
 - Financial
 - Reports
+- HR
 - ERP Modules
 - Settings
 - Profile
-- HR
-- HR Form
 
 ### Functional highlights
 - Authentication with protected internal routes
@@ -157,7 +156,7 @@ The project includes:
 ├── LICENSE
 └── .gitignore
 
-> Note: Some image files may vary according to the assets used in the local project version.
+---
 
 ## Public Navigation
 
@@ -197,29 +196,10 @@ Allows activation and deactivation of modules according to the desired environme
 Provides visual and behavior customization of the system.
 
 ### Profile
-Allows editing the current user and company branding:
-
-- name
-- email
-- role
-- department
-- company identity
-- logo
-- favicon
-- colors
+Allows editing the current user and company branding with logo, favicon and colors.
 
 ### HR
-Handles employee records with:
-
-- full name
-- email
-- phone
-- role
-- department
-- salary
-- admission date
-- status
-- notes
+Handles employee records with department, salary and status.
 
 ## Authentication Example
 
@@ -268,14 +248,9 @@ In that case, you can reset the local environment in the browser console with:
 
 ```javascript
 resetAppData();
-
-
+```
 ---
 
-### 7. Educational Purpose
-Depois de Data Persistence.
-
-```md id="51737"
 ## Educational Purpose
 
 This project was developed for academic and portfolio purposes, with focus on:
