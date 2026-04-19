@@ -89,7 +89,7 @@ The project includes:
 ---
 
 ## Project Structure
-
+```text
 /
 ├── index.html
 ├── about.html
@@ -155,7 +155,7 @@ The project includes:
 ├── README.md
 ├── LICENSE
 └── .gitignore
-
+```
 ---
 
 ## Public Navigation
