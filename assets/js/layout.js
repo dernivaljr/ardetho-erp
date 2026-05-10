@@ -46,5 +46,32 @@ function initMobileMenu() {
     }
   });
 }
+function initProfileNavigation() {
+  const userChips = document.querySelectorAll("[data-action='go-profile']");
 
-document.addEventListener("DOMContentLoaded", initMobileMenu);
+  userChips.forEach((chip) => {
+    chip.addEventListener("click", (event) => {
+      const clickedLogout = event.target.closest("[data-action='logout']");
+
+      if (clickedLogout) {
+        return;
+      }
+
+      window.location.href = "profile.html";
+    });
+
+    chip.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+
+      event.preventDefault();
+      window.location.href = "profile.html";
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initMobileMenu();
+  initProfileNavigation();
+});
