@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,69 +17,73 @@
   <link rel="stylesheet" href="assets/css/responsive.css" />
   <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
+
 <body data-page="sales">
   <div class="app-layout">
-<aside class="sidebar">
-  <div class="sidebar-brand">
-    <a href="dashboard.html" class="brand brand-link">
-      <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
-      <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
-    </a>
-  </div>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
+          <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
+        </a>
+      </div>
 
-  <nav class="sidebar-nav">
-    <a href="dashboard.html">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">Dashboard</span>
-    </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
 
-    <a href="clients.html">
-      <span class="nav-icon">👥</span>
-      <span class="nav-label">Clientes</span>
-    </a>
+        <a href="clients.html">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Clientes</span>
+        </a>
 
-    <a href="products.html">
-      <span class="nav-icon">📦</span>
-      <span class="nav-label">Produtos</span>
-    </a>
+        <a href="products.html">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Produtos</span>
+        </a>
 
-    <a href="sales.html" class="active">
-      <span class="nav-icon">🛒</span>
-      <span class="nav-label">Vendas</span>
-    </a>
+        <a href="sales.html" class="active">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Vendas</span>
+        </a>
 
-    <a href="financial.html">
-      <span class="nav-icon">💰</span>
-      <span class="nav-label">Financeiro</span>
-    </a>
+        <a href="financial.html">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">Financeiro</span>
+        </a>
 
-    <a href="reports.html">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Relatórios</span>
-    </a>
-    <a href="hr.html">
-      <span class="nav-icon">🧑‍💼</span>
-      <span class="nav-label">RH</span>
-    </a>
-    <a href="erp-modules.html">
-      <span class="nav-icon">🧩</span>
-      <span class="nav-label">Módulos</span>
-    </a>
+        <a href="reports.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Relatórios</span>
+        </a>
+        <a href="hr.html">
+          <span class="nav-icon">🧑‍💼</span>
+          <span class="nav-label">RH</span>
+        </a>
+        <a href="erp-modules.html">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">Módulos</span>
+        </a>
 
-    <a href="settings.html">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Configurações</span>
-    </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Configurações</span>
+        </a>
 
-    <a href="profile.html">
-      <span class="nav-icon">👤</span>
-      <span class="nav-label">Perfil</span>
-    </a>
-  </nav>
-</aside>
-
+        <a href="profile.html">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </a>
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" data-action="close-mobile-menu"></div>
     <main class="app-main">
       <header class="topbar">
+        <button class="mobile-menu-toggle" data-action="toggle-mobile-menu" aria-label="Abrir menu">
+          ☰
+        </button>
         <div class="topbar-left">
           <div class="topbar-title-group">
             <span class="topbar-title">Vendas</span>
@@ -138,12 +143,7 @@
               <div class="toolbar-row">
                 <div class="toolbar-left">
                   <div class="search-bar">
-                    <input
-                      type="text"
-                      id="sales-search"
-                      class="input-default"
-                      placeholder="Pesquisar..."
-                    />
+                    <input type="text" id="sales-search" class="input-default" placeholder="Pesquisar..." />
                   </div>
                 </div>
 
@@ -189,8 +189,10 @@
     </main>
   </div>
   <script src="assets/js/data.js"></script>
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/sales.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/sales.js"></script>
 </body>
+
 </html>

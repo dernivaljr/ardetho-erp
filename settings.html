@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,69 +17,73 @@
   <link rel="stylesheet" href="assets/css/responsive.css" />
   <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
+
 <body data-page="settings">
   <div class="app-layout">
-<aside class="sidebar">
-  <div class="sidebar-brand">
-    <a href="dashboard.html" class="brand brand-link">
-      <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
-      <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
-    </a>
-  </div>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
+          <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
+        </a>
+      </div>
 
-  <nav class="sidebar-nav">
-    <a href="dashboard.html">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">Dashboard</span>
-    </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
 
-    <a href="clients.html">
-      <span class="nav-icon">👥</span>
-      <span class="nav-label">Clientes</span>
-    </a>
+        <a href="clients.html">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Clientes</span>
+        </a>
 
-    <a href="products.html">
-      <span class="nav-icon">📦</span>
-      <span class="nav-label">Produtos</span>
-    </a>
+        <a href="products.html">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Produtos</span>
+        </a>
 
-    <a href="sales.html">
-      <span class="nav-icon">🛒</span>
-      <span class="nav-label">Vendas</span>
-    </a>
+        <a href="sales.html">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Vendas</span>
+        </a>
 
-    <a href="financial.html">
-      <span class="nav-icon">💰</span>
-      <span class="nav-label">Financeiro</span>
-    </a>
+        <a href="financial.html">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">Financeiro</span>
+        </a>
 
-    <a href="reports.html">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Relatórios</span>
-    </a>
-    <a href="hr.html">
-      <span class="nav-icon">🧑‍💼</span>
-      <span class="nav-label">RH</span>
-    </a>
-    <a href="erp-modules.html">
-      <span class="nav-icon">🧩</span>
-      <span class="nav-label">Módulos</span>
-    </a>
+        <a href="reports.html">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Relatórios</span>
+        </a>
+        <a href="hr.html">
+          <span class="nav-icon">🧑‍💼</span>
+          <span class="nav-label">RH</span>
+        </a>
+        <a href="erp-modules.html">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">Módulos</span>
+        </a>
 
-    <a href="settings.html" class="active">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Configurações</span>
-    </a>
+        <a href="settings.html" class="active">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Configurações</span>
+        </a>
 
-    <a href="profile.html">
-      <span class="nav-icon">👤</span>
-      <span class="nav-label">Perfil</span>
-    </a>
-  </nav>
-</aside>
-
+        <a href="profile.html">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </a>
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" data-action="close-mobile-menu"></div>
     <main class="app-main">
       <header class="topbar">
+        <button class="mobile-menu-toggle" data-action="toggle-mobile-menu" aria-label="Abrir menu">
+          ☰
+        </button>
         <div class="topbar-left">
           <div class="topbar-title-group">
             <span class="topbar-title">Configurações</span>
@@ -136,9 +141,11 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Sidebar compacta</span>
-                      <span class="option-description">Reduzir largura da navegação lateral para mais espaço útil.</span>
+                      <span class="option-description">Reduzir largura da navegação lateral para mais espaço
+                        útil.</span>
                     </div>
-                    <div id="setting-sidebar-compact" class="switch" data-setting-switch tabindex="0" role="button" aria-pressed="false"></div>
+                    <div id="setting-sidebar-compact" class="switch" data-setting-switch tabindex="0" role="button"
+                      aria-pressed="false"></div>
                   </div>
 
                   <div class="option-item">
@@ -146,7 +153,8 @@
                       <span class="option-title">Exibir atalhos no dashboard</span>
                       <span class="option-description">Mostrar ações rápidas na visão inicial do sistema.</span>
                     </div>
-                    <div id="setting-dashboard-shortcuts" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
+                    <div id="setting-dashboard-shortcuts" class="switch active" data-setting-switch tabindex="0"
+                      role="button" aria-pressed="true"></div>
                   </div>
                 </div>
               </article>
@@ -165,7 +173,8 @@
                       <span class="option-title">Alertas de vencimento</span>
                       <span class="option-description">Notificar contas com prazo próximo de vencimento.</span>
                     </div>
-                    <div id="setting-alerts-expiration" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
+                    <div id="setting-alerts-expiration" class="switch active" data-setting-switch tabindex="0"
+                      role="button" aria-pressed="true"></div>
                   </div>
 
                   <div class="option-item">
@@ -173,7 +182,8 @@
                       <span class="option-title">Pedidos pendentes</span>
                       <span class="option-description">Exibir avisos para pedidos aguardando andamento.</span>
                     </div>
-                    <div id="setting-alerts-orders" class="switch active" data-setting-switch tabindex="0" role="button" aria-pressed="true"></div>
+                    <div id="setting-alerts-orders" class="switch active" data-setting-switch tabindex="0" role="button"
+                      aria-pressed="true"></div>
                   </div>
 
                   <div class="option-item">
@@ -181,7 +191,8 @@
                       <span class="option-title">Resumo diário</span>
                       <span class="option-description">Apresentar visão resumida no início do expediente.</span>
                     </div>
-                    <div id="setting-daily-summary" class="switch" data-setting-switch tabindex="0" role="button" aria-pressed="false"></div>
+                    <div id="setting-daily-summary" class="switch" data-setting-switch tabindex="0" role="button"
+                      aria-pressed="false"></div>
                   </div>
                 </div>
               </article>
@@ -278,7 +289,8 @@
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Tema visual</span>
-                    <span class="option-description" id="settings-summary-theme">Interface clara com foco em produtividade e leitura.</span>
+                    <span class="option-description" id="settings-summary-theme">Interface clara com foco em
+                      produtividade e leitura.</span>
                   </div>
                   <span class="badge-success" id="settings-summary-theme-badge">Ativo</span>
                 </div>
@@ -286,7 +298,8 @@
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Idioma principal</span>
-                    <span class="option-description" id="settings-summary-language">Português do Brasil definido como padrão.</span>
+                    <span class="option-description" id="settings-summary-language">Português do Brasil definido como
+                      padrão.</span>
                   </div>
                   <span class="badge-info" id="settings-summary-language-badge">Atual</span>
                 </div>
@@ -294,7 +307,8 @@
                 <div class="option-item">
                   <div class="option-content">
                     <span class="option-title">Módulo prioritário</span>
-                    <span class="option-description" id="settings-summary-priority-module">Financeiro configurado como foco principal.</span>
+                    <span class="option-description" id="settings-summary-priority-module">Financeiro configurado como
+                      foco principal.</span>
                   </div>
                   <span class="badge-warning" id="settings-summary-priority-badge">Config.</span>
                 </div>
@@ -309,6 +323,8 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/storage.js"></script>
   <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
   <script src="assets/js/settings.js"></script>
 </body>
+
 </html>

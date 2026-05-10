@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,69 +17,73 @@
   <link rel="stylesheet" href="assets/css/responsive.css" />
   <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
+
 <body data-page="reports">
   <div class="app-layout">
-<aside class="sidebar">
-  <div class="sidebar-brand">
-    <a href="dashboard.html" class="brand brand-link">
-      <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
-      <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
-    </a>
-  </div>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="dashboard.html" class="brand brand-link">
+          <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo brand-logo-full" />
+          <img src="assets/images/ardetho-icon.png" alt="Ardetho ERP" class="brand-logo brand-logo-icon" />
+        </a>
+      </div>
 
-  <nav class="sidebar-nav">
-    <a href="dashboard.html">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">Dashboard</span>
-    </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
 
-    <a href="clients.html">
-      <span class="nav-icon">👥</span>
-      <span class="nav-label">Clientes</span>
-    </a>
+        <a href="clients.html">
+          <span class="nav-icon">👥</span>
+          <span class="nav-label">Clientes</span>
+        </a>
 
-    <a href="products.html">
-      <span class="nav-icon">📦</span>
-      <span class="nav-label">Produtos</span>
-    </a>
+        <a href="products.html">
+          <span class="nav-icon">📦</span>
+          <span class="nav-label">Produtos</span>
+        </a>
 
-    <a href="sales.html">
-      <span class="nav-icon">🛒</span>
-      <span class="nav-label">Vendas</span>
-    </a>
+        <a href="sales.html">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Vendas</span>
+        </a>
 
-    <a href="financial.html">
-      <span class="nav-icon">💰</span>
-      <span class="nav-label">Financeiro</span>
-    </a>
+        <a href="financial.html">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">Financeiro</span>
+        </a>
 
-    <a href="reports.html" class="active">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">Relatórios</span>
-    </a>
-    <a href="hr.html">
-      <span class="nav-icon">🧑‍💼</span>
-      <span class="nav-label">RH</span>
-    </a>
-    <a href="erp-modules.html">
-      <span class="nav-icon">🧩</span>
-      <span class="nav-label">Módulos</span>
-    </a>
+        <a href="reports.html" class="active">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Relatórios</span>
+        </a>
+        <a href="hr.html">
+          <span class="nav-icon">🧑‍💼</span>
+          <span class="nav-label">RH</span>
+        </a>
+        <a href="erp-modules.html">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">Módulos</span>
+        </a>
 
-    <a href="settings.html">
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-label">Configurações</span>
-    </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Configurações</span>
+        </a>
 
-    <a href="profile.html">
-      <span class="nav-icon">👤</span>
-      <span class="nav-label">Perfil</span>
-    </a>
-  </nav>
-</aside>
-
+        <a href="profile.html">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Perfil</span>
+        </a>
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" data-action="close-mobile-menu"></div>
     <main class="app-main">
       <header class="topbar">
+        <button class="mobile-menu-toggle" data-action="toggle-mobile-menu" aria-label="Abrir menu">
+          ☰
+        </button>
         <div class="topbar-left">
           <div class="topbar-title-group">
             <span class="topbar-title">Relatórios</span>
@@ -143,12 +148,8 @@
             <div class="toolbar-row">
               <div class="toolbar-left">
                 <div class="search-bar">
-                  <input
-                    type="text"
-                    id="reports-search"
-                    class="input-default"
-                    placeholder="Pesquisar por relatório, categoria, período ou responsável"
-                  />
+                  <input type="text" id="reports-search" class="input-default"
+                    placeholder="Pesquisar por relatório, categoria, período ou responsável" />
                 </div>
               </div>
             </div>
@@ -162,7 +163,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Desempenho comercial</span>
-                      <span class="option-description" id="reports-available-sales">0 pedidos registrados, 0 concluídos.</span>
+                      <span class="option-description" id="reports-available-sales">0 pedidos registrados, 0
+                        concluídos.</span>
                     </div>
                     <a href="sales.html" class="btn-secondary">Abrir</a>
                   </div>
@@ -170,7 +172,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Clientes ativos e inativos</span>
-                      <span class="option-description" id="reports-available-clients">0 clientes cadastrados no sistema.</span>
+                      <span class="option-description" id="reports-available-clients">0 clientes cadastrados no
+                        sistema.</span>
                     </div>
                     <a href="clients.html" class="btn-secondary">Abrir</a>
                   </div>
@@ -178,7 +181,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Financeiro consolidado</span>
-                      <span class="option-description" id="reports-available-financial">Receitas, despesas e saldo atualizados.</span>
+                      <span class="option-description" id="reports-available-financial">Receitas, despesas e saldo
+                        atualizados.</span>
                     </div>
                     <a href="financial.html" class="btn-secondary">Abrir</a>
                   </div>
@@ -186,7 +190,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Produtos e estoque</span>
-                      <span class="option-description" id="reports-available-products">0 itens cadastrados, 0 com atenção de estoque.</span>
+                      <span class="option-description" id="reports-available-products">0 itens cadastrados, 0 com
+                        atenção de estoque.</span>
                     </div>
                     <a href="products.html" class="btn-secondary">Abrir</a>
                   </div>
@@ -210,7 +215,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Conversão comercial</span>
-                      <span class="option-description" id="reports-sales-conversion">0% dos pedidos avançaram para aprovação.</span>
+                      <span class="option-description" id="reports-sales-conversion">0% dos pedidos avançaram para
+                        aprovação.</span>
                     </div>
                     <span class="badge-success">Positivo</span>
                   </div>
@@ -218,7 +224,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Pendências financeiras</span>
-                      <span class="option-description" id="reports-financial-pending">0 lançamentos com status pendente.</span>
+                      <span class="option-description" id="reports-financial-pending">0 lançamentos com status
+                        pendente.</span>
                     </div>
                     <span class="badge-warning">Atenção</span>
                   </div>
@@ -226,7 +233,8 @@
                   <div class="option-item">
                     <div class="option-content">
                       <span class="option-title">Módulos em uso</span>
-                      <span class="option-description" id="reports-active-modules">0 módulos ativos no ambiente atual.</span>
+                      <span class="option-description" id="reports-active-modules">0 módulos ativos no ambiente
+                        atual.</span>
                     </div>
                     <span class="badge-neutral">Base</span>
                   </div>
@@ -261,8 +269,10 @@
     </main>
   </div>
   <script src="assets/js/data.js"></script>
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/reports.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/reports.js"></script>
 </body>
+
 </html>

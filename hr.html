@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/responsive.css" />
   <link rel="icon" type="image/png" href="assets/images/ardetho-icon.png" />
 </head>
+
 <body data-page="hr">
   <div class="app-layout">
     <aside class="sidebar">
@@ -78,9 +80,12 @@
         </a>
       </nav>
     </aside>
-
+    <div class="sidebar-overlay" data-action="close-mobile-menu"></div>
     <main class="app-main">
       <header class="topbar">
+        <button class="mobile-menu-toggle" data-action="toggle-mobile-menu" aria-label="Abrir menu">
+          ☰
+        </button>
         <div class="topbar-left">
           <div class="topbar-title-group">
             <span class="topbar-title">RH</span>
@@ -152,12 +157,7 @@
 
               <div class="action-group">
                 <div class="search-bar">
-                  <input
-                    id="hr-search"
-                    type="text"
-                    class="input-default"
-                    placeholder="Buscar colaborador..."
-                  />
+                  <input id="hr-search" type="text" class="input-default" placeholder="Buscar colaborador..." />
                 </div>
 
                 <div class="filter-group">
@@ -210,6 +210,8 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/storage.js"></script>
   <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
   <script src="assets/js/hr.js"></script>
 </body>
+
 </html>
