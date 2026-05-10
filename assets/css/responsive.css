@@ -84,18 +84,7 @@
   .brand-panel-content h1 {
     font-size: 2.4rem;
   }
-/*
-  .app-layout {
-    grid-template-columns: 1fr;
-  }
 
-  .sidebar {
-    position: relative;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--color-divider);
-  }
-*/
   .app-main {
     min-width: 0;
   }
@@ -211,16 +200,22 @@
   }
 
   .topbar {
-    min-height: auto;
-    padding: 16px;
-    flex-direction: column;
-    align-items: stretch;
+    min-height: 64px;
+    padding: 12px 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
   }
 
-  .topbar-left,
+  .topbar-left {
+    flex: 1;
+    min-width: 0;
+  }
+
   .topbar-right {
-    width: 100%;
-    flex-wrap: wrap;
+    width: auto;
+    flex-shrink: 0;
   }
 
   .topbar-search {
@@ -285,19 +280,20 @@
   .cta-box h2 {
     font-size: 1.5rem;
   }
-
+/*
   .btn-primary,
   .btn-secondary,
   .btn-danger {
     width: 100%;
   }
-
+*/
   .hero-actions,
   .cta-actions {
     display: grid;
     grid-template-columns: 1fr;
   }
 }
+
 /* =========================
    CLIENT FORM PAGE
 ========================= */
@@ -322,6 +318,7 @@
     width: 100%;
   }
 }
+
 /* =========================
    INTERNAL MOBILE NAVIGATION
 ========================= */
@@ -335,14 +332,6 @@
   .app-layout {
     display: block;
     min-height: 100vh;
-  }
-
-  .topbar {
-    min-height: 64px;
-    padding: 12px 16px;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
   }
 
   .mobile-menu-toggle {
@@ -360,15 +349,6 @@
     flex-shrink: 0;
   }
 
-  .topbar-left {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .topbar-right {
-    width: auto;
-  }
-
   .user-meta {
     display: none;
   }
@@ -382,11 +362,13 @@
     top: 0;
     left: -100%;
     width: 280px;
+    max-width: 85vw;
     height: 100vh;
     z-index: 1000;
     border-right: 1px solid var(--color-divider);
     border-bottom: none;
     transition: left 0.25s ease;
+    overflow-y: auto;
   }
 
   .sidebar.is-open {
@@ -405,11 +387,8 @@
     width: 100%;
     min-width: 0;
   }
-
-  .app-content {
-    padding: 16px;
-  }
 }
+
 /* =========================
    MOBILE TOPBAR REFINEMENT
 ========================= */
@@ -456,6 +435,10 @@
     gap: 10px;
   }
 
+  .topbar-title-group {
+    max-width: 100%;
+  }
+
   .topbar-subtitle {
     display: none;
   }
@@ -468,14 +451,30 @@
     padding: 4px;
   }
 
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
   .mobile-menu-toggle {
     width: 40px;
     height: 40px;
   }
+
+  .app-content {
+    padding: 12px;
+  }
+
+  .card,
+  .section-block {
+    border-radius: 16px;
+  }
 }
+
 /* =========================
-//   Avatar clickable area enhancement
- =========================*/
+   Avatar clickable area enhancement
+========================= */
+
 .user-chip {
   cursor: pointer;
 }
@@ -483,4 +482,135 @@
 .user-chip:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
+}
+
+/* =========================
+   MOBILE DASHBOARD
+========================= */
+
+@media (max-width: 768px) {
+  .content-container {
+    width: 100%;
+  }
+
+  .page-header {
+    gap: 16px;
+  }
+
+  .page-header-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .dashboard-notification-grid,
+  .metrics-grid,
+  .analytics-grid,
+  .split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .section-block {
+    border-radius: 18px;
+  }
+
+  .metric-card {
+    padding: 18px;
+  }
+
+  .metric-value {
+    font-size: 1.8rem;
+  }
+
+  .section-block-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .section-block-actions {
+    width: 100%;
+  }
+
+  .section-block-actions .btn-secondary,
+  .section-block-actions .btn-primary,
+  .section-block-header .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .summary-list,
+  .activity-list,
+  .status-list {
+    gap: 10px;
+  }
+
+  .chart-card {
+    overflow: hidden;
+  }
+
+  .chart-placeholder {
+    min-height: 220px;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-description {
+    font-size: 0.9rem;
+  }
+
+  .metric-label,
+  .metric-change,
+  .summary-label {
+    font-size: 0.85rem;
+  }
+
+  .metric-value {
+    font-size: 1.55rem;
+  }
+
+  .section-block-title {
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   MOBILE OVERFLOW FIXES
+========================= */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .app-layout,
+  .app-main,
+  .app-content,
+  .content-container,
+  .content-stack,
+  .page-header,
+  .section-block,
+  .card,
+  .table-wrapper {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .page-header-actions,
+  .toolbar-left,
+  .toolbar-right,
+  .section-block-actions {
+    min-width: 0;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    max-width: 100%;
+    white-space: normal;
+  }
 }
