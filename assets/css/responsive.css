@@ -612,5 +612,81 @@ body {
   .btn-danger {
     max-width: 100%;
     white-space: normal;
+    padding: 0px;
+  }
+}
+/* =========================
+   MOBILE DATA CARDS
+========================= */
+
+.mobile-card-list {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .mobile-card-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .mobile-data-card {
+    padding: 16px;
+    border: 1px solid var(--color-divider);
+    border-radius: 16px;
+    background: var(--color-surface);
+  }
+
+  .mobile-data-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .mobile-data-card-title {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .mobile-data-card-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 0.9rem;
+  }
+
+  .mobile-data-card-label {
+    color: var(--color-muted);
+  }
+
+  .mobile-data-card-value {
+    color: var(--color-text);
+    font-weight: 600;
+    text-align: right;
+  }
+}
+@media (max-width: 768px) {
+  .mobile-data-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .mobile-data-card-actions .btn-secondary,
+  .mobile-data-card-actions .btn-danger {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-data-card-actions {
+    grid-template-columns: 1fr;
   }
 }

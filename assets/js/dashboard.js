@@ -487,6 +487,7 @@ function renderDashboardStatus() {
 
 function renderDashboardRecentOrders() {
   const tbody = document.getElementById("recent-orders-body");
+  const mobileContainer = document.getElementById("recent-orders-mobile");
 
   if (!tbody) {
     return;
@@ -498,16 +499,35 @@ function renderDashboardRecentOrders() {
 
   tbody.innerHTML = "";
 
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+  }
+
   if (!sales.length) {
     tbody.innerHTML = `
       <tr>
         <td colspan="6">Nenhum pedido recente encontrado.</td>
       </tr>
     `;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <article class="mobile-data-card">
+          <div class="mobile-data-card-row">
+            <span class="mobile-data-card-label">
+              Nenhum pedido recente encontrado.
+            </span>
+          </div>
+        </article>
+      `;
+    }
+
     return;
   }
 
   sales.slice(0, 5).forEach((sale) => {
+    /* ---------- Desktop table ---------- */
+
     const row = document.createElement("tr");
 
     row.innerHTML = `
@@ -515,11 +535,69 @@ function renderDashboardRecentOrders() {
       <td>${sale.clientName || "—"}</td>
       <td>${formatDashboardDate(sale.saleDate)}</td>
       <td>${formatDashboardCurrency(sale.totalValue)}</td>
-      <td><span class="${getDashboardBadgeClass(sale.status)}">${sale.status || "—"}</span></td>
+      <td>
+        <span class="${getDashboardBadgeClass(sale.status)}">
+          ${sale.status || "—"}
+        </span>
+      </td>
       <td>${appData.currentUser.name || "Admin User"}</td>
     `;
 
     tbody.appendChild(row);
+
+    /* ---------- Mobile cards ---------- */
+
+    if (mobileContainer) {
+      const card = document.createElement("article");
+
+      card.className = "mobile-data-card";
+
+      card.innerHTML = `
+        <div class="mobile-data-card-header">
+          <span class="mobile-data-card-title">
+            ${sale.code || "Pedido"}
+          </span>
+
+          <span class="${getDashboardBadgeClass(sale.status)}">
+            ${sale.status || "—"}
+          </span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Cliente</span>
+
+          <span class="mobile-data-card-value">
+            ${sale.clientName || "—"}
+          </span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Data</span>
+
+          <span class="mobile-data-card-value">
+            ${formatDashboardDate(sale.saleDate)}
+          </span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Valor</span>
+
+          <span class="mobile-data-card-value">
+            ${formatDashboardCurrency(sale.totalValue)}
+          </span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Responsável</span>
+
+          <span class="mobile-data-card-value">
+            ${appData.currentUser.name || "Admin User"}
+          </span>
+        </div>
+      `;
+
+      mobileContainer.appendChild(card);
+    }
   });
 }
 

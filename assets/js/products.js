@@ -91,12 +91,17 @@ function getProductDisplayStock(product) {
 
 function renderProductsTable(products) {
   const tbody = document.getElementById("products-table-body");
+  const mobileContainer = document.getElementById("products-mobile-list");
 
   if (!tbody) {
     return;
   }
 
   tbody.innerHTML = "";
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+  }
 
   if (!products.length) {
     tbody.innerHTML = `
@@ -109,6 +114,18 @@ function renderProductsTable(products) {
         </td>
       </tr>
     `;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <article class="mobile-data-card">
+          <div class="empty-state">
+            <h3>Nenhum item encontrado</h3>
+            <p>Não há produtos ou serviços compatíveis com os filtros atuais.</p>
+          </div>
+        </article>
+      `;
+    }
+
     return;
   }
 
@@ -132,6 +149,50 @@ function renderProductsTable(products) {
     `;
 
     tbody.appendChild(row);
+
+    if (mobileContainer) {
+      const card = document.createElement("article");
+      card.className = "mobile-data-card";
+
+      card.innerHTML = `
+        <div class="mobile-data-card-header">
+          <span class="mobile-data-card-title">${product.name || "Item"}</span>
+          <span class="${getProductBadgeClass(product.status)}">${product.status || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Tipo</span>
+          <span class="mobile-data-card-value">${product.itemType || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Código</span>
+          <span class="mobile-data-card-value">${product.code || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Categoria</span>
+          <span class="mobile-data-card-value">${product.category || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Preço</span>
+          <span class="mobile-data-card-value">${formatProductPrice(product.price)}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Estoque</span>
+          <span class="mobile-data-card-value">${getProductDisplayStock(product)}</span>
+        </div>
+
+        <div class="mobile-data-card-actions">
+          <a href="product-form.html?id=${product.id}" class="btn-secondary">Editar</a>
+          <a href="#" class="btn-danger" data-action="delete-product" data-product-id="${product.id}">Excluir</a>
+        </div>
+      `;
+
+      mobileContainer.appendChild(card);
+    }
   });
 }
 

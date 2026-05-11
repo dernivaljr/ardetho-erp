@@ -177,6 +177,7 @@
   transition: var(--transition-base);
   cursor: pointer;
   flex-shrink: 0;
+  border: none;
 }
 
 .switch::after {

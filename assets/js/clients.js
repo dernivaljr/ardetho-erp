@@ -66,12 +66,17 @@ function getClientDisplayContact(client) {
 
 function renderClientsTable(clients) {
   const tbody = document.getElementById("clients-table-body");
+  const mobileContainer = document.getElementById("clients-mobile-list");
 
   if (!tbody) {
     return;
   }
 
   tbody.innerHTML = "";
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+  }
 
   if (!clients.length) {
     tbody.innerHTML = `
@@ -84,6 +89,18 @@ function renderClientsTable(clients) {
         </td>
       </tr>
     `;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <article class="mobile-data-card">
+          <div class="empty-state">
+            <h3>Nenhum cliente encontrado</h3>
+            <p>Não há clientes compatíveis com os filtros atuais.</p>
+          </div>
+        </article>
+      `;
+    }
+
     return;
   }
 
@@ -106,6 +123,45 @@ function renderClientsTable(clients) {
     `;
 
     tbody.appendChild(row);
+
+    if (mobileContainer) {
+      const card = document.createElement("article");
+      card.className = "mobile-data-card";
+
+      card.innerHTML = `
+        <div class="mobile-data-card-header">
+          <span class="mobile-data-card-title">${getClientDisplayName(client)}</span>
+          <span class="${getClientBadgeClass(client.status)}">${client.status || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Tipo</span>
+          <span class="mobile-data-card-value">${getClientDisplayType(client)}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Documento</span>
+          <span class="mobile-data-card-value">${getClientDisplayDocument(client)}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Contato</span>
+          <span class="mobile-data-card-value">${getClientDisplayContact(client)}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Cidade</span>
+          <span class="mobile-data-card-value">${client.city || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-actions">
+          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
+        </div>
+      `;
+
+      mobileContainer.appendChild(card);
+    }
   });
 }
 
