@@ -255,6 +255,7 @@ function renderReportsAnalytics() {
 
 function renderReportsTable() {
   const tbody = document.getElementById("reports-table-body");
+  const mobileContainer = document.getElementById("reports-mobile-list");
 
   if (!tbody) {
     return;
@@ -265,6 +266,10 @@ function renderReportsTable() {
   });
 
   tbody.innerHTML = "";
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+  }
 
   if (!financial.length) {
     tbody.innerHTML = `
@@ -277,6 +282,18 @@ function renderReportsTable() {
         </td>
       </tr>
     `;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <article class="mobile-data-card">
+          <div class="empty-state">
+            <h3>Nenhum lançamento encontrado</h3>
+            <p>Não há dados financeiros para exibir no relatório.</p>
+          </div>
+        </article>
+      `;
+    }
+
     return;
   }
 
@@ -293,6 +310,40 @@ function renderReportsTable() {
     `;
 
     tbody.appendChild(row);
+
+    if (mobileContainer) {
+      const card = document.createElement("article");
+      card.className = "mobile-data-card";
+
+      card.innerHTML = `
+        <div class="mobile-data-card-header">
+          <span class="mobile-data-card-title">${entry.code || "Lançamento"}</span>
+          <span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Tipo</span>
+          <span class="mobile-data-card-value">${entry.entryType || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Categoria</span>
+          <span class="mobile-data-card-value">${entry.category || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Descrição</span>
+          <span class="mobile-data-card-value">${entry.description || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Valor</span>
+          <span class="mobile-data-card-value">${formatReportsCurrency(entry.amount)}</span>
+        </div>
+      `;
+
+      mobileContainer.appendChild(card);
+    }
   });
 }
 

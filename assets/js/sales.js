@@ -88,12 +88,17 @@ function renderSalesSummary(sales) {
 
 function renderSalesTable(sales) {
   const tbody = document.getElementById("sales-table-body");
+  const mobileContainer = document.getElementById("sales-mobile-list");
 
   if (!tbody) {
     return;
   }
 
   tbody.innerHTML = "";
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = "";
+  }
 
   if (!sales.length) {
     tbody.innerHTML = `
@@ -106,6 +111,18 @@ function renderSalesTable(sales) {
         </td>
       </tr>
     `;
+
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `
+        <article class="mobile-data-card">
+          <div class="empty-state">
+            <h3>Nenhum pedido encontrado</h3>
+            <p>Não há vendas compatíveis com os filtros atuais.</p>
+          </div>
+        </article>
+      `;
+    }
+
     return;
   }
 
@@ -129,6 +146,50 @@ function renderSalesTable(sales) {
     `;
 
     tbody.appendChild(row);
+
+    if (mobileContainer) {
+      const card = document.createElement("article");
+      card.className = "mobile-data-card";
+
+      card.innerHTML = `
+        <div class="mobile-data-card-header">
+          <span class="mobile-data-card-title">${sale.code || "Pedido"}</span>
+          <span class="${getSaleBadgeClass(sale.status)}">${sale.status || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Cliente</span>
+          <span class="mobile-data-card-value">${sale.clientName || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Item</span>
+          <span class="mobile-data-card-value">${sale.productName || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Tipo</span>
+          <span class="mobile-data-card-value">${sale.itemType || "—"}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Valor total</span>
+          <span class="mobile-data-card-value">${formatSaleCurrency(sale.totalValue)}</span>
+        </div>
+
+        <div class="mobile-data-card-row">
+          <span class="mobile-data-card-label">Data</span>
+          <span class="mobile-data-card-value">${formatSaleDate(sale.saleDate)}</span>
+        </div>
+
+        <div class="mobile-data-card-actions">
+          <a href="sale-form.html?id=${sale.id}" class="btn-secondary">Editar</a>
+          <a href="#" class="btn-danger" data-action="delete-sale" data-sale-id="${sale.id}">Excluir</a>
+        </div>
+      `;
+
+      mobileContainer.appendChild(card);
+    }
   });
 }
 
