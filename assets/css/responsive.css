@@ -690,3 +690,64 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* =========================
+   MOBILE TABLE REFINEMENTS
+========================= */
+@media (max-width: 768px) {
+  .app-content {
+    padding-bottom: 96px;
+  }
+}
+@media (max-width: 768px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .select-default,
+  .input-default {
+    min-height: 44px;
+  }
+}
+body {
+  -webkit-overflow-scrolling: touch;
+}
+/* =========================
+   MOBILE UX POLISH
+========================= */
+
+@media (max-width: 768px) {
+  .app-content {
+    padding-bottom: 96px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .select-default,
+  .input-default,
+  .textarea-default {
+    min-height: 44px;
+  }
+
+  .toolbar-row {
+    gap: 12px;
+  }
+
+  .filter-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-bar .input-default {
+    width: 100%;
+  }
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
