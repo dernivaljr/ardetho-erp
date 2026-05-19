@@ -285,3 +285,46 @@ Examples:
 
 - open `index.html`
 - or serve the project folder with a local development server
+
+## Mobile Experience & PWA
+
+Ardetho ERP has been adapted for responsive operation across mobile devices, tablets, and desktops, providing an experience similar to modern hybrid applications.
+
+### Implemented Mobile Features
+
+- Fully responsive layout
+- Sidebar adapted to a mobile hamburger menu
+- Responsive table-to-card conversion
+- Touch-friendly components
+- Navigation optimized for multiple screen sizes
+- Structure prepared for hybrid app deployment
+
+### Progressive Web App (PWA)
+
+The project includes Progressive Web App (PWA) support, allowing installation directly on devices without requiring initial publication in app stores.
+
+#### Implemented PWA Features
+
+- `manifest.json`
+- `service-worker.js`
+- Offline cache for core assets
+- Installable application support
+- Partial offline functionality
+- OS-integrated theme support
+- Structure prepared for mobile packaging
+
+### Technologies Used
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- LocalStorage
+- Service Workers
+- Web App Manifest
+
+### PWA Structure
+
+```text
+manifest.json
+service-worker.js
+assets/js/pwa.js
