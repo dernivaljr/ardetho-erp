@@ -163,6 +163,26 @@ function getAppSection(section, fallback = []) {
   return currentData[section];
 }
 
+function getClientsData() {
+  return getAppSection("clients", appData.clients);
+}
+
+function getProductsData() {
+  return getAppSection("products", appData.products);
+}
+
+function getSalesData() {
+  return getAppSection("sales", appData.sales);
+}
+
+function getFinancialData() {
+  return getAppSection("financial", appData.financial);
+}
+
+function getHrData() {
+  return getAppSection("hr", []);
+}
+
 function getCurrentCompany() {
   return storage.get(STORAGE_KEYS.currentCompany, null);
 }

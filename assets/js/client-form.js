@@ -18,10 +18,6 @@ function renderClientFormUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
 function saveClientsData(clients) {
   return updateAppData("clients", clients);
 }
