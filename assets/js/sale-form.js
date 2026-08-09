@@ -18,20 +18,8 @@ function renderSaleFormUser() {
   });
 }
 
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
 function saveSalesData(sales) {
   return updateAppData("sales", sales);
-}
-
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getProductsData() {
-  return getAppSection("products", appData.products);
 }
 
 function generateSaleId() {

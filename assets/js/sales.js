@@ -1,7 +1,3 @@
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
 function saveSalesData(sales) {
   return updateAppData("sales", sales);
 }
