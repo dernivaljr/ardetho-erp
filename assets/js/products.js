@@ -1,7 +1,3 @@
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
 function saveProductsData(products) {
   return updateAppData("products", products);
 }
