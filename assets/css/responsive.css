@@ -343,7 +343,7 @@
     border: 1px solid var(--color-divider);
     border-radius: 12px;
     background: var(--color-surface);
-    color: var(--color-text);
+    color: var(--color-text-main);
     font-size: 1.4rem;
     cursor: pointer;
     flex-shrink: 0;
@@ -649,7 +649,7 @@ body {
 
   .mobile-data-card-title {
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-text-main);
   }
 
   .mobile-data-card-row {
@@ -661,11 +661,11 @@ body {
   }
 
   .mobile-data-card-label {
-    color: var(--color-muted);
+    color: var(--color-text-muted);
   }
 
   .mobile-data-card-value {
-    color: var(--color-text);
+    color: var(--color-text-main);
     font-weight: 600;
     text-align: right;
   }
