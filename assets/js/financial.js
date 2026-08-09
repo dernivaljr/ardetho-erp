@@ -1,7 +1,3 @@
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
 function saveFinancialData(entries) {
   return updateAppData("financial", entries);
 }

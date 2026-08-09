@@ -18,20 +18,8 @@ function renderFinancialFormUser() {
   });
 }
 
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
 function saveFinancialData(entries) {
   return updateAppData("financial", entries);
-}
-
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
 }
 
 function generateFinancialId() {
