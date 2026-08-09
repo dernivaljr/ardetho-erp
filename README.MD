@@ -88,6 +88,14 @@ The project includes:
 
 ---
 
+## Current Web/PWA Documentation
+
+The current Web/PWA version is documented in [`docs/current-system/`](docs/current-system/README.md).
+
+This documentation describes the existing static HTML, CSS, JavaScript, LocalStorage and PWA behavior without changing the functional code.
+
+---
+
 ## Project Structure
 ```text
 /
