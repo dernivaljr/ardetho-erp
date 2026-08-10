@@ -120,10 +120,6 @@ function populateFinancialSaleOptions(selectedSaleId = "") {
   saleField.value = selectedSaleId || "";
 }
 
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
-}
-
 function formatCurrencyInput(value) {
   const digits = onlyDigits(value);
 

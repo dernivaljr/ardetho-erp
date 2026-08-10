@@ -124,10 +124,6 @@ function populateSaleProductOptions(selectedProductId = "") {
   productField.value = selectedProductId || "";
 }
 
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
-}
-
 function formatCurrencyInput(value) {
   const digits = onlyDigits(value);
 

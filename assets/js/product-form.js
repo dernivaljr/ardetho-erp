@@ -114,10 +114,6 @@ function fillProductForm(product) {
   updateProductItemTypeFields();
 }
 
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
-}
-
 function formatCurrencyInput(value) {
   const digits = onlyDigits(value);
 

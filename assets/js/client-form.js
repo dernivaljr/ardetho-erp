@@ -117,10 +117,6 @@ function fillClientForm(client) {
   updateClientPersonTypeFields();
 }
 
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
-}
-
 function formatCpf(value) {
   const digits = onlyDigits(value).slice(0, 11);
 
