@@ -1,4 +1,4 @@
-const CACHE_NAME = "ardetho-erp-v11";
+const CACHE_NAME = "ardetho-erp-v12";
 
 const FILES_TO_CACHE = [
   "./",

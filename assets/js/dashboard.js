@@ -422,9 +422,11 @@ function renderDashboardStatus() {
     sales: "Vendas",
     financial: "Financeiro",
     reports: "Relatórios",
+    "advanced-stock": "Estoque Avançado",
     inventory: "Estoque avançado",
     hr: "RH",
-    schedule: "Agenda"
+    schedule: "Agenda",
+    "advanced-reports": "Relatórios Avançados"
   };
 
   statusList.innerHTML = "";
