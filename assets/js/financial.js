@@ -33,13 +33,6 @@ function getFinancialBadgeClass(status) {
   return "badge-info";
 }
 
-function formatFinancialCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function formatFinancialDate(dateString) {
   if (!dateString) {
     return "—";
@@ -119,19 +112,19 @@ function renderFinancialSummary(entries) {
   const upcomingDue = getUpcomingDueValue(validEntries);
 
   if (currentBalanceEl) {
-    currentBalanceEl.textContent = formatFinancialCurrency(currentBalance);
+    currentBalanceEl.textContent = formatCurrencyBRL(currentBalance);
   }
 
   if (accountsReceivableEl) {
-    accountsReceivableEl.textContent = formatFinancialCurrency(accountsReceivable);
+    accountsReceivableEl.textContent = formatCurrencyBRL(accountsReceivable);
   }
 
   if (accountsPayableEl) {
-    accountsPayableEl.textContent = formatFinancialCurrency(accountsPayable);
+    accountsPayableEl.textContent = formatCurrencyBRL(accountsPayable);
   }
 
   if (upcomingDueEl) {
-    upcomingDueEl.textContent = formatFinancialCurrency(upcomingDue);
+    upcomingDueEl.textContent = formatCurrencyBRL(upcomingDue);
   }
 }
 
@@ -168,7 +161,7 @@ function renderFinancialTable(entries) {
       <td>${entry.category || "—"}</td>
       <td>${entry.description || "—"}</td>
       <td>${formatFinancialDate(entry.dueDate)}</td>
-      <td>${formatFinancialCurrency(entry.amount)}</td>
+      <td>${formatCurrencyBRL(entry.amount)}</td>
       <td><span class="${getFinancialBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
       <td>
         <div class="action-group">

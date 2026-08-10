@@ -34,13 +34,6 @@ function getSaleBadgeClass(status) {
   return "badge-info";
 }
 
-function formatSaleCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function formatSaleDate(dateString) {
   if (!dateString) {
     return "—";
@@ -78,7 +71,7 @@ function renderSalesSummary(sales) {
   }
 
   if (totalRevenueEl) {
-    totalRevenueEl.textContent = formatSaleCurrency(totalRevenue);
+    totalRevenueEl.textContent = formatCurrencyBRL(totalRevenue);
   }
 }
 
@@ -130,7 +123,7 @@ function renderSalesTable(sales) {
       <td>${sale.clientName || "—"}</td>
       <td>${sale.productName || "—"}</td>
       <td>${sale.itemType || "—"}</td>
-      <td>${formatSaleCurrency(sale.totalValue)}</td>
+      <td>${formatCurrencyBRL(sale.totalValue)}</td>
       <td><span class="${getSaleBadgeClass(sale.status)}">${sale.status || "—"}</span></td>
       <td>${formatSaleDate(sale.saleDate)}</td>
       <td>
@@ -170,7 +163,7 @@ function renderSalesTable(sales) {
 
         <div class="mobile-data-card-row">
           <span class="mobile-data-card-label">Valor total</span>
-          <span class="mobile-data-card-value">${formatSaleCurrency(sale.totalValue)}</span>
+          <span class="mobile-data-card-value">${formatCurrencyBRL(sale.totalValue)}</span>
         </div>
 
         <div class="mobile-data-card-row">

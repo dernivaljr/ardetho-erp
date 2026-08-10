@@ -1,10 +1,3 @@
-function formatHrCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function formatHrDate(dateString) {
   if (!dateString) return "—";
 
@@ -69,7 +62,7 @@ function renderHrMetrics() {
         : "Nenhum colaborador afastado.";
   }
 
-  if (payrollEl) payrollEl.textContent = formatHrCurrency(payroll);
+  if (payrollEl) payrollEl.textContent = formatCurrencyBRL(payroll);
   if (payrollTextEl) {
     payrollTextEl.textContent = "Soma salarial dos colaboradores ativos.";
   }
@@ -166,7 +159,7 @@ function renderHrTable() {
       </td>
       <td>${employee.role || "—"}</td>
       <td>${employee.department || "—"}</td>
-      <td>${formatHrCurrency(employee.salary)}</td>
+      <td>${formatCurrencyBRL(employee.salary)}</td>
       <td>${formatHrDate(employee.admissionDate)}</td>
       <td><span class="${getHrBadgeClass(employee.status)}">${employee.status || "—"}</span></td>
       <td>

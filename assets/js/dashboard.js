@@ -58,13 +58,6 @@ function getDashboardNotificationSettings() {
   }
 }
 
-function formatDashboardCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function getDashboardBadgeClass(status) {
   const normalizedStatus = (status || "").toLowerCase();
 
@@ -129,7 +122,7 @@ function renderDashboardMetrics() {
 
   if (activeClientsEl) activeClientsEl.textContent = activeClients;
   if (registeredProductsEl) registeredProductsEl.textContent = registeredProducts;
-  if (monthlySalesEl) monthlySalesEl.textContent = formatDashboardCurrency(monthlySales);
+  if (monthlySalesEl) monthlySalesEl.textContent = formatCurrencyBRL(monthlySales);
   if (pendingBillsEl) pendingBillsEl.textContent = pendingBills;
 
   if (activeClientsTextEl) {
@@ -237,7 +230,7 @@ function renderDashboardNotificationCards() {
     const balance = totalRevenue - totalExpenses;
 
     if (summaryValueEl) {
-      summaryValueEl.textContent = formatDashboardCurrency(balance);
+      summaryValueEl.textContent = formatCurrencyBRL(balance);
     }
 
     if (summaryTextEl) {
@@ -286,8 +279,8 @@ function renderDashboardSummary() {
 
   if (activeModulesEl) activeModulesEl.textContent = activeModulesCount;
   if (openOrdersEl) openOrdersEl.textContent = openOrders;
-  if (expectedIncomeEl) expectedIncomeEl.textContent = formatDashboardCurrency(expectedIncome);
-  if (scheduledPaymentsEl) scheduledPaymentsEl.textContent = formatDashboardCurrency(scheduledPayments);
+  if (expectedIncomeEl) expectedIncomeEl.textContent = formatCurrencyBRL(expectedIncome);
+  if (scheduledPaymentsEl) scheduledPaymentsEl.textContent = formatCurrencyBRL(scheduledPayments);
 }
 
 function renderDashboardFinancialChart() {
@@ -514,7 +507,7 @@ function renderDashboardRecentOrders() {
       <td>${sale.code || "—"}</td>
       <td>${sale.clientName || "—"}</td>
       <td>${formatDashboardDate(sale.saleDate)}</td>
-      <td>${formatDashboardCurrency(sale.totalValue)}</td>
+      <td>${formatCurrencyBRL(sale.totalValue)}</td>
       <td>
         <span class="${getDashboardBadgeClass(sale.status)}">
           ${sale.status || "—"}
@@ -563,7 +556,7 @@ function renderDashboardRecentOrders() {
           <span class="mobile-data-card-label">Valor</span>
 
           <span class="mobile-data-card-value">
-            ${formatDashboardCurrency(sale.totalValue)}
+            ${formatCurrencyBRL(sale.totalValue)}
           </span>
         </div>
 

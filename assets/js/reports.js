@@ -18,13 +18,6 @@ function renderReportsUser() {
   });
 }
 
-function formatReportsCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function getReportsBadgeClass(status) {
   const normalizedStatus = (status || "").toLowerCase();
 
@@ -117,11 +110,11 @@ function renderReportsSummaryCards() {
   }).length;
 
   if (revenueEl) {
-    revenueEl.textContent = formatReportsCurrency(totalRevenue);
+    revenueEl.textContent = formatCurrencyBRL(totalRevenue);
   }
 
   if (balanceEl) {
-    balanceEl.textContent = formatReportsCurrency(totalBalance);
+    balanceEl.textContent = formatCurrencyBRL(totalBalance);
   }
 
   if (completedOrdersEl) {
@@ -177,7 +170,7 @@ function renderReportsAvailableSummaries() {
   }
 
   if (financialEl) {
-    financialEl.textContent = `${formatReportsCurrency(totalRevenue)} em receitas e ${formatReportsCurrency(totalExpenses)} em despesas.`;
+    financialEl.textContent = `${formatCurrencyBRL(totalRevenue)} em receitas e ${formatCurrencyBRL(totalExpenses)} em despesas.`;
   }
 
   if (productsEl) {
@@ -217,7 +210,7 @@ function renderReportsAnalytics() {
   const activeModulesCount = activeModules.filter((module) => module.active).length;
 
   if (averageTicketEl) {
-    averageTicketEl.textContent = `${formatReportsCurrency(averageTicket)} por pedido registrado.`;
+    averageTicketEl.textContent = `${formatCurrencyBRL(averageTicket)} por pedido registrado.`;
   }
 
   if (conversionEl) {
@@ -285,7 +278,7 @@ function renderReportsTable() {
       <td>${entry.entryType || "—"}</td>
       <td>${entry.category || "—"}</td>
       <td>${entry.description || "—"}</td>
-      <td>${formatReportsCurrency(entry.amount)}</td>
+      <td>${formatCurrencyBRL(entry.amount)}</td>
       <td><span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
     `;
 
@@ -318,7 +311,7 @@ function renderReportsTable() {
 
         <div class="mobile-data-card-row">
           <span class="mobile-data-card-label">Valor</span>
-          <span class="mobile-data-card-value">${formatReportsCurrency(entry.amount)}</span>
+          <span class="mobile-data-card-value">${formatCurrencyBRL(entry.amount)}</span>
         </div>
       `;
 

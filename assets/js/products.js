@@ -66,13 +66,6 @@ function renderProductsSummary(products) {
     activeCategoriesEl.textContent = activeCategories;
   }
 }
-function formatProductPrice(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
 function getProductDisplayStock(product) {
   if (product.itemType === "Serviço") {
     return "—";
@@ -133,7 +126,7 @@ function renderProductsTable(products) {
       <td>${product.code || "—"}</td>
       <td>${product.name || "—"}</td>
       <td>${product.category || "—"}</td>
-      <td>${formatProductPrice(product.price)}</td>
+      <td>${formatCurrencyBRL(product.price)}</td>
       <td>${getProductDisplayStock(product)}</td>
       <td><span class="${getProductBadgeClass(product.status)}">${product.status || "—"}</span></td>
       <td>
@@ -173,7 +166,7 @@ function renderProductsTable(products) {
 
         <div class="mobile-data-card-row">
           <span class="mobile-data-card-label">Preço</span>
-          <span class="mobile-data-card-value">${formatProductPrice(product.price)}</span>
+          <span class="mobile-data-card-value">${formatCurrencyBRL(product.price)}</span>
         </div>
 
         <div class="mobile-data-card-row">
