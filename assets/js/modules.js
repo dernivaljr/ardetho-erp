@@ -19,7 +19,7 @@ function renderModulesUser() {
 }
 
 function getModulesData() {
-  return getAppSection("modules", appData.modules);
+  return appData.modules;
 }
 
 function getModuleStates() {

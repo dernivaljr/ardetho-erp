@@ -67,6 +67,40 @@ function getStoredAppData() {
   return storage.get(STORAGE_KEYS.appData, cloneAppData());
 }
 
+function getDefaultActiveModules() {
+  return appData.modules.map((module) => ({
+    id: module.id,
+    slug: module.slug,
+    active: module.active
+  }));
+}
+
+function reconcileActiveModules(storedModules) {
+  const defaultModules = getDefaultActiveModules();
+
+  if (!Array.isArray(storedModules)) {
+    return defaultModules;
+  }
+
+  const storedBySlug = new Map(
+    storedModules
+      .filter((module) => module && typeof module.slug === "string")
+      .map((module) => [module.slug, module])
+  );
+
+  return defaultModules.map((module) => {
+    const storedModule = storedBySlug.get(module.slug);
+
+    return {
+      ...module,
+      active:
+        storedModule && typeof storedModule.active === "boolean"
+          ? storedModule.active
+          : module.active
+    };
+  });
+}
+
 function initializeAppData() {
   const existingData = storage.get(STORAGE_KEYS.appData);
 
@@ -75,14 +109,9 @@ function initializeAppData() {
   }
 
   const existingModules = storage.get(STORAGE_KEYS.activeModules);
+  const activeModules = reconcileActiveModules(existingModules);
 
-  if (!existingModules) {
-    const activeModules = appData.modules.map((module) => ({
-      id: module.id,
-      slug: module.slug,
-      active: module.active
-    }));
-
+  if (JSON.stringify(activeModules) !== JSON.stringify(existingModules)) {
     storage.save(STORAGE_KEYS.activeModules, activeModules);
   }
 
@@ -107,12 +136,7 @@ function resetAppData() {
   delete defaultUser.password;
   storage.save(STORAGE_KEYS.currentUser, defaultUser);
 
-  const activeModules = appData.modules.map((module) => ({
-    id: module.id,
-    slug: module.slug,
-    active: module.active
-  }));
-
+  const activeModules = getDefaultActiveModules();
   storage.save(STORAGE_KEYS.activeModules, activeModules);
 
   const companies = appData.companies || [];
@@ -134,14 +158,7 @@ function setCurrentUser(user) {
 }
 
 function getActiveModules() {
-  return storage.get(
-    STORAGE_KEYS.activeModules,
-    appData.modules.map((module) => ({
-      id: module.id,
-      slug: module.slug,
-      active: module.active
-    }))
-  );
+  return reconcileActiveModules(storage.get(STORAGE_KEYS.activeModules));
 }
 
 function setActiveModules(modules) {
