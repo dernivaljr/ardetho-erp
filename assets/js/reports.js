@@ -18,17 +18,6 @@ function renderReportsUser() {
   });
 }
 
-function getReportsBadgeClass(status) {
-  const normalizedStatus = (status || "").toLowerCase();
-
-  if (normalizedStatus.includes("cancelado")) return "badge-danger";
-  if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("recebido")) return "badge-success";
-  if (normalizedStatus.includes("pago")) return "badge-info";
-
-  return "badge-info";
-}
-
 function isDateInSelectedPeriod(dateString, period) {
   if (!dateString || !period || period === "todos") {
     return true;
@@ -279,7 +268,7 @@ function renderReportsTable() {
       <td>${entry.category || "—"}</td>
       <td>${entry.description || "—"}</td>
       <td>${formatCurrencyBRL(entry.amount)}</td>
-      <td><span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
+      <td><span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
     `;
 
     tbody.appendChild(row);
@@ -291,7 +280,7 @@ function renderReportsTable() {
       card.innerHTML = `
         <div class="mobile-data-card-header">
           <span class="mobile-data-card-title">${entry.code || "Lançamento"}</span>
-          <span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span>
+          <span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span>
         </div>
 
         <div class="mobile-data-card-row">

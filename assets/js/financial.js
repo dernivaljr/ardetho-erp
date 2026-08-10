@@ -22,17 +22,6 @@ function renderFinancialUser() {
   });
 }
 
-function getFinancialBadgeClass(status) {
-  const normalizedStatus = (status || "").toLowerCase();
-
-  if (normalizedStatus.includes("cancelado")) return "badge-danger";
-  if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("recebido")) return "badge-success";
-  if (normalizedStatus.includes("pago")) return "badge-info";
-
-  return "badge-info";
-}
-
 function formatFinancialDate(dateString) {
   if (!dateString) {
     return "—";
@@ -162,7 +151,7 @@ function renderFinancialTable(entries) {
       <td>${entry.description || "—"}</td>
       <td>${formatFinancialDate(entry.dueDate)}</td>
       <td>${formatCurrencyBRL(entry.amount)}</td>
-      <td><span class="${getFinancialBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
+      <td><span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
       <td>
         <div class="action-group">
           <a href="financial-form.html?id=${entry.id}" class="btn-secondary">Editar</a>

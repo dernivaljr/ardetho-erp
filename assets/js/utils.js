@@ -39,3 +39,14 @@ function formatCurrencyBRL(value) {
     currency: "BRL"
   }).format(Number(value) || 0);
 }
+
+function getFinancialStatusBadgeClass(status) {
+  const normalizedStatus = (status || "").toLowerCase();
+
+  if (normalizedStatus.includes("cancelado")) return "badge-danger";
+  if (normalizedStatus.includes("pendente")) return "badge-warning";
+  if (normalizedStatus.includes("recebido")) return "badge-success";
+  if (normalizedStatus.includes("pago")) return "badge-info";
+
+  return "badge-info";
+}
