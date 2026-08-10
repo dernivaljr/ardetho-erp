@@ -1,7 +1,3 @@
-function getHrData() {
-  return getAppSection("hr", []);
-}
-
 function formatHrCurrency(value) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",

@@ -1,7 +1,3 @@
-function getHrStorageData() {
-  return getAppSection("hr", []);
-}
-
 function updateHrStorageData(data) {
   return updateAppData("hr", data);
 }
@@ -34,7 +30,7 @@ function generateHrId() {
 }
 
 function getHrEmployeeById(id) {
-  const data = getHrStorageData();
+  const data = getHrData();
   return data.find((employee) => employee.id === id) || null;
 }
 
@@ -127,7 +123,7 @@ function validateHrFormData(data) {
 
 function saveHrEmployee() {
   const employeeId = getHrQueryId();
-  const data = getHrStorageData();
+  const data = getHrData();
   const formData = getHrFormData();
 
   if (!validateHrFormData(formData)) {
@@ -181,7 +177,7 @@ function deleteHrEmployeeFromForm() {
     return;
   }
 
-  const data = getHrStorageData();
+  const data = getHrData();
   const employee = data.find((item) => item.id === employeeId);
 
   if (!employee) {
