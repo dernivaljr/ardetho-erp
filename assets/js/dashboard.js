@@ -1,5 +1,3 @@
-const SETTINGS_STORAGE_KEY = "ardetho_settings";
-
 const DEFAULT_SETTINGS = {
   themeMode: "light",
   sidebarCompact: false,
@@ -16,7 +14,7 @@ const DEFAULT_SETTINGS = {
 };
 
 function getDashboardSettings() {
-  const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+  const stored = storage.get(STORAGE_KEYS.settings, null);
   return stored ? { ...DEFAULT_SETTINGS, ...stored } : { ...DEFAULT_SETTINGS };
 }
 
@@ -42,7 +40,7 @@ function renderDashboardUser() {
 
 function getDashboardNotificationSettings() {
   try {
-    const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+    const stored = storage.get(STORAGE_KEYS.settings, null);
 
     return {
       alertsExpiration: stored?.alertsExpiration ?? true,

@@ -1,5 +1,3 @@
-const SETTINGS_STORAGE_KEY = "ardetho_settings";
-
 const DEFAULT_SETTINGS = {
   themeMode: "light",
   sidebarCompact: false,
@@ -36,16 +34,16 @@ function renderSettingsUser() {
 }
 
 function getStoredSettings() {
-  const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+  const stored = storage.get(STORAGE_KEYS.settings, null);
   return stored ? { ...DEFAULT_SETTINGS, ...stored } : { ...DEFAULT_SETTINGS };
 }
 
 function saveStoredSettings(settings) {
-  return storage.save(SETTINGS_STORAGE_KEY, settings);
+  return storage.save(STORAGE_KEYS.settings, settings);
 }
 
 function resetStoredSettings() {
-  return storage.save(SETTINGS_STORAGE_KEY, { ...DEFAULT_SETTINGS });
+  return storage.save(STORAGE_KEYS.settings, { ...DEFAULT_SETTINGS });
 }
 
 function setSwitchState(element, isActive) {
