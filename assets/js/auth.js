@@ -213,6 +213,27 @@ function getModulePageMap() {
   };
 }
 
+function getPageModuleMap() {
+  return {
+    "clients.html": "clients",
+    "client-form.html": "clients",
+
+    "products.html": "products",
+    "product-form.html": "products",
+
+    "sales.html": "sales",
+    "sale-form.html": "sales",
+
+    "financial.html": "financial",
+    "financial-form.html": "financial",
+
+    "reports.html": "reports",
+
+    "hr.html": "hr",
+    "hr-form.html": "hr"
+  };
+}
+
 function getAlwaysAllowedPages() {
   return [
     "dashboard.html",
@@ -239,9 +260,17 @@ function protectInactiveModulePage() {
     return;
   }
 
-  const inactivePages = getInactiveModulePages();
+  const pageModuleMap = getPageModuleMap();
+  const moduleSlug = pageModuleMap[currentPage];
 
-  if (inactivePages.includes(currentPage)) {
+  if (!moduleSlug) {
+    return;
+  }
+
+  const activeModules = getActiveModules();
+  const currentModule = activeModules.find((module) => module.slug === moduleSlug);
+
+  if (currentModule && currentModule.active === false) {
     window.location.replace("dashboard.html");
   }
 }
