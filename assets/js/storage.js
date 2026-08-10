@@ -2,7 +2,8 @@ const STORAGE_KEYS = {
   appData: "ardetho_app_data",
   currentUser: "ardetho_current_user",
   currentCompany: "ardetho_current_company_profile",
-  activeModules: "ardetho_active_modules"
+  activeModules: "ardetho_active_modules",
+  settings: "ardetho_settings"
 };
 
 const storage = {
@@ -43,7 +44,13 @@ const storage = {
 
   clearAll() {
     try {
-      Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+      [
+        STORAGE_KEYS.appData,
+        STORAGE_KEYS.currentUser,
+        STORAGE_KEYS.currentCompany,
+        STORAGE_KEYS.activeModules
+      ].forEach((key) => localStorage.removeItem(key));
+
       return true;
     } catch (error) {
       console.error("Error clearing Ardetho storage:", error);
