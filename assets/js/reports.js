@@ -18,26 +18,6 @@ function renderReportsUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
-function getActiveModulesData() {
-  return getActiveModules();
-}
-
 function formatReportsCurrency(value) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -208,7 +188,7 @@ function renderReportsAvailableSummaries() {
 function renderReportsAnalytics() {
   const sales = getFilteredReportsSales();
   const financial = getFilteredReportsFinancial();
-  const activeModules = getActiveModulesData();
+  const activeModules = getActiveModules();
 
   const averageTicketEl = document.getElementById("reports-average-ticket");
   const conversionEl = document.getElementById("reports-sales-conversion");
@@ -379,7 +359,7 @@ function exportReportsData() {
   const financial = getFilteredReportsFinancial();
   const clients = getClientsData();
   const products = getProductsData();
-  const activeModules = getActiveModulesData();
+  const activeModules = getActiveModules();
 
   const validFinancial = financial.filter(
     (entry) => (entry.status || "").toLowerCase() !== "cancelado"

@@ -40,26 +40,6 @@ function renderDashboardUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
-function getActiveModulesData() {
-  return getActiveModules();
-}
-
 function getDashboardNotificationSettings() {
   try {
     const stored = storage.get(SETTINGS_STORAGE_KEY, null);
@@ -276,7 +256,7 @@ function renderDashboardNotificationCards() {
 }
 
 function renderDashboardSummary() {
-  const modules = getActiveModulesData();
+  const modules = getActiveModules();
   const sales = getSalesData();
   const financial = getFinancialData();
 
@@ -443,7 +423,7 @@ function renderDashboardStatus() {
     return;
   }
 
-  const modules = getActiveModulesData();
+  const modules = getActiveModules();
 
   const moduleNameMap = {
     clients: "Clientes",
