@@ -423,7 +423,6 @@ function renderDashboardStatus() {
     financial: "Financeiro",
     reports: "Relatórios",
     "advanced-stock": "Estoque Avançado",
-    inventory: "Estoque avançado",
     hr: "RH",
     schedule: "Agenda",
     "advanced-reports": "Relatórios Avançados"

@@ -209,7 +209,6 @@ function getModulePageMap() {
     reports: "reports.html",
     hr: "hr.html",
     schedule: "schedule.html",
-    inventory: "inventory.html"
   };
 }
 
