@@ -114,21 +114,6 @@ function fillProductForm(product) {
   updateProductItemTypeFields();
 }
 
-function formatCurrencyInput(value) {
-  const digits = onlyDigits(value);
-
-  if (!digits) {
-    return "";
-  }
-
-  const number = Number(digits) / 100;
-
-  return number.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
-}
-
 function formatNcm(value) {
   const digits = onlyDigits(value).slice(0, 8);
 
@@ -160,15 +145,6 @@ function applyProductInputMasks() {
       ncmField.value = formatNcm(ncmField.value);
     });
   }
-}
-
-function parseCurrencyValue(value) {
-  if (!value) {
-    return 0;
-  }
-
-  const normalized = value.replace(/\./g, "").replace(",", ".");
-  return Number(normalized) || 0;
 }
 
 function getProductFormData() {
