@@ -386,13 +386,11 @@
   .app-main {
     width: 100%;
   }
-}
 
-/* =========================
-   MOBILE TOPBAR REFINEMENT
-========================= */
+  /* =========================
+     MOBILE TOPBAR REFINEMENT
+  ========================= */
 
-@media (max-width: 768px) {
   .topbar-title-group {
     min-width: 0;
   }
@@ -665,8 +663,7 @@ body {
     font-weight: 600;
     text-align: right;
   }
-}
-@media (max-width: 768px) {
+
   .mobile-data-card-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
