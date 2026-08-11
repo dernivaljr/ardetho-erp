@@ -77,19 +77,29 @@ function getDefaultActiveModules() {
 
 function reconcileActiveModules(storedModules) {
   const defaultModules = getDefaultActiveModules();
-
-  if (!Array.isArray(storedModules)) {
-    return defaultModules;
-  }
-
-  const storedBySlug = new Map(
-    storedModules
-      .filter((module) => module && typeof module.slug === "string")
-      .map((module) => [module.slug, module])
+  const unavailableSlugs = new Set(
+    appData.modules
+      .filter((module) => module.available === false)
+      .map((module) => module.slug)
   );
+
+  const storedBySlug = Array.isArray(storedModules)
+    ? new Map(
+        storedModules
+          .filter((module) => module && typeof module.slug === "string")
+          .map((module) => [module.slug, module])
+      )
+    : new Map();
 
   return defaultModules.map((module) => {
     const storedModule = storedBySlug.get(module.slug);
+
+    if (unavailableSlugs.has(module.slug)) {
+      return {
+        ...module,
+        active: false
+      };
+    }
 
     return {
       ...module,

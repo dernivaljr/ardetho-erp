@@ -428,6 +428,10 @@ function renderDashboardStatus() {
     "advanced-reports": "Relatórios Avançados"
   };
 
+  const moduleDefinitionsBySlug = new Map(
+    appData.modules.map((module) => [module.slug, module])
+  );
+
   statusList.innerHTML = "";
 
   if (!modules.length) {
@@ -445,8 +449,10 @@ function renderDashboardStatus() {
     item.className = "status-item";
 
     const label = moduleNameMap[module.slug] || module.name || module.slug;
-    const badgeClass = module.active ? "badge-success" : "badge-neutral";
-    const badgeText = module.active ? "Ativo" : "Inativo";
+    const moduleDefinition = moduleDefinitionsBySlug.get(module.slug);
+    const isAvailable = !moduleDefinition || moduleDefinition.available !== false;
+    const badgeClass = module.active && isAvailable ? "badge-success" : "badge-neutral";
+    const badgeText = isAvailable ? (module.active ? "Ativo" : "Inativo") : "Em breve";
 
     item.innerHTML = `
       <span class="status-label">${label}</span>

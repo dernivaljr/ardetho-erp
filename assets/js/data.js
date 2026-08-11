@@ -203,7 +203,8 @@ hr: [
       name: "Estoque Avançado",
       slug: "advanced-stock",
       description: "Alertas, níveis de estoque e controle ampliado.",
-      active: true,
+      active: false,
+      available: false,
       category: "complementar"
     },
     {
@@ -220,6 +221,7 @@ hr: [
       slug: "schedule",
       description: "Controle de compromissos, visitas e tarefas programadas.",
       active: false,
+      available: false,
       category: "complementar"
     },
     {
@@ -228,6 +230,7 @@ hr: [
       slug: "advanced-reports",
       description: "Visualizações analíticas expandidas para gestão.",
       active: false,
+      available: false,
       category: "complementar"
     }
   ],
