@@ -385,7 +385,6 @@
 
   .app-main {
     width: 100%;
-    min-width: 0;
   }
 }
 
@@ -503,10 +502,7 @@
     gap: 10px;
   }
 
-  .dashboard-notification-grid,
-  .metrics-grid,
-  .analytics-grid,
-  .split-grid {
+  .dashboard-notification-grid {
     grid-template-columns: 1fr;
   }
 
@@ -693,23 +689,6 @@ body {
 /* =========================
    MOBILE TABLE REFINEMENTS
 ========================= */
-@media (max-width: 768px) {
-  .app-content {
-    padding-bottom: 96px;
-  }
-}
-@media (max-width: 768px) {
-  .btn-primary,
-  .btn-secondary,
-  .btn-danger,
-  .select-default,
-  .input-default {
-    min-height: 44px;
-  }
-}
-body {
-  -webkit-overflow-scrolling: touch;
-}
 /* =========================
    MOBILE UX POLISH
 ========================= */
