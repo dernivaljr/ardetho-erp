@@ -88,6 +88,14 @@ The project includes:
 
 ---
 
+## Current Web/PWA Documentation
+
+The current Web/PWA version is documented in [`docs/current-system/`](docs/current-system/README.md).
+
+This documentation describes the existing static HTML, CSS, JavaScript, LocalStorage and PWA behavior without changing the functional code.
+
+---
+
 ## Project Structure
 ```text
 /
@@ -115,7 +123,6 @@ The project includes:
 ├── assets/
 │   ├── css/
 │   │   ├── variables.css
-│   │   ├── reset.css
 │   │   ├── global.css
 │   │   ├── layout.css
 │   │   ├── components.css
@@ -129,6 +136,8 @@ The project includes:
 │   │   ├── data.js
 │   │   ├── storage.js
 │   │   ├── auth.js
+│   │   ├── layout.js
+│   │   ├── utils.js
 │   │   ├── dashboard.js
 │   │   ├── clients.js
 │   │   ├── client-form.js
@@ -143,16 +152,18 @@ The project includes:
 │   │   ├── settings.js
 │   │   ├── profile.js
 │   │   ├── hr.js
-│   │   └── hr-form.js
+│   │   ├── hr-form.js
+│   │   └── pwa.js
 │   │
 │   └── images/
 │       ├── ardetho-logo.png
 │       ├── ardetho-icon.png
+│       ├── ardetho-marca.png
 │       ├── preview-dashboard.png
 │       ├── mecanica-xyz-logo.png
 │       └── mecanica-xyz-icon.png
 │
-├── README.md
+├── README.MD
 ├── LICENSE
 └── .gitignore
 ```
@@ -273,13 +284,13 @@ Possible future improvements include:
 - real public contact form integration
 - advanced analytics and reports
 - stronger HR workflows
-- inventory expansion
+- advanced stock module implementation
 - better synchronization between user session and editable profile
 - attachment/image upload flow instead of manual URL fields
 
 ## How to Run
 
-Because this is a front-end project with static files and LocalStorage persistence, you can run it locally by opening the HTML files in the browser or by using a simple local server.
+Because this is a front-end project with static files and LocalStorage persistence, you can run it locally by opening the HTML files in the browser or by using a simple local server. PWA features such as the Service Worker require `localhost` or another compatible secure context.
 
 Examples:
 
@@ -294,7 +305,8 @@ Ardetho ERP has been adapted for responsive operation across mobile devices, tab
 
 - Fully responsive layout
 - Sidebar adapted to a mobile hamburger menu
-- Responsive table-to-card conversion
+- Responsive table-to-card conversion where mobile cards exist
+- Horizontal mobile table scrolling for Financial and HR
 - Touch-friendly components
 - Navigation optimized for multiple screen sizes
 - Structure prepared for hybrid app deployment
@@ -312,6 +324,8 @@ The project includes Progressive Web App (PWA) support, allowing installation di
 - Partial offline functionality
 - OS-integrated theme support
 - Structure prepared for mobile packaging
+
+Current PWA note: `assets/images/ardetho-icon.png` is 211x211 and the manifest declares this real size. Dedicated 192x192, 512x512 and maskable icons still need to be generated.
 
 ### Technologies Used
 

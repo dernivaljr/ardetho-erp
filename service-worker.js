@@ -1,7 +1,8 @@
-const CACHE_NAME = "ardetho-erp-v4";
+const CACHE_NAME = "ardetho-erp-v22";
 
 const FILES_TO_CACHE = [
   "./",
+  "./manifest.json",
   "./index.html",
   "./about.html",
   "./modules.html",
@@ -37,6 +38,7 @@ const FILES_TO_CACHE = [
   "./assets/js/storage.js",
   "./assets/js/auth.js",
   "./assets/js/layout.js",
+  "./assets/js/utils.js",
   "./assets/js/dashboard.js",
   "./assets/js/clients.js",
   "./assets/js/client-form.js",
@@ -55,7 +57,9 @@ const FILES_TO_CACHE = [
   "./assets/js/pwa.js",
 
   "./assets/images/ardetho-logo.png",
-  "./assets/images/ardetho-icon.png"
+  "./assets/images/ardetho-icon.png",
+  "./assets/images/mecanica-xyz-logo.png",
+  "./assets/images/mecanica-xyz-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -63,7 +67,11 @@ self.addEventListener("install", (event) => {
 
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(FILES_TO_CACHE);
+      const freshRequests = FILES_TO_CACHE.map((file) => {
+        return new Request(file, { cache: "reload" });
+      });
+
+      return cache.addAll(freshRequests);
     })
   );
 });

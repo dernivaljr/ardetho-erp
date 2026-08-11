@@ -216,6 +216,10 @@
   border: 1px solid var(--color-border);
 }
 
+.mobile-card-list {
+  display: none;
+}
+
 .table-default {
   width: 100%;
   border-collapse: collapse;

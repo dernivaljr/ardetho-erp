@@ -87,16 +87,16 @@ function logoutUser() {
       localStorage.removeItem(STORAGE_KEYS.currentUser);
     }
 
-    localStorage.removeItem("ardetho_current_user");
-    sessionStorage.removeItem("ardetho_current_user");
+    localStorage.removeItem(STORAGE_KEYS.currentUser);
+    sessionStorage.removeItem(STORAGE_KEYS.currentUser);
     
     if (typeof storage !== "undefined" && STORAGE_KEYS?.currentCompany) {
       storage.remove(STORAGE_KEYS.currentCompany);
       localStorage.removeItem(STORAGE_KEYS.currentCompany);
     }
 
-    localStorage.removeItem("ardetho_current_company_profile");
-    sessionStorage.removeItem("ardetho_current_company_profile");
+    localStorage.removeItem(STORAGE_KEYS.currentCompany);
+    sessionStorage.removeItem(STORAGE_KEYS.currentCompany);
   } catch (error) {
     console.error("Logout error:", error);
   }
@@ -110,7 +110,7 @@ function isUserAuthenticated() {
       (typeof storage !== "undefined" && STORAGE_KEYS?.currentUser
         ? storage.get(STORAGE_KEYS.currentUser)
         : null) ||
-      JSON.parse(localStorage.getItem("ardetho_current_user") || "null");
+      JSON.parse(localStorage.getItem(STORAGE_KEYS.currentUser) || "null");
 
     return Boolean(currentUser && currentUser.email);
   } catch (error) {
@@ -209,7 +209,27 @@ function getModulePageMap() {
     reports: "reports.html",
     hr: "hr.html",
     schedule: "schedule.html",
-    inventory: "inventory.html"
+  };
+}
+
+function getPageModuleMap() {
+  return {
+    "clients.html": "clients",
+    "client-form.html": "clients",
+
+    "products.html": "products",
+    "product-form.html": "products",
+
+    "sales.html": "sales",
+    "sale-form.html": "sales",
+
+    "financial.html": "financial",
+    "financial-form.html": "financial",
+
+    "reports.html": "reports",
+
+    "hr.html": "hr",
+    "hr-form.html": "hr"
   };
 }
 
@@ -239,9 +259,17 @@ function protectInactiveModulePage() {
     return;
   }
 
-  const inactivePages = getInactiveModulePages();
+  const pageModuleMap = getPageModuleMap();
+  const moduleSlug = pageModuleMap[currentPage];
 
-  if (inactivePages.includes(currentPage)) {
+  if (!moduleSlug) {
+    return;
+  }
+
+  const activeModules = getActiveModules();
+  const currentModule = activeModules.find((module) => module.slug === moduleSlug);
+
+  if (currentModule && currentModule.active === false) {
     window.location.replace("dashboard.html");
   }
 }
@@ -284,11 +312,11 @@ function getGlobalSettings() {
 
   try {
     if (typeof storage !== "undefined") {
-      const stored = storage.get("ardetho_settings", null);
+      const stored = storage.get(STORAGE_KEYS.settings, null);
       return stored ? { ...fallbackSettings, ...stored } : fallbackSettings;
     }
 
-    const raw = localStorage.getItem("ardetho_settings");
+    const raw = localStorage.getItem(STORAGE_KEYS.settings);
     return raw ? { ...fallbackSettings, ...JSON.parse(raw) } : fallbackSettings;
   } catch (error) {
     return fallbackSettings;
@@ -314,8 +342,6 @@ function applyGlobalVisualSettings() {
     dashboardShortcuts.style.display = settings.dashboardShortcuts ? "" : "none";
   }
 }
-const COMPANY_PROFILE_STORAGE_KEY = "ardetho_current_company_profile";
-
 const DEFAULT_COMPANY_PROFILE = {
   companyName: "Ardetho ERP",
   companyDisplayName: "Ardetho ERP",
@@ -328,11 +354,11 @@ const DEFAULT_COMPANY_PROFILE = {
 function getCurrentCompanyProfile() {
   try {
     if (typeof storage !== "undefined") {
-      const stored = storage.get(COMPANY_PROFILE_STORAGE_KEY, null);
+      const stored = storage.get(STORAGE_KEYS.currentCompany, null);
       return stored ? { ...DEFAULT_COMPANY_PROFILE, ...stored } : { ...DEFAULT_COMPANY_PROFILE };
     }
 
-    const raw = localStorage.getItem(COMPANY_PROFILE_STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEYS.currentCompany);
     return raw ? { ...DEFAULT_COMPANY_PROFILE, ...JSON.parse(raw) } : { ...DEFAULT_COMPANY_PROFILE };
   } catch (error) {
     return { ...DEFAULT_COMPANY_PROFILE };

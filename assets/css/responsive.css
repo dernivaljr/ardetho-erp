@@ -317,18 +317,11 @@
   .client-form-actions .btn-secondary {
     width: 100%;
   }
-}
 
-/* =========================
-   INTERNAL MOBILE NAVIGATION
-========================= */
+  /* =========================
+     INTERNAL MOBILE NAVIGATION
+  ========================= */
 
-.mobile-menu-toggle,
-.sidebar-overlay {
-  display: none;
-}
-
-@media (max-width: 768px) {
   .app-layout {
     display: block;
     min-height: 100vh;
@@ -343,7 +336,7 @@
     border: 1px solid var(--color-divider);
     border-radius: 12px;
     background: var(--color-surface);
-    color: var(--color-text);
+    color: var(--color-text-main);
     font-size: 1.4rem;
     cursor: pointer;
     flex-shrink: 0;
@@ -385,15 +378,12 @@
 
   .app-main {
     width: 100%;
-    min-width: 0;
   }
-}
 
-/* =========================
-   MOBILE TOPBAR REFINEMENT
-========================= */
+  /* =========================
+     MOBILE TOPBAR REFINEMENT
+  ========================= */
 
-@media (max-width: 768px) {
   .topbar-title-group {
     min-width: 0;
   }
@@ -464,24 +454,6 @@
   .app-content {
     padding: 12px;
   }
-
-  .card,
-  .section-block {
-    border-radius: 16px;
-  }
-}
-
-/* =========================
-   Avatar clickable area enhancement
-========================= */
-
-.user-chip {
-  cursor: pointer;
-}
-
-.user-chip:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
 }
 
 /* =========================
@@ -503,10 +475,7 @@
     gap: 10px;
   }
 
-  .dashboard-notification-grid,
-  .metrics-grid,
-  .analytics-grid,
-  .split-grid {
+  .dashboard-notification-grid {
     grid-template-columns: 1fr;
   }
 
@@ -557,6 +526,11 @@
 }
 
 @media (max-width: 480px) {
+  .card,
+  .section-block {
+    border-radius: 16px;
+  }
+
   .page-description {
     font-size: 0.9rem;
   }
@@ -574,16 +548,6 @@
   .section-block-title {
     font-size: 1rem;
   }
-}
-
-/* =========================
-   MOBILE OVERFLOW FIXES
-========================= */
-
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
@@ -612,20 +576,18 @@ body {
   .btn-danger {
     max-width: 100%;
     white-space: normal;
-    padding: 0px;
   }
-}
-/* =========================
-   MOBILE DATA CARDS
-========================= */
 
-.mobile-card-list {
-  display: none;
-}
+  /* =========================
+     MOBILE DATA CARDS
+  ========================= */
 
-@media (max-width: 768px) {
   .table-wrapper {
     display: none;
+  }
+
+  .table-wrapper-mobile-scroll {
+    display: block;
   }
 
   .mobile-card-list {
@@ -649,7 +611,7 @@ body {
 
   .mobile-data-card-title {
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-text-main);
   }
 
   .mobile-data-card-row {
@@ -661,16 +623,15 @@ body {
   }
 
   .mobile-data-card-label {
-    color: var(--color-muted);
+    color: var(--color-text-muted);
   }
 
   .mobile-data-card-value {
-    color: var(--color-text);
+    color: var(--color-text-main);
     font-weight: 600;
     text-align: right;
   }
-}
-@media (max-width: 768px) {
+
   .mobile-data-card-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -693,23 +654,6 @@ body {
 /* =========================
    MOBILE TABLE REFINEMENTS
 ========================= */
-@media (max-width: 768px) {
-  .app-content {
-    padding-bottom: 96px;
-  }
-}
-@media (max-width: 768px) {
-  .btn-primary,
-  .btn-secondary,
-  .btn-danger,
-  .select-default,
-  .input-default {
-    min-height: 44px;
-  }
-}
-body {
-  -webkit-overflow-scrolling: touch;
-}
 /* =========================
    MOBILE UX POLISH
 ========================= */
@@ -746,8 +690,4 @@ body {
   .search-bar .input-default {
     width: 100%;
   }
-}
-
-body {
-  -webkit-overflow-scrolling: touch;
 }

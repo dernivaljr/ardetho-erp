@@ -1,7 +1,3 @@
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
 function saveFinancialData(entries) {
   return updateAppData("financial", entries);
 }
@@ -24,24 +20,6 @@ function renderFinancialUser() {
   userAvatarEls.forEach((el) => {
     el.textContent = currentUser.avatar || "AD";
   });
-}
-
-function getFinancialBadgeClass(status) {
-  const normalizedStatus = (status || "").toLowerCase();
-
-  if (normalizedStatus.includes("cancelado")) return "badge-danger";
-  if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("recebido")) return "badge-success";
-  if (normalizedStatus.includes("pago")) return "badge-info";
-
-  return "badge-info";
-}
-
-function formatFinancialCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
 }
 
 function formatFinancialDate(dateString) {
@@ -123,19 +101,19 @@ function renderFinancialSummary(entries) {
   const upcomingDue = getUpcomingDueValue(validEntries);
 
   if (currentBalanceEl) {
-    currentBalanceEl.textContent = formatFinancialCurrency(currentBalance);
+    currentBalanceEl.textContent = formatCurrencyBRL(currentBalance);
   }
 
   if (accountsReceivableEl) {
-    accountsReceivableEl.textContent = formatFinancialCurrency(accountsReceivable);
+    accountsReceivableEl.textContent = formatCurrencyBRL(accountsReceivable);
   }
 
   if (accountsPayableEl) {
-    accountsPayableEl.textContent = formatFinancialCurrency(accountsPayable);
+    accountsPayableEl.textContent = formatCurrencyBRL(accountsPayable);
   }
 
   if (upcomingDueEl) {
-    upcomingDueEl.textContent = formatFinancialCurrency(upcomingDue);
+    upcomingDueEl.textContent = formatCurrencyBRL(upcomingDue);
   }
 }
 
@@ -172,8 +150,8 @@ function renderFinancialTable(entries) {
       <td>${entry.category || "—"}</td>
       <td>${entry.description || "—"}</td>
       <td>${formatFinancialDate(entry.dueDate)}</td>
-      <td>${formatFinancialCurrency(entry.amount)}</td>
-      <td><span class="${getFinancialBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
+      <td>${formatCurrencyBRL(entry.amount)}</td>
+      <td><span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
       <td>
         <div class="action-group">
           <a href="financial-form.html?id=${entry.id}" class="btn-secondary">Editar</a>

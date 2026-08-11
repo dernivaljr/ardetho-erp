@@ -1,5 +1,3 @@
-const SETTINGS_STORAGE_KEY = "ardetho_settings";
-
 const DEFAULT_SETTINGS = {
   themeMode: "light",
   sidebarCompact: false,
@@ -16,7 +14,7 @@ const DEFAULT_SETTINGS = {
 };
 
 function getDashboardSettings() {
-  const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+  const stored = storage.get(STORAGE_KEYS.settings, null);
   return stored ? { ...DEFAULT_SETTINGS, ...stored } : { ...DEFAULT_SETTINGS };
 }
 
@@ -40,29 +38,9 @@ function renderDashboardUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
-function getActiveModulesData() {
-  return getActiveModules();
-}
-
 function getDashboardNotificationSettings() {
   try {
-    const stored = storage.get(SETTINGS_STORAGE_KEY, null);
+    const stored = storage.get(STORAGE_KEYS.settings, null);
 
     return {
       alertsExpiration: stored?.alertsExpiration ?? true,
@@ -76,13 +54,6 @@ function getDashboardNotificationSettings() {
       dailySummary: false
     };
   }
-}
-
-function formatDashboardCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
 }
 
 function getDashboardBadgeClass(status) {
@@ -149,7 +120,7 @@ function renderDashboardMetrics() {
 
   if (activeClientsEl) activeClientsEl.textContent = activeClients;
   if (registeredProductsEl) registeredProductsEl.textContent = registeredProducts;
-  if (monthlySalesEl) monthlySalesEl.textContent = formatDashboardCurrency(monthlySales);
+  if (monthlySalesEl) monthlySalesEl.textContent = formatCurrencyBRL(monthlySales);
   if (pendingBillsEl) pendingBillsEl.textContent = pendingBills;
 
   if (activeClientsTextEl) {
@@ -257,7 +228,7 @@ function renderDashboardNotificationCards() {
     const balance = totalRevenue - totalExpenses;
 
     if (summaryValueEl) {
-      summaryValueEl.textContent = formatDashboardCurrency(balance);
+      summaryValueEl.textContent = formatCurrencyBRL(balance);
     }
 
     if (summaryTextEl) {
@@ -276,7 +247,7 @@ function renderDashboardNotificationCards() {
 }
 
 function renderDashboardSummary() {
-  const modules = getActiveModulesData();
+  const modules = getActiveModules();
   const sales = getSalesData();
   const financial = getFinancialData();
 
@@ -306,8 +277,8 @@ function renderDashboardSummary() {
 
   if (activeModulesEl) activeModulesEl.textContent = activeModulesCount;
   if (openOrdersEl) openOrdersEl.textContent = openOrders;
-  if (expectedIncomeEl) expectedIncomeEl.textContent = formatDashboardCurrency(expectedIncome);
-  if (scheduledPaymentsEl) scheduledPaymentsEl.textContent = formatDashboardCurrency(scheduledPayments);
+  if (expectedIncomeEl) expectedIncomeEl.textContent = formatCurrencyBRL(expectedIncome);
+  if (scheduledPaymentsEl) scheduledPaymentsEl.textContent = formatCurrencyBRL(scheduledPayments);
 }
 
 function renderDashboardFinancialChart() {
@@ -443,7 +414,7 @@ function renderDashboardStatus() {
     return;
   }
 
-  const modules = getActiveModulesData();
+  const modules = getActiveModules();
 
   const moduleNameMap = {
     clients: "Clientes",
@@ -451,10 +422,15 @@ function renderDashboardStatus() {
     sales: "Vendas",
     financial: "Financeiro",
     reports: "Relatórios",
-    inventory: "Estoque avançado",
+    "advanced-stock": "Estoque Avançado",
     hr: "RH",
-    schedule: "Agenda"
+    schedule: "Agenda",
+    "advanced-reports": "Relatórios Avançados"
   };
+
+  const moduleDefinitionsBySlug = new Map(
+    appData.modules.map((module) => [module.slug, module])
+  );
 
   statusList.innerHTML = "";
 
@@ -473,8 +449,10 @@ function renderDashboardStatus() {
     item.className = "status-item";
 
     const label = moduleNameMap[module.slug] || module.name || module.slug;
-    const badgeClass = module.active ? "badge-success" : "badge-neutral";
-    const badgeText = module.active ? "Ativo" : "Inativo";
+    const moduleDefinition = moduleDefinitionsBySlug.get(module.slug);
+    const isAvailable = !moduleDefinition || moduleDefinition.available !== false;
+    const badgeClass = module.active && isAvailable ? "badge-success" : "badge-neutral";
+    const badgeText = isAvailable ? (module.active ? "Ativo" : "Inativo") : "Em breve";
 
     item.innerHTML = `
       <span class="status-label">${label}</span>
@@ -534,7 +512,7 @@ function renderDashboardRecentOrders() {
       <td>${sale.code || "—"}</td>
       <td>${sale.clientName || "—"}</td>
       <td>${formatDashboardDate(sale.saleDate)}</td>
-      <td>${formatDashboardCurrency(sale.totalValue)}</td>
+      <td>${formatCurrencyBRL(sale.totalValue)}</td>
       <td>
         <span class="${getDashboardBadgeClass(sale.status)}">
           ${sale.status || "—"}
@@ -583,7 +561,7 @@ function renderDashboardRecentOrders() {
           <span class="mobile-data-card-label">Valor</span>
 
           <span class="mobile-data-card-value">
-            ${formatDashboardCurrency(sale.totalValue)}
+            ${formatCurrencyBRL(sale.totalValue)}
           </span>
         </div>
 

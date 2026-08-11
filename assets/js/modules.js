@@ -19,7 +19,11 @@ function renderModulesUser() {
 }
 
 function getModulesData() {
-  return getAppSection("modules", appData.modules);
+  return appData.modules;
+}
+
+function isModuleAvailable(module) {
+  return module.available !== false;
 }
 
 function getModuleStates() {
@@ -29,10 +33,14 @@ function getModuleStates() {
     activeModules.map((module) => [module.slug, Boolean(module.active)])
   );
 
-  return getModulesData().map((module) => ({
-    ...module,
-    active: activeMap.has(module.slug) ? activeMap.get(module.slug) : Boolean(module.active)
-  }));
+  return getModulesData().map((module) => {
+    const active = activeMap.has(module.slug) ? activeMap.get(module.slug) : Boolean(module.active);
+
+    return {
+      ...module,
+      active: isModuleAvailable(module) ? active : false
+    };
+  });
 }
 
 function saveModulesState(modules) {
@@ -53,6 +61,10 @@ function getModuleGroup(module) {
 }
 
 function renderModuleSwitch(module) {
+  if (!isModuleAvailable(module)) {
+    return `<span class="badge-neutral">Em breve</span>`;
+  }
+
   return `
     <button
       type="button"
@@ -134,6 +146,12 @@ function refreshModulesPage() {
 }
 
 function toggleModuleBySlug(slug) {
+  const targetModule = getModulesData().find((module) => module.slug === slug);
+
+  if (targetModule && !isModuleAvailable(targetModule)) {
+    return;
+  }
+
   const modules = getModuleStates().map((module) => {
     if (module.slug !== slug) {
       return module;

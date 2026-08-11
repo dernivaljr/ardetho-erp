@@ -2,7 +2,8 @@ const STORAGE_KEYS = {
   appData: "ardetho_app_data",
   currentUser: "ardetho_current_user",
   currentCompany: "ardetho_current_company_profile",
-  activeModules: "ardetho_active_modules"
+  activeModules: "ardetho_active_modules",
+  settings: "ardetho_settings"
 };
 
 const storage = {
@@ -43,7 +44,13 @@ const storage = {
 
   clearAll() {
     try {
-      Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+      [
+        STORAGE_KEYS.appData,
+        STORAGE_KEYS.currentUser,
+        STORAGE_KEYS.currentCompany,
+        STORAGE_KEYS.activeModules
+      ].forEach((key) => localStorage.removeItem(key));
+
       return true;
     } catch (error) {
       console.error("Error clearing Ardetho storage:", error);
@@ -60,6 +67,50 @@ function getStoredAppData() {
   return storage.get(STORAGE_KEYS.appData, cloneAppData());
 }
 
+function getDefaultActiveModules() {
+  return appData.modules.map((module) => ({
+    id: module.id,
+    slug: module.slug,
+    active: module.active
+  }));
+}
+
+function reconcileActiveModules(storedModules) {
+  const defaultModules = getDefaultActiveModules();
+  const unavailableSlugs = new Set(
+    appData.modules
+      .filter((module) => module.available === false)
+      .map((module) => module.slug)
+  );
+
+  const storedBySlug = Array.isArray(storedModules)
+    ? new Map(
+        storedModules
+          .filter((module) => module && typeof module.slug === "string")
+          .map((module) => [module.slug, module])
+      )
+    : new Map();
+
+  return defaultModules.map((module) => {
+    const storedModule = storedBySlug.get(module.slug);
+
+    if (unavailableSlugs.has(module.slug)) {
+      return {
+        ...module,
+        active: false
+      };
+    }
+
+    return {
+      ...module,
+      active:
+        storedModule && typeof storedModule.active === "boolean"
+          ? storedModule.active
+          : module.active
+    };
+  });
+}
+
 function initializeAppData() {
   const existingData = storage.get(STORAGE_KEYS.appData);
 
@@ -68,14 +119,9 @@ function initializeAppData() {
   }
 
   const existingModules = storage.get(STORAGE_KEYS.activeModules);
+  const activeModules = reconcileActiveModules(existingModules);
 
-  if (!existingModules) {
-    const activeModules = appData.modules.map((module) => ({
-      id: module.id,
-      slug: module.slug,
-      active: module.active
-    }));
-
+  if (JSON.stringify(activeModules) !== JSON.stringify(existingModules)) {
     storage.save(STORAGE_KEYS.activeModules, activeModules);
   }
 
@@ -100,12 +146,7 @@ function resetAppData() {
   delete defaultUser.password;
   storage.save(STORAGE_KEYS.currentUser, defaultUser);
 
-  const activeModules = appData.modules.map((module) => ({
-    id: module.id,
-    slug: module.slug,
-    active: module.active
-  }));
-
+  const activeModules = getDefaultActiveModules();
   storage.save(STORAGE_KEYS.activeModules, activeModules);
 
   const companies = appData.companies || [];
@@ -127,14 +168,7 @@ function setCurrentUser(user) {
 }
 
 function getActiveModules() {
-  return storage.get(
-    STORAGE_KEYS.activeModules,
-    appData.modules.map((module) => ({
-      id: module.id,
-      slug: module.slug,
-      active: module.active
-    }))
-  );
+  return reconcileActiveModules(storage.get(STORAGE_KEYS.activeModules));
 }
 
 function setActiveModules(modules) {
@@ -161,6 +195,26 @@ function getAppSection(section, fallback = []) {
   }
 
   return currentData[section];
+}
+
+function getClientsData() {
+  return getAppSection("clients", appData.clients);
+}
+
+function getProductsData() {
+  return getAppSection("products", appData.products);
+}
+
+function getSalesData() {
+  return getAppSection("sales", appData.sales);
+}
+
+function getFinancialData() {
+  return getAppSection("financial", appData.financial);
+}
+
+function getHrData() {
+  return getAppSection("hr", []);
 }
 
 function getCurrentCompany() {

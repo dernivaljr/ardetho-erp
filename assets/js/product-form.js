@@ -18,10 +18,6 @@ function renderProductFormUser() {
   });
 }
 
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
 function saveProductsData(products) {
   return updateAppData("products", products);
 }
@@ -70,36 +66,6 @@ function updateProductFormPageTitle() {
     documentTitle.textContent = "Editar Item | Ardetho ERP";
   }
 }
-function updateProductStatusOptions() {
-  const itemType = document.getElementById("product-item-type")?.value || "Produto";
-  const statusField = document.getElementById("product-status");
-
-  if (!statusField) {
-    return;
-  }
-
-  const currentValue = statusField.value;
-
-  if (itemType === "Produto") {
-    statusField.innerHTML = `
-      <option value="Ativo">Ativo</option>
-      <option value="Inativo">Inativo</option>
-    `;
-  } else {
-    statusField.innerHTML = `
-      <option value="Ativo">Ativo</option>
-      <option value="Em análise">Em análise</option>
-      <option value="Inativo">Inativo</option>
-    `;
-  }
-
-  const optionExists = [...statusField.options].some(
-    (option) => option.value === currentValue
-  );
-
-  statusField.value = optionExists ? currentValue : "Ativo";
-}
-
 function updateProductItemTypeFields() {
   const itemType = document.getElementById("product-item-type")?.value || "Produto";
   const productSection = document.getElementById("product-section-product");
@@ -148,25 +114,6 @@ function fillProductForm(product) {
   updateProductItemTypeFields();
 }
 
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
-}
-
-function formatCurrencyInput(value) {
-  const digits = onlyDigits(value);
-
-  if (!digits) {
-    return "";
-  }
-
-  const number = Number(digits) / 100;
-
-  return number.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
-}
-
 function formatNcm(value) {
   const digits = onlyDigits(value).slice(0, 8);
 
@@ -198,15 +145,6 @@ function applyProductInputMasks() {
       ncmField.value = formatNcm(ncmField.value);
     });
   }
-}
-
-function parseCurrencyValue(value) {
-  if (!value) {
-    return 0;
-  }
-
-  const normalized = value.replace(/\./g, "").replace(",", ".");
-  return Number(normalized) || 0;
 }
 
 function getProductFormData() {

@@ -18,44 +18,6 @@ function renderReportsUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
-function getProductsData() {
-  return getAppSection("products", appData.products);
-}
-
-function getSalesData() {
-  return getAppSection("sales", appData.sales);
-}
-
-function getFinancialData() {
-  return getAppSection("financial", appData.financial);
-}
-
-function getActiveModulesData() {
-  return getActiveModules();
-}
-
-function formatReportsCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(Number(value) || 0);
-}
-
-function getReportsBadgeClass(status) {
-  const normalizedStatus = (status || "").toLowerCase();
-
-  if (normalizedStatus.includes("cancelado")) return "badge-danger";
-  if (normalizedStatus.includes("pendente")) return "badge-warning";
-  if (normalizedStatus.includes("recebido")) return "badge-success";
-  if (normalizedStatus.includes("pago")) return "badge-info";
-
-  return "badge-info";
-}
-
 function isDateInSelectedPeriod(dateString, period) {
   if (!dateString || !period || period === "todos") {
     return true;
@@ -137,11 +99,11 @@ function renderReportsSummaryCards() {
   }).length;
 
   if (revenueEl) {
-    revenueEl.textContent = formatReportsCurrency(totalRevenue);
+    revenueEl.textContent = formatCurrencyBRL(totalRevenue);
   }
 
   if (balanceEl) {
-    balanceEl.textContent = formatReportsCurrency(totalBalance);
+    balanceEl.textContent = formatCurrencyBRL(totalBalance);
   }
 
   if (completedOrdersEl) {
@@ -197,7 +159,7 @@ function renderReportsAvailableSummaries() {
   }
 
   if (financialEl) {
-    financialEl.textContent = `${formatReportsCurrency(totalRevenue)} em receitas e ${formatReportsCurrency(totalExpenses)} em despesas.`;
+    financialEl.textContent = `${formatCurrencyBRL(totalRevenue)} em receitas e ${formatCurrencyBRL(totalExpenses)} em despesas.`;
   }
 
   if (productsEl) {
@@ -208,7 +170,7 @@ function renderReportsAvailableSummaries() {
 function renderReportsAnalytics() {
   const sales = getFilteredReportsSales();
   const financial = getFilteredReportsFinancial();
-  const activeModules = getActiveModulesData();
+  const activeModules = getActiveModules();
 
   const averageTicketEl = document.getElementById("reports-average-ticket");
   const conversionEl = document.getElementById("reports-sales-conversion");
@@ -237,7 +199,7 @@ function renderReportsAnalytics() {
   const activeModulesCount = activeModules.filter((module) => module.active).length;
 
   if (averageTicketEl) {
-    averageTicketEl.textContent = `${formatReportsCurrency(averageTicket)} por pedido registrado.`;
+    averageTicketEl.textContent = `${formatCurrencyBRL(averageTicket)} por pedido registrado.`;
   }
 
   if (conversionEl) {
@@ -305,8 +267,8 @@ function renderReportsTable() {
       <td>${entry.entryType || "—"}</td>
       <td>${entry.category || "—"}</td>
       <td>${entry.description || "—"}</td>
-      <td>${formatReportsCurrency(entry.amount)}</td>
-      <td><span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
+      <td>${formatCurrencyBRL(entry.amount)}</td>
+      <td><span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span></td>
     `;
 
     tbody.appendChild(row);
@@ -318,7 +280,7 @@ function renderReportsTable() {
       card.innerHTML = `
         <div class="mobile-data-card-header">
           <span class="mobile-data-card-title">${entry.code || "Lançamento"}</span>
-          <span class="${getReportsBadgeClass(entry.status)}">${entry.status || "—"}</span>
+          <span class="${getFinancialStatusBadgeClass(entry.status)}">${entry.status || "—"}</span>
         </div>
 
         <div class="mobile-data-card-row">
@@ -338,7 +300,7 @@ function renderReportsTable() {
 
         <div class="mobile-data-card-row">
           <span class="mobile-data-card-label">Valor</span>
-          <span class="mobile-data-card-value">${formatReportsCurrency(entry.amount)}</span>
+          <span class="mobile-data-card-value">${formatCurrencyBRL(entry.amount)}</span>
         </div>
       `;
 
@@ -379,7 +341,7 @@ function exportReportsData() {
   const financial = getFilteredReportsFinancial();
   const clients = getClientsData();
   const products = getProductsData();
-  const activeModules = getActiveModulesData();
+  const activeModules = getActiveModules();
 
   const validFinancial = financial.filter(
     (entry) => (entry.status || "").toLowerCase() !== "cancelado"

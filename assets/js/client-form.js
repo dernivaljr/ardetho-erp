@@ -18,10 +18,6 @@ function renderClientFormUser() {
   });
 }
 
-function getClientsData() {
-  return getAppSection("clients", appData.clients);
-}
-
 function saveClientsData(clients) {
   return updateAppData("clients", clients);
 }
@@ -119,10 +115,6 @@ function fillClientForm(client) {
   document.getElementById("client-notes").value = client.notes || "";
 
   updateClientPersonTypeFields();
-}
-
-function onlyDigits(value) {
-  return value.replace(/\D/g, "");
 }
 
 function formatCpf(value) {
