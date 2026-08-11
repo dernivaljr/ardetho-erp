@@ -317,18 +317,11 @@
   .client-form-actions .btn-secondary {
     width: 100%;
   }
-}
 
-/* =========================
-   INTERNAL MOBILE NAVIGATION
-========================= */
+  /* =========================
+     INTERNAL MOBILE NAVIGATION
+  ========================= */
 
-.mobile-menu-toggle,
-.sidebar-overlay {
-  display: none;
-}
-
-@media (max-width: 768px) {
   .app-layout {
     display: block;
     min-height: 100vh;
@@ -461,24 +454,6 @@
   .app-content {
     padding: 12px;
   }
-
-  .card,
-  .section-block {
-    border-radius: 16px;
-  }
-}
-
-/* =========================
-   Avatar clickable area enhancement
-========================= */
-
-.user-chip {
-  cursor: pointer;
-}
-
-.user-chip:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
 }
 
 /* =========================
@@ -555,9 +530,7 @@
   .section-block {
     border-radius: 16px;
   }
-}
 
-@media (max-width: 480px) {
   .page-description {
     font-size: 0.9rem;
   }
@@ -575,16 +548,6 @@
   .section-block-title {
     font-size: 1rem;
   }
-}
-
-/* =========================
-   MOBILE OVERFLOW FIXES
-========================= */
-
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
@@ -614,18 +577,17 @@ body {
     max-width: 100%;
     white-space: normal;
   }
-}
-/* =========================
-   MOBILE DATA CARDS
-========================= */
 
-.mobile-card-list {
-  display: none;
-}
+  /* =========================
+     MOBILE DATA CARDS
+  ========================= */
 
-@media (max-width: 768px) {
   .table-wrapper {
     display: none;
+  }
+
+  .table-wrapper-mobile-scroll {
+    display: block;
   }
 
   .mobile-card-list {
@@ -728,8 +690,4 @@ body {
   .search-bar .input-default {
     width: 100%;
   }
-}
-
-body {
-  -webkit-overflow-scrolling: touch;
 }

@@ -19,6 +19,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
 ::selection {
   background: color-mix(in srgb, var(--brand-primary-custom) 12%, white);
   color: var(--brand-primary-custom);
