@@ -551,6 +551,13 @@
 }
 
 @media (max-width: 480px) {
+  .card,
+  .section-block {
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
   .page-description {
     font-size: 0.9rem;
   }
@@ -606,7 +613,6 @@ body {
   .btn-danger {
     max-width: 100%;
     white-space: normal;
-    padding: 0px;
   }
 }
 /* =========================
