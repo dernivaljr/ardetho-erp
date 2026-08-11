@@ -13,15 +13,9 @@
   "icons": [
     {
       "src": "assets/images/ardetho-icon.png",
-      "sizes": "192x192",
+      "sizes": "211x211",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "assets/images/ardetho-icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
     }
   ]
 }

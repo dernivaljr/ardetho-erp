@@ -28,9 +28,21 @@
   --color-primary-hover: #1D72E8;
   --color-primary-soft: #EAF3FF;
 
-  --brand-primary-custom: #2F80ED;
-  --brand-accent-custom: #1D72E8;
+  --brand-primary-custom: #2563EB;
+  --brand-accent-custom: #60A5FA;
   --brand-primary-soft-custom: #EAF3FF;
+
+  /* =========================
+     COLORS - DARK THEME
+  ========================= */
+  --color-theme-dark-bg: #0F172A;
+  --color-theme-dark-surface: #111827;
+  --color-theme-dark-control: #0B1220;
+  --color-theme-dark-border: #1F2937;
+  --color-theme-dark-control-border: #334155;
+  --color-theme-dark-text: #E5E7EB;
+  --color-theme-dark-text-strong: #F9FAFB;
+  --color-theme-dark-text-muted: #CBD5E1;
 
   /* =========================
      STATUS COLORS

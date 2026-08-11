@@ -1,7 +1,8 @@
-const CACHE_NAME = "ardetho-erp-v21";
+const CACHE_NAME = "ardetho-erp-v22";
 
 const FILES_TO_CACHE = [
   "./",
+  "./manifest.json",
   "./index.html",
   "./about.html",
   "./modules.html",
@@ -56,7 +57,9 @@ const FILES_TO_CACHE = [
   "./assets/js/pwa.js",
 
   "./assets/images/ardetho-logo.png",
-  "./assets/images/ardetho-icon.png"
+  "./assets/images/ardetho-icon.png",
+  "./assets/images/mecanica-xyz-logo.png",
+  "./assets/images/mecanica-xyz-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
