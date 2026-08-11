@@ -32,6 +32,7 @@ assets/js/data.js
 assets/js/storage.js
 assets/js/auth.js
 assets/js/layout.js
+assets/js/utils.js
 assets/js/[script-da-pagina].js
 assets/js/pwa.js
 ```
@@ -41,6 +42,8 @@ Exemplo em `clients.html`:
 ```text
 data.js -> storage.js -> auth.js -> layout.js -> clients.js -> pwa.js
 ```
+
+Paginas que usam helpers compartilhados carregam `utils.js` imediatamente antes do script especifico. Isso ocorre em `dashboard.html`, `products.html`, `product-form.html`, `sales.html`, `sale-form.html`, `financial.html`, `financial-form.html`, `reports.html`, `hr.html` e `client-form.html`.
 
 ## Responsabilidade dos arquivos
 
@@ -64,7 +67,25 @@ Principais funcoes:
 - `getCurrentCompany()`;
 - `setCurrentCompany()`;
 - `getActiveModules()`;
-- `setActiveModules()`.
+- `setActiveModules()`;
+- `getClientsData()`;
+- `getProductsData()`;
+- `getSalesData()`;
+- `getFinancialData()`;
+- `getHrData()`.
+
+Tambem reconcilia `ardetho_active_modules` com `appData.modules` por slug, preservando escolhas do usuario quando o modulo continua disponivel.
+
+### `assets/js/utils.js`
+
+Centraliza helpers compartilhados usados por formularios, listagens, dashboard, financeiro e relatorios:
+
+- `onlyDigits()`;
+- `formatCurrencyInput()`;
+- `parseCurrencyValue()`;
+- `formatCurrencyValue()`;
+- `formatCurrencyBRL()`;
+- `getFinancialStatusBadgeClass()`.
 
 ### `assets/js/auth.js`
 
@@ -109,6 +130,8 @@ Os scripts de pagina dependem de funcoes globais criadas antes:
 
 - `getAppSection()` e `updateAppData()` vem de `storage.js`;
 - `getCurrentUser()` vem de `storage.js`;
+- getters compartilhados como `getClientsData()` e `getProductsData()` vem de `storage.js`;
+- helpers de digitos, moeda e badge financeiro vem de `utils.js` quando a pagina o carrega;
 - `appData` vem de `data.js`;
 - protecao e branding vem de `auth.js`;
 - menu mobile vem de `layout.js`.
@@ -117,20 +140,19 @@ Por isso a ordem dos scripts e parte essencial da arquitetura atual.
 
 ## Duplicacoes verificadas
 
-Funcoes repetidas por nome:
+Funcoes que foram centralizadas nesta revisao:
 
-- `getClientsData`: 6 ocorrencias;
-- `getProductsData`: 5 ocorrencias;
-- `getSalesData`: 5 ocorrencias;
-- `getFinancialData`: 4 ocorrencias;
-- `onlyDigits`: 4 ocorrencias;
-- `formatCurrencyInput`: 3 ocorrencias;
-- `getClientDisplayName`: 3 ocorrencias;
-- `parseCurrencyValue`: 3 ocorrencias;
-- `formatCurrencyValue`: 2 ocorrencias;
-- `getActiveModulesData`: 2 ocorrencias;
-- `saveClientsData`, `saveProductsData`, `saveSalesData`, `saveFinancialData`: 2 ocorrencias cada;
-- `updateProductStatusOptions`: duplicada dentro de `product-form.js`.
+- getters de leitura de dados em `storage.js`;
+- `onlyDigits()` em `utils.js`;
+- helpers de moeda de formularios em `utils.js`;
+- `formatCurrencyBRL()` em `utils.js`;
+- badge financeiro compartilhado em `utils.js`.
+
+Duplicacoes que ainda permanecem:
+
+- `saveClientsData`, `saveProductsData`, `saveSalesData`, `saveFinancialData`: repetidas entre listagem e formulario;
+- `getClientDisplayName`: ainda aparece em mais de um formulario;
+- funcoes de data e badges especificos continuam locais quando as regras diferem por modulo.
 
 ## Comportamento atual
 
@@ -142,12 +164,11 @@ Os arquivos JS funcionam como scripts globais por pagina. A verificacao sintatic
 - funcoes globais podem colidir;
 - a manutencao depende da ordem manual dos scripts;
 - nao ha testes automatizados;
-- nao ha camada unica de utilitarios.
+- ainda nao ha modularizacao formal com `import`/`export`.
 
 ## Divida tecnica
 
-- duplicacao de funcoes de dados, moeda, data, badges e mascaras;
+- duplicacao residual de funcoes de gravacao, datas, nomes de exibicao e badges especificos;
 - renderizacao via `innerHTML` espalhada;
 - validacoes e regras misturadas com manipulacao de DOM;
 - mensagens de feedback alternam entre `alert`, `confirm`, texto em pagina e console.
-

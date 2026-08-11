@@ -42,6 +42,7 @@ Define tokens de:
 - espacamentos;
 - raios;
 - sombras;
+- cores do tema escuro;
 - larguras de layout;
 - transicoes.
 
@@ -58,8 +59,7 @@ Define:
 - estilos base de `html`, `body`, links, botoes, inputs, imagens, listas e titulos;
 - containers e utilitarios simples;
 - classe `.hidden`;
-- tema escuro via `body.theme-dark`;
-- redefinicao final de `--brand-primary-custom` e `--brand-accent-custom`.
+- tema escuro via `body.theme-dark`.
 
 ### `layout.css`
 
@@ -74,6 +74,7 @@ Define:
 - toolbar;
 - user chip;
 - logo;
+- estado base de `.mobile-menu-toggle` e `.sidebar-overlay`;
 - sidebar compacta.
 
 ### `components.css`
@@ -92,7 +93,8 @@ Define:
 - dropdown;
 - modal;
 - toast;
-- botao de logout.
+- botao de logout;
+- estado base de `.mobile-card-list`.
 
 ### `public.css`
 
@@ -159,6 +161,7 @@ Centraliza a maior parte dos ajustes responsivos:
 - dashboard mobile;
 - prevencao de overflow horizontal;
 - conversao de tabelas para cards mobile;
+- excecao de tabela com scroll horizontal para paginas sem cards mobile;
 - ajustes de botoes e campos.
 
 ## Responsividade atual
@@ -185,8 +188,9 @@ Em 768px:
 - botao hamburger aparece;
 - overlay aparece ao abrir menu;
 - topbar compacta;
-- tabelas sao escondidas;
-- `.mobile-card-list` passa a ser exibido.
+- tabelas sao escondidas quando a pagina possui alternativa em `.mobile-card-list`;
+- `.mobile-card-list` passa a ser exibido;
+- Financeiro e RH mantem tabela visivel com rolagem horizontal por meio de `.table-wrapper-mobile-scroll`.
 
 ### Small mobile
 
@@ -195,16 +199,23 @@ Em 480px:
 - titulos reduzem;
 - subtitulo da topbar some;
 - logout dentro do user chip some;
-- cards de acao mobile viram coluna unica.
+- cards de acao mobile viram coluna unica;
+- `.card` e `.section-block` usam `border-radius: 16px`.
 
 ## Cards mobile
 
-Os scripts de listagem renderizam duas estruturas:
+As paginas de listagem com alternativa mobile renderizam duas estruturas:
 
 - tabela desktop em `.table-wrapper`;
 - cards mobile em `.mobile-card-list`.
 
 O CSS mostra uma ou outra conforme breakpoint.
+
+Excecao atual: `financial.html` e `hr.html` nao possuem cards mobile. Nessas paginas, o wrapper da tabela usa `table-wrapper-mobile-scroll`, que reverte o `display: none` aplicado a `.table-wrapper` em telas ate 768px e preserva o `overflow-x: auto` definido no componente base.
+
+Entre 481px e 768px, `.card` e `.section-block` usam `border-radius: 18px`. Em telas ate 480px, uma sobrescrita posterior garante `border-radius: 16px`.
+
+Os botoes mobile mantem o padding base de `components.css` (`padding: 0 18px`); nao ha mais sobrescrita responsiva com `padding: 0px`.
 
 ## Tema escuro
 
@@ -222,16 +233,12 @@ O CSS esta dividido por intencao e permite manter um visual consistente sem ferr
 
 ## Limitacoes conhecidas
 
-- `responsive.css` possui varias media queries repetidas para o mesmo breakpoint;
-- `responsive.css` usa variaveis inexistentes `--color-text` e `--color-muted`;
-- uma regra mobile define `padding: 0px` para botoes;
+- `responsive.css` ainda concentra ajustes de varias areas da interface;
 - `pages.css` usa classes de formulario de cliente tambem em outros formularios;
 - ha estilos inline gerados por JS em alguns pontos, como e-mail em `hr.js`.
 
 ## Divida tecnica
 
-- responsividade funciona por camadas de correcoes acumuladas;
-- tema escuro usa valores hardcoded em vez de tokens dedicados;
+- responsividade ainda depende da ordem manual da cascade;
 - estilos de pagina e componentes se misturam em alguns arquivos;
 - sidebar/topbar repetidas no HTML aumentam risco de divergencia visual.
-

@@ -102,6 +102,7 @@ Arquivos atuais:
 - `storage.js`;
 - `auth.js`;
 - `layout.js`;
+- `utils.js`;
 - `dashboard.js`;
 - `clients.js`;
 - `client-form.js`;
@@ -119,7 +120,7 @@ Arquivos atuais:
 - `hr-form.js`;
 - `pwa.js`.
 
-Observacao: a documentacao historica menciona `main.js`, `navigation.js` e `utils.js`, mas esses arquivos nao existem na estrutura atual verificada.
+Observacao: a documentacao historica menciona `main.js` e `navigation.js`, mas esses arquivos nao existem na estrutura atual verificada.
 
 ## Pasta `assets/images`
 
@@ -127,14 +128,12 @@ Arquivos atuais:
 
 - `ardetho-logo.png`;
 - `ardetho-icon.png`;
-- `ardetho-icon-normal.png`;
 - `ardetho-marca.png`;
 - `mecanica-xyz-logo.png`;
 - `mecanica-xyz-icon.png`;
-- `preview-dashboard.png`;
-- `preview-home.png`.
+- `preview-dashboard.png`.
 
-As imagens `ardetho-logo.png` e `ardetho-icon.png` sao as mais usadas no layout e na PWA. As imagens da Mecânica XYZ sao referenciadas nos dados simulados de empresa.
+As imagens `ardetho-logo.png` e `ardetho-icon.png` sao usadas no layout e na PWA. As imagens da Mecânica XYZ sao referenciadas nos dados simulados de empresa e fazem parte do precache atual. `preview-dashboard.png` e usado pelo `README.MD`. `ardetho-marca.png` permanece como asset de marca reservado/ambiguo, sem uso de runtime verificado.
 
 ## Pasta `documents`
 
@@ -153,4 +152,3 @@ Comportamento atual: a pasta existe e os arquivos aparecem no repositorio, embor
 Contem a documentacao consolidada da versao Web/PWA atual.
 
 Esta pasta nao substitui `documents/`; ela registra o estado real verificado no codigo.
-

@@ -84,6 +84,7 @@ Exemplos:
 - `appData`, em `assets/js/data.js`;
 - `storage`, `STORAGE_KEYS`, `getAppSection`, `updateAppData`, em `assets/js/storage.js`;
 - `getCurrentUser`, `setCurrentUser`, `getActiveModules`, em `assets/js/storage.js`;
+- helpers compartilhados de digitos, moeda e badge financeiro em `assets/js/utils.js`;
 - funcoes de autenticacao e branding em `assets/js/auth.js`.
 
 ## Controle de acesso
@@ -123,7 +124,6 @@ A arquitetura atual privilegia simplicidade e demonstracao academica: cada pagin
 ## Divida tecnica
 
 - scripts globais dependem da ordem manual no HTML;
-- funcoes utilitarias estao duplicadas;
+- parte dos utilitarios foi centralizada em `assets/js/utils.js`, mas ainda ha duplicacoes residuais;
 - `innerHTML` e usado amplamente para montar tabelas e cards;
 - scripts de pagina acumulam responsabilidades de busca, filtro, renderizacao, validacao e persistencia.
-

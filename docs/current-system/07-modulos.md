@@ -49,8 +49,6 @@ Fluxo de formulario:
 - salva em `ardetho_app_data.clients`;
 - redireciona para `clients.html`.
 
-Limitacao conhecida: `clients.html` ainda contem um modal antigo de cadastro com `id="client-form"`, mas o fluxo atual usa `client-form.html` e `client-form.js` procura `id="client-form-page"`.
-
 ## Produtos e servicos
 
 Arquivos:
@@ -78,8 +76,6 @@ Fluxo de formulario:
 - cria id com prefixo `PRD` ou `SRV`;
 - salva em `ardetho_app_data.products`;
 - redireciona para `products.html`.
-
-Divida tecnica: `updateProductStatusOptions()` esta duplicada em `product-form.js`.
 
 ## Vendas
 
@@ -163,14 +159,21 @@ Arquivos:
 Fluxo atual:
 
 - `erp-modules.html` usa `data-page="modules"`;
-- `modules.js` combina `appData.modules` com `ardetho_active_modules`;
+- `modules.js` usa `appData.modules` como fonte estrutural de modulos;
+- combina os metadados atuais com `ardetho_active_modules`;
 - renderiza modulos principais e complementares;
-- alterna estado ativo/inativo por slug;
+- alterna estado ativo/inativo por slug apenas para modulos disponiveis;
 - salva apenas id, slug e active em `ardetho_active_modules`;
 - renderiza contadores e resumo de configuracao;
 - `Salvar configuracao` exibe `alert`, mas a alteracao ja foi persistida no toggle.
 
-Limitacao conhecida: alguns slugs de `data.js` nao possuem pagina correspondente.
+Modulos futuros/incompletos:
+
+- `advanced-stock`;
+- `schedule`;
+- `advanced-reports`.
+
+Esses modulos possuem `available: false` e `active: false`, aparecem como "Em breve", nao exibem toggle, nao entram na contagem de ativos e nao possuem paginas placeholder.
 
 ## Configuracoes
 
@@ -254,4 +257,3 @@ Fluxo atual:
 - carregam `pwa.js`;
 - nao manipulam dados locais;
 - `contact.html` apresenta informacoes institucionais, mas nao possui formulario funcional.
-

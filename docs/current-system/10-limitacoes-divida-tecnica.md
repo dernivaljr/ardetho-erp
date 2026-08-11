@@ -41,39 +41,33 @@ Este documento separa comportamento atual, limitacao conhecida e divida tecnica.
 
 - cache manual;
 - sem fallback offline dedicado;
-- icone real diferente dos tamanhos declarados no manifest;
-- algumas imagens usadas por branding dinamico nao estao cacheadas.
+- manifest declara o icone real existente como 211x211;
+- ainda faltam icones PWA dedicados 192x192, 512x512 e maskable.
 
 ### Modulos
 
-- `advanced-stock` existe em `data.js`, mas `auth.js` usa `inventory`;
-- `schedule.html` e `inventory.html` nao existem;
+- `advanced-stock`, `schedule` e `advanced-reports` existem como modulos futuros com `available: false`;
+- esses modulos aparecem como "Em breve", sem toggle e sem paginas placeholder;
+- `schedule` ainda existe no mapa slug -> pagina de `auth.js`, mas o modulo esta indisponivel e `schedule.html` nao existe;
 - `saveModulesConfiguration()` apenas exibe alerta, pois os toggles ja persistem imediatamente;
 - controle de modulo inativo e visual/client-side.
 
 ### Documentacao historica
 
-- `README.MD` e documentos em `documents/` mencionam arquivos que nao existem na estrutura atual, como `reset.css`, `main.js`, `navigation.js` e `utils.js`;
+- documentos em `documents/` mencionam arquivos que nao existem na estrutura atual, como `reset.css`, `main.js` e `navigation.js`;
 - `.gitignore` contem `/documents`, embora a pasta esteja presente.
 
 ## Divida tecnica identificada
 
 ### JavaScript duplicado
 
-Duplicacoes verificadas:
+Duplicacoes residuais verificadas:
 
-- `getClientsData`: 6 ocorrencias;
-- `getProductsData`: 5 ocorrencias;
-- `getSalesData`: 5 ocorrencias;
-- `getFinancialData`: 4 ocorrencias;
-- `onlyDigits`: 4 ocorrencias;
-- `formatCurrencyInput`: 3 ocorrencias;
-- `getClientDisplayName`: 3 ocorrencias;
-- `parseCurrencyValue`: 3 ocorrencias;
-- `formatCurrencyValue`: 2 ocorrencias;
-- `getActiveModulesData`: 2 ocorrencias;
 - funcoes `save*Data`: repetidas por listagem/formulario;
-- `updateProductStatusOptions`: duplicada em `product-form.js`.
+- `getClientDisplayName`: ainda aparece em mais de um formulario;
+- funcoes de data e badges especificos permanecem locais quando as regras diferem por modulo.
+
+Ja foram centralizados em `storage.js` e `utils.js`: getters de dados, `onlyDigits()`, helpers de moeda e badge financeiro compartilhado.
 
 ### Mistura de responsabilidades
 
@@ -96,24 +90,17 @@ As paginas internas repetem sidebar, topbar, navegacao, user chip e logout. Qual
 
 Pontos verificados:
 
-- varias media queries repetidas em `responsive.css`;
-- variaveis inexistentes `--color-text` e `--color-muted`;
-- regra mobile com `padding: 0px` para botoes;
-- tema escuro com valores hardcoded;
+- `responsive.css` ainda concentra muitos ajustes responsivos de areas diferentes;
 - classes de formulario de cliente reutilizadas em outros formularios.
 
 ### Codigo aparentemente nao utilizado
 
-- modal de cliente em `clients.html` com `id="client-form"`;
-- botao `data-action="close-client-modal"`;
-- `clients.js` nao contem fluxo para abrir/fechar ou submeter esse modal;
-- o fluxo ativo de cliente usa `client-form.html` e `client-form.js`.
+- nao ha, nesta revisao ativa, bloco funcional obsoleto confirmado para remover sem nova auditoria.
 
 ### Assets e PWA
 
-- `ardetho-icon-normal.png`, `ardetho-marca.png` e `preview-home.png` existem, mas nao aparecem como assets principais de runtime verificados;
-- imagens da Mecânica XYZ sao usadas por dados de empresa, mas nao cacheadas pelo service worker;
-- `manifest.json` declara tamanhos 192 e 512 usando uma imagem 211x211.
+- `ardetho-marca.png` permanece como asset de marca reservado/ambiguo, sem uso de runtime verificado;
+- `manifest.json` usa o tamanho real 211x211 do icone existente, mas ainda faltam icones PWA dedicados 192x192, 512x512 e maskable.
 
 ## Pontos que exigem cuidado ao alterar a versao atual
 

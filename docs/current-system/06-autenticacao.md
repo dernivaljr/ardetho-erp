@@ -58,8 +58,7 @@ data-action="logout"
 `logoutUser()` remove:
 
 - `STORAGE_KEYS.currentUser`;
-- `ardetho_current_user`;
-- `ardetho_current_company_profile`;
+- `STORAGE_KEYS.currentCompany`;
 - equivalentes em `sessionStorage`.
 
 Depois redireciona para `login.html`.
@@ -69,6 +68,7 @@ Depois redireciona para `login.html`.
 `auth.js` tambem controla acesso visual a modulos:
 
 - `getModulePageMap()` mapeia slugs para paginas;
+- `getPageModuleMap()` mapeia paginas principais e paginas-filhas para o modulo pai;
 - `protectInactiveModulePage()` redireciona para `dashboard.html` se a pagina corresponder a modulo inativo;
 - `updateSidebarVisibility()` esconde links da sidebar para modulos inativos.
 
@@ -82,10 +82,27 @@ financial -> financial.html
 reports -> reports.html
 hr -> hr.html
 schedule -> schedule.html
-inventory -> inventory.html
 ```
 
-Limitacao conhecida: os dados usam `advanced-stock`, mas o mapa usa `inventory`. Alem disso, `schedule.html` e `inventory.html` nao existem na estrutura atual.
+Mapeamento de protecao por pagina:
+
+```text
+clients.html -> clients
+client-form.html -> clients
+products.html -> products
+product-form.html -> products
+sales.html -> sales
+sale-form.html -> sales
+financial.html -> financial
+financial-form.html -> financial
+reports.html -> reports
+hr.html -> hr
+hr-form.html -> hr
+```
+
+Com isso, paginas-filhas como `client-form.html?id=...`, `product-form.html?id=...`, `sale-form.html?id=...`, `financial-form.html?id=...` e `hr-form.html?id=...` respeitam o estado ativo/inativo do modulo pai. Query strings nao alteram essa protecao porque a pagina atual e obtida pelo pathname.
+
+Limitacao conhecida: `schedule` ainda aparece no mapa slug -> pagina para compatibilidade da sidebar, mas o modulo esta indisponivel (`available: false`) e `schedule.html` nao existe.
 
 ## Branding e usuario na interface
 
@@ -123,4 +140,3 @@ O login funciona para demonstracao local e para diferenciar visualmente empresas
 - dados de configuracao sao lidos diretamente em mais de um arquivo;
 - ha remocoes redundantes no logout;
 - a protecao de modulos depende de strings de slug e pagina mantidas manualmente.
-

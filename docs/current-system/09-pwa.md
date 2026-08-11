@@ -45,25 +45,25 @@ Campos atuais:
 Icones declarados:
 
 ```text
-assets/images/ardetho-icon.png - 192x192 - any
-assets/images/ardetho-icon.png - 512x512 - any maskable
+assets/images/ardetho-icon.png - 211x211 - any
 ```
 
-Limitacao conhecida: a imagem real `assets/images/ardetho-icon.png` foi verificada como 211x211, diferente dos tamanhos declarados no manifest.
+Estado verificado: a imagem real `assets/images/ardetho-icon.png` tem 211x211 e o manifest declara esse tamanho real. Ainda faltam assets dedicados 192x192, 512x512 e um icone maskable apropriado.
 
 ## `service-worker.js`
 
 Nome do cache atual:
 
 ```text
-ardetho-erp-v4
+ardetho-erp-v22
 ```
 
 O service worker usa lista manual `FILES_TO_CACHE`.
 
-### Arquivos HTML cacheados
+### Arquivos base e HTML cacheados
 
 - `./`;
+- `./manifest.json`;
 - `./index.html`;
 - `./about.html`;
 - `./modules.html`;
@@ -103,6 +103,7 @@ O service worker usa lista manual `FILES_TO_CACHE`.
 - `storage.js`;
 - `auth.js`;
 - `layout.js`;
+- `utils.js`;
 - `dashboard.js`;
 - `clients.js`;
 - `client-form.js`;
@@ -123,22 +124,25 @@ O service worker usa lista manual `FILES_TO_CACHE`.
 ### Imagens cacheadas
 
 - `assets/images/ardetho-logo.png`;
-- `assets/images/ardetho-icon.png`.
-
-As imagens da Mecânica XYZ nao estao na lista de cache, embora sejam referenciadas pelos dados simulados de empresa.
+- `assets/images/ardetho-icon.png`;
+- `assets/images/mecanica-xyz-logo.png`;
+- `assets/images/mecanica-xyz-icon.png`.
 
 ## Eventos do service worker
 
 ### `install`
 
 - chama `self.skipWaiting()`;
-- abre `ardetho-erp-v4`;
-- executa `cache.addAll(FILES_TO_CACHE)`.
+- abre `ardetho-erp-v22`;
+- cria requests com `new Request(file, { cache: "reload" })`;
+- executa `cache.addAll(freshRequests)`.
+
+O uso de `cache: "reload"` foi adotado para evitar que uma nova versao do Cache Storage seja populada com respostas antigas vindas do HTTP cache do navegador.
 
 ### `activate`
 
 - lista caches existentes;
-- remove caches com nome diferente de `ardetho-erp-v4`;
+- remove caches com nome diferente de `ardetho-erp-v22`;
 - chama `self.clients.claim()`.
 
 ### `fetch`
@@ -161,10 +165,8 @@ A PWA pode funcionar parcialmente offline para arquivos listados no cache. Arqui
 
 - cache e manual;
 - nao ha versionamento automatico por hash;
-- `manifest.json` nao esta em `FILES_TO_CACHE`;
 - `service-worker.js` nao esta em `FILES_TO_CACHE`;
 - fontes do Google nao estao em `FILES_TO_CACHE`;
-- imagens da Mecânica XYZ nao estao em `FILES_TO_CACHE`;
 - nao ha runtime caching;
 - nao ha fallback offline especifico;
 - a estrategia cache-first pode servir arquivos antigos ate a troca de `CACHE_NAME`.
@@ -172,7 +174,6 @@ A PWA pode funcionar parcialmente offline para arquivos listados no cache. Arqui
 ## Divida tecnica
 
 - toda inclusao de nova pagina, CSS, JS ou imagem precisa ser refletida manualmente no service worker;
-- dimensoes reais dos icones nao batem com o manifest;
+- faltam icones PWA dedicados 192x192, 512x512 e maskable;
 - o cache nao diferencia arquivos publicos, internos ou dados locais;
 - mensagens de registro ficam no console em producao.
-

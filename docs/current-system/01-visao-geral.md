@@ -95,13 +95,12 @@ Depois disso, cada modulo le e grava secoes do objeto persistido em `ardetho_app
 - credenciais ficam em dados simulados no front-end;
 - relatorios sao calculados no cliente;
 - cache PWA e manual e precisa ser mantido quando novos arquivos entram;
-- algumas paginas ainda carregam estruturas antigas ou nao usadas.
+- modulos futuros aparecem como "Em breve" sem pagina implementada.
 
 ## Divida tecnica em destaque
 
-- duplicacao de funcoes entre modulos;
+- duplicacao residual de funcoes entre modulos;
 - uso frequente de `innerHTML` para renderizacao;
-- CSS responsivo acumulado com correcoes sucessivas;
+- responsividade ainda depende da ordem manual da cascade;
 - inconsistencias entre documentacao historica e estrutura real;
-- mapa de modulos com slugs/paginas inexistentes;
-- modal antigo em `clients.html` sem fluxo JS ativo.
+- alguns slugs futuros ainda nao possuem pagina implementada.

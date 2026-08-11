@@ -66,7 +66,7 @@ Contas documentadas no sistema:
 
 ### Modulos
 
-`modules` contem nome, slug, descricao, status ativo e categoria.
+`modules` contem nome, slug, descricao, status ativo padrao, categoria e, nos modulos futuros, `available: false`.
 
 Slugs verificados:
 
@@ -79,6 +79,8 @@ Slugs verificados:
 - `hr`;
 - `schedule`;
 - `advanced-reports`.
+
+Os modulos `advanced-stock`, `schedule` e `advanced-reports` estao definidos como `active: false` e `available: false`. Eles aparecem como futuros na tela de Modulos ERP, nao possuem toggle de ativacao e nao possuem paginas placeholder.
 
 ### Clientes
 
@@ -125,9 +127,9 @@ Produtos usam estoque, estoque minimo, fornecedor, marca e NCM. Servicos usam pr
 | --- | --- | --- |
 | `ardetho_app_data` | `STORAGE_KEYS.appData` | Guarda a copia persistida de `appData`. |
 | `ardetho_current_user` | `STORAGE_KEYS.currentUser` | Guarda o usuario autenticado sem senha. |
-| `ardetho_current_company_profile` | `STORAGE_KEYS.currentCompany` e `COMPANY_PROFILE_STORAGE_KEY` | Guarda o perfil de empresa/marca atual. |
-| `ardetho_active_modules` | `STORAGE_KEYS.activeModules` | Guarda estado ativo/inativo dos modulos. |
-| `ardetho_settings` | `SETTINGS_STORAGE_KEY` em `settings.js` e `dashboard.js` | Guarda preferencias visuais e de dashboard. |
+| `ardetho_current_company_profile` | `STORAGE_KEYS.currentCompany` | Guarda o perfil de empresa/marca atual. |
+| `ardetho_active_modules` | `STORAGE_KEYS.activeModules` | Guarda somente `id`, `slug` e `active` dos modulos. |
+| `ardetho_settings` | `STORAGE_KEYS.settings` | Guarda preferencias visuais e de dashboard. |
 
 Tambem ha remocoes em `sessionStorage` para `ardetho_current_user` e `ardetho_current_company_profile` durante logout, embora o fluxo principal use `localStorage`.
 
@@ -139,10 +141,13 @@ Fluxo atual:
 
 1. verifica se existe `ardetho_app_data`;
 2. se nao existir, salva um clone de `appData`;
-3. verifica se existe `ardetho_active_modules`;
-4. se nao existir, salva id, slug e active dos modulos iniciais;
-5. verifica se existe `ardetho_current_company_profile`;
-6. se nao existir, salva a empresa do `appData.currentUser`.
+3. le `ardetho_active_modules`;
+4. reconcilia a lista persistida com `appData.modules` usando `reconcileActiveModules()`;
+5. salva a lista reconciliada somente quando ela difere da lista persistida;
+6. verifica se existe `ardetho_current_company_profile`;
+7. se nao existir, salva a empresa do `appData.currentUser`.
+
+`appData.modules` e a fonte estrutural de modulos. `ardetho_active_modules` guarda somente a escolha ativo/inativo do usuario por slug. Modulos indisponiveis (`available: false`) sao sempre reconciliados com `active: false`, mesmo que um storage antigo tenha gravado `active: true`.
 
 ## Reset de dados
 
@@ -150,8 +155,19 @@ Fluxo atual:
 
 - restaura `ardetho_app_data`;
 - salva `currentUser` sem senha;
-- restaura `ardetho_active_modules`;
+- restaura `ardetho_active_modules` com `getDefaultActiveModules()`;
 - restaura empresa atual padrao.
+
+Essa funcao nao e chamada automaticamente pelo fluxo normal; ela existe como utilitario manual/destrutivo de reset dos dados demonstrativos.
+
+`storage.clearAll()` remove apenas:
+
+- `ardetho_app_data`;
+- `ardetho_current_user`;
+- `ardetho_current_company_profile`;
+- `ardetho_active_modules`.
+
+`ardetho_settings` fica preservado por `storage.clearAll()` no comportamento atual.
 
 ## Atualizacao de secoes
 
@@ -160,12 +176,14 @@ Os modulos usam:
 - `getAppSection(section, fallback)`;
 - `updateAppData(section, newData)`.
 
-Exemplo:
+Getters compartilhados atuais:
 
 ```text
-clients.js
-  getAppSection("clients", appData.clients)
-  updateAppData("clients", updatedClients)
+getClientsData()
+getProductsData()
+getSalesData()
+getFinancialData()
+getHrData()
 ```
 
 ## Comportamento atual
@@ -178,11 +196,10 @@ Cada CRUD substitui o array inteiro da secao correspondente em `ardetho_app_data
 - nao ha sincronizacao entre abas alem do comportamento nativo do storage;
 - nao ha historico de alteracoes;
 - nao ha validacao centralizada do modelo;
-- a chave `ardetho_settings` nao faz parte de `STORAGE_KEYS.clearAll()`.
+- `storage.clearAll()` preserva `ardetho_settings`, portanto o nome pode induzir interpretacao incorreta se usado como limpeza total.
 
 ## Divida tecnica
 
 - `data.js` funciona como banco inicial e tambem como fallback;
 - dados de usuario, empresa, sessoes e configuracoes ficam espalhados entre `storage.js`, `auth.js`, `settings.js`, `dashboard.js` e `profile.js`;
 - algumas entidades armazenam campos derivados, como `clientName` e `productName` nas vendas.
-
