@@ -506,7 +506,7 @@ function handleClientFormSubmit(event) {
     createClient(formData);
   }
 
-  window.location.href = "clients.html";
+  window.location.href = getAppRoutePath("clients.html");
 }
 
 function bindClientFormActions() {
@@ -557,7 +557,7 @@ function loadClientForEdit() {
   const client = findClientById(clientId);
 
   if (!client) {
-    window.location.href = "clients.html";
+    window.location.href = getAppRoutePath("clients.html");
     return;
   }
 

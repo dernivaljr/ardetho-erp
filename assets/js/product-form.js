@@ -311,7 +311,7 @@ function handleProductFormSubmit(event) {
     createProduct(formData);
   }
 
-  window.location.href = "products.html";
+  window.location.href = getAppRoutePath("products.html");
 }
 
 function bindProductFormActions() {
@@ -338,7 +338,7 @@ function loadProductForEdit() {
   const product = findProductById(productId);
 
   if (!product) {
-    window.location.href = "products.html";
+    window.location.href = getAppRoutePath("products.html");
     return;
   }
 

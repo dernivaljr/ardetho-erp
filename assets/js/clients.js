@@ -112,7 +112,7 @@ function renderClientsTable(clients) {
       <td><span class="${getClientBadgeClass(client.status)}">${client.status || "—"}</span></td>
       <td>
         <div class="action-group">
-          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`client-form.html?id=${client.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
         </div>
       </td>
@@ -151,7 +151,7 @@ function renderClientsTable(clients) {
         </div>
 
         <div class="mobile-data-card-actions">
-          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`client-form.html?id=${client.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
         </div>
       `;

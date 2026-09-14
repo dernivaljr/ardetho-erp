@@ -131,7 +131,7 @@ function renderProductsTable(products) {
       <td><span class="${getProductBadgeClass(product.status)}">${product.status || "—"}</span></td>
       <td>
         <div class="action-group">
-          <a href="product-form.html?id=${product.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`product-form.html?id=${product.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-product" data-product-id="${product.id}">Excluir</a>
         </div>
       </td>
@@ -175,7 +175,7 @@ function renderProductsTable(products) {
         </div>
 
         <div class="mobile-data-card-actions">
-          <a href="product-form.html?id=${product.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`product-form.html?id=${product.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-product" data-product-id="${product.id}">Excluir</a>
         </div>
       `;

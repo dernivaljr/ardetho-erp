@@ -128,7 +128,7 @@ function renderSalesTable(sales) {
       <td>${formatSaleDate(sale.saleDate)}</td>
       <td>
         <div class="action-group">
-          <a href="sale-form.html?id=${sale.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`sale-form.html?id=${sale.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-sale" data-sale-id="${sale.id}">Excluir</a>
         </div>
       </td>
@@ -172,7 +172,7 @@ function renderSalesTable(sales) {
         </div>
 
         <div class="mobile-data-card-actions">
-          <a href="sale-form.html?id=${sale.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`sale-form.html?id=${sale.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-sale" data-sale-id="${sale.id}">Excluir</a>
         </div>
       `;

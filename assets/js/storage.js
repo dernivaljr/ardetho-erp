@@ -6,6 +6,31 @@ const STORAGE_KEYS = {
   settings: "ardetho_settings"
 };
 
+const PHP_ROUTE_MAP = {
+  "login.html": "login.php",
+  "dashboard.html": "dashboard.php",
+  "clients.html": "clientes.php",
+  "client-form.html": "cliente-form.php",
+  "products.html": "produtos.php",
+  "product-form.html": "produto-form.php",
+  "sales.html": "vendas.php",
+  "sale-form.html": "venda-form.php"
+};
+
+function getAppRoutePath(path) {
+  const isPhpPage = window.location.pathname.endsWith(".php");
+
+  if (!isPhpPage) {
+    return path;
+  }
+
+  const match = path.match(/^([^?#]+)(.*)$/);
+  const targetPath = match ? match[1] : path;
+  const suffix = match ? match[2] : "";
+
+  return `${PHP_ROUTE_MAP[targetPath] || targetPath}${suffix}`;
+}
+
 const storage = {
   save(key, value) {
     try {

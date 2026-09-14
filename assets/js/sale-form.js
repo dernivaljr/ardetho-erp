@@ -343,7 +343,7 @@ function handleSaleFormSubmit(event) {
     createSale(formData);
   }
 
-  window.location.href = "sales.html";
+  window.location.href = getAppRoutePath("sales.html");
 }
 
 function bindSaleFormActions() {
@@ -393,7 +393,7 @@ function loadSaleForEdit() {
   const sale = findSaleById(saleId);
 
   if (!sale) {
-    window.location.href = "sales.html";
+    window.location.href = getAppRoutePath("sales.html");
     return;
   }
 
