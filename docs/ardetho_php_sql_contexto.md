@@ -621,3 +621,30 @@ O estoque ainda nao e movimentado automaticamente por vendas.
 A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `sales.html` ou `sale-form.html`.
 
 Dashboard continua temporariamente no legado/localStorage e deve ser a proxima etapa de migracao.
+
+---
+
+## 22. Checkpoint do Dashboard em PHP + SQL
+
+O Dashboard foi migrado na branch `php-sql` para indicadores reais em MariaDB via PHP + PDO.
+
+Escopo concluido nesta etapa:
+
+- `dashboard.php` alimentado por consultas agregadas das tabelas `clientes`, `produtos` e `vendas`;
+- cards principais com clientes ativos, produtos/servicos ativos, vendas validas e faturamento real;
+- faturamento calculado por `SUM(vendas.valor_total)` excluindo vendas com status `Cancelado`;
+- pedidos recentes carregados por SQL com `JOIN` em clientes;
+- resumo real de vendas por status;
+- grafico mensal alimentado por faturamento de vendas, sem modulo Financeiro;
+- blocos fora do escopo, como Financeiro e RH, indicados como em desenvolvimento;
+- `dashboard.php` sem dependencia de `data.js`, `storage.js`, `dashboard.js`, `localStorage` ou `ardetho_app_data` para os dados principais.
+
+O arquivo `dashboard.html` permanece preservado como fluxo legado/localStorage da PWA.
+
+Com este checkpoint, o escopo principal PHP + SQL do projeto academico esta concluido para:
+
+- Login;
+- Dashboard;
+- Clientes;
+- Produtos/Servicos;
+- Vendas.
