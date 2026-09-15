@@ -648,3 +648,41 @@ Com este checkpoint, o escopo principal PHP + SQL do projeto academico esta conc
 - Clientes;
 - Produtos/Servicos;
 - Vendas.
+
+---
+
+## 23. Importacao one-time dos dados demonstrativos da PWA
+
+Foi criada uma rotina CLI para importar os dados demonstrativos da PWA para o banco `ardetho_erp`:
+
+```powershell
+& "C:\xampp\php\php.exe" database\importar-dados-legados.php
+```
+
+A rotina le diretamente `assets/js/data.js`, sem executar JavaScript e sem usar `eval`, extraindo somente as secoes:
+
+- `clients`;
+- `products`;
+- `sales`.
+
+Escopo importado:
+
+- 5 clientes demonstrativos;
+- 5 produtos demonstrativos;
+- 3 servicos demonstrativos;
+- 5 vendas demonstrativas;
+- 5 itens de venda, um para cada venda legada.
+
+Estrategia:
+
+- clientes sao identificados por CPF/CNPJ quando disponivel, com fallback por e-mail e nome;
+- produtos e servicos sao identificados pelo campo `codigo`;
+- vendas sao identificadas pelo campo `codigo`;
+- IDs legados (`CLI-*`, `PRD-*`, `SRV-*`, `SAL-*`) sao usados somente como mapa temporario da importacao, nunca gravados como IDs SQL;
+- cada venda legada de item unico vira um registro em `vendas` e um registro correspondente em `venda_itens`;
+- subtotais e totais sao validados por quantidade x valor unitario;
+- produtos legados com status operacional, como `Disponível`, `Baixo estoque` e `Indisponível`, entram como status cadastral `Ativo`; o estado de estoque segue calculado por quantidade/minimo no modulo Produtos.
+
+A importacao inteira roda dentro de uma transacao e e idempotente: execucoes repetidas ignoram registros ja existentes e nao duplicam dados.
+
+Usuarios, senhas, empresas, financeiro, relatorios, RH, configuracoes e demais modulos fora do escopo nao sao importados.
