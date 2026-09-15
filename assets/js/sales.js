@@ -2,8 +2,30 @@ function saveSalesData(sales) {
   return updateAppData("sales", sales);
 }
 
+function isSalesPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindPhpSaleStatusConfirmation() {
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest("[data-confirm-sale-status]");
+
+    if (!form) {
+      return;
+    }
+
+    if (!window.confirm("Deseja cancelar esta venda?")) {
+      event.preventDefault();
+    }
+  });
+}
+
 function renderSalesUser() {
-  if (isPhpRoute()) {
+  if (isSalesPhpRoute()) {
     return;
   }
 
@@ -326,6 +348,11 @@ function initializeSalesPage() {
   const salesPage = document.body.dataset.page === "sales";
 
   if (!salesPage) {
+    return;
+  }
+
+  if (isSalesPhpRoute()) {
+    bindPhpSaleStatusConfirmation();
     return;
   }
 

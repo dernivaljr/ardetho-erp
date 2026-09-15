@@ -596,3 +596,28 @@ Escopo concluido nesta etapa:
 A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `products.html` ou `product-form.html`.
 
 Vendas, Dashboard e demais modulos continuam fora do escopo deste checkpoint e ainda deverao ser migrados em etapas futuras.
+
+---
+
+## 21. Checkpoint do modulo Vendas em PHP + SQL
+
+O modulo Vendas foi migrado na branch `php-sql` para persistencia em MariaDB via PHP + PDO.
+
+Escopo concluido nesta etapa:
+
+- listagem em `vendas.php` alimentada pelas tabelas `vendas`, `venda_itens`, `clientes` e `produtos`;
+- cadastro e edicao em `venda-form.php` com POST, validacao backend e prepared statements;
+- vendas com multiplos itens, persistidos em `venda_itens`;
+- gravacao de `vendas` e `venda_itens` dentro de transacao;
+- calculo server-side de subtotal e valor total, sem confiar nos valores enviados pelo navegador;
+- snapshot de quantidade, valor unitario e subtotal no momento da venda;
+- filtros de busca, status e cliente aplicados no SQL;
+- cancelamento logico por alteracao do status para `Cancelado`;
+- protecao CSRF nas acoes de escrita;
+- saida HTML escapada com helper centralizado.
+
+O estoque ainda nao e movimentado automaticamente por vendas.
+
+A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `sales.html` ou `sale-form.html`.
+
+Dashboard continua temporariamente no legado/localStorage e deve ser a proxima etapa de migracao.
