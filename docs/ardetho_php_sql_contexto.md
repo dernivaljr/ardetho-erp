@@ -713,4 +713,38 @@ Escopo concluido nesta etapa:
 
 A migracao manteve `financial.html` e `financial-form.html` preservados como referencia da PWA/localStorage.
 
-Relatorios, RH, configuracoes e demais modulos permanecem fora do escopo.
+RH, configuracoes e demais modulos permanecem fora do escopo.
+
+---
+
+## 25. Checkpoint do modulo Relatorios em PHP + SQL
+
+O modulo Relatorios foi migrado na branch `php-sql` para uma tela principal PHP alimentada por consultas derivadas do MariaDB.
+
+Escopo concluido nesta etapa:
+
+- `relatorios.php` exige autenticacao PHP e nao usa `data.js`, `storage.js`, `localStorage` ou `ardetho_app_data`;
+- dados derivados das tabelas reais `clientes`, `produtos`, `vendas`, `venda_itens` e `financeiro`, sem criacao de tabela `relatorios`;
+- modelo `Relatorio.php` limitado a consultas de leitura e agregacao;
+- controller `RelatorioController.php` responsavel por filtros GET, whitelist de periodos, preparacao dos dados, metricas e exportacao CSV;
+- tipos efetivamente migrados conforme o legado: Desempenho comercial, Clientes ativos e inativos, Financeiro consolidado, Produtos e estoque;
+- cards reais de receita total, saldo consolidado e pedidos concluidos;
+- resumo analitico real com ticket medio, conversao comercial, pendencias financeiras e modulos em uso;
+- tabela dos ultimos lancamentos financeiros alimentada pela tabela `financeiro`;
+- filtro de periodo com as opcoes legadas: todos, hoje, ultimos 7 dias, ultimos 30 dias e este mes;
+- exportacao CSV adaptada para os mesmos indicadores e ultimos lancamentos financeiros;
+- saida HTML escapada com helper centralizado.
+
+O arquivo `reports.html` permanece preservado como fluxo legado/localStorage da PWA.
+
+Com este checkpoint, a aplicacao principal PHP + SQL cobre:
+
+- Login;
+- Dashboard;
+- Clientes;
+- Produtos/Servicos;
+- Vendas;
+- Financeiro;
+- Relatorios.
+
+RH, configuracoes, perfil e demais modulos permanecem fora do escopo.

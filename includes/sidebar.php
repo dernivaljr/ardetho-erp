@@ -34,7 +34,7 @@ $navItems = [
     ],
     [
         'key' => 'reports',
-        'href' => 'reports.html',
+        'href' => 'relatorios.php',
         'icon' => '📊',
         'label' => 'Relatórios',
     ],

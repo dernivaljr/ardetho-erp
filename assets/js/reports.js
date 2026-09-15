@@ -1,3 +1,22 @@
+function isReportsPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindReportsPhpActions() {
+  const periodField = document.getElementById("reports-period-filter");
+  const periodForm = document.querySelector("[data-reports-period-form]");
+
+  if (periodField && periodForm) {
+    periodField.addEventListener("change", () => {
+      periodForm.submit();
+    });
+  }
+}
+
 function renderReportsUser() {
   const currentUser = getCurrentUser() || appData.currentUser;
 
@@ -452,6 +471,11 @@ function initializeReportsPage() {
   const reportsPage = document.body.dataset.page === "reports";
 
   if (!reportsPage) {
+    return;
+  }
+
+  if (isReportsPhpRoute()) {
+    bindReportsPhpActions();
     return;
   }
 
