@@ -555,3 +555,22 @@ Servidor local temporário para testes funcionais:
 
 Nesta etapa, somente o login foi migrado para PDO + `usuarios` + `password_verify()` + `$_SESSION`.
 Clientes, Produtos, Vendas e os indicadores do Dashboard continuam temporariamente usando `data.js`, `storage.js` e `localStorage`.
+
+---
+
+## 19. Checkpoint do modulo Clientes em PHP + SQL
+
+O modulo Clientes foi migrado na branch `php-sql` para persistencia em MariaDB via PHP + PDO.
+
+Escopo concluido nesta etapa:
+
+- listagem em `clientes.php` alimentada pela tabela `clientes`;
+- cadastro e edicao em `cliente-form.php` com POST, validacao backend e prepared statements;
+- filtros de busca, status e cidade aplicados no SQL;
+- desativacao e reativacao por alteracao logica do campo `status`;
+- protecao CSRF nas acoes de escrita;
+- saida HTML escapada com helper centralizado.
+
+A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `clients.html` ou `client-form.html`.
+
+Produtos, Vendas, Dashboard e demais modulos continuam fora do escopo deste checkpoint e ainda deverao ser migrados em etapas futuras.
