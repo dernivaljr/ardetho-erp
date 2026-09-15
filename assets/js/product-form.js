@@ -1,5 +1,13 @@
+function isProductFormPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
 function renderProductFormUser() {
-  if (isPhpRoute()) {
+  if (isProductFormPhpRoute()) {
     return;
   }
 
@@ -331,6 +339,33 @@ function bindProductFormActions() {
   }
 }
 
+function bindProductFormPhpActions() {
+  const itemTypeField = document.getElementById("product-item-type");
+  const allFields = document.querySelectorAll(
+    "#product-form-page input, #product-form-page select, #product-form-page textarea"
+  );
+
+  if (itemTypeField) {
+    itemTypeField.addEventListener("change", updateProductItemTypeFields);
+  }
+
+  allFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+
+    field.addEventListener("change", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+  });
+}
+
 function loadProductForEdit() {
   const productId = getProductIdFromUrl();
 
@@ -353,6 +388,13 @@ function initializeProductFormPage() {
   const productFormPage = document.body.dataset.page === "product-form";
 
   if (!productFormPage) {
+    return;
+  }
+
+  if (isProductFormPhpRoute()) {
+    updateProductItemTypeFields();
+    applyProductInputMasks();
+    bindProductFormPhpActions();
     return;
   }
 

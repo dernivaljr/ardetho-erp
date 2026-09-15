@@ -574,3 +574,25 @@ Escopo concluido nesta etapa:
 A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `clients.html` ou `client-form.html`.
 
 Produtos, Vendas, Dashboard e demais modulos continuam fora do escopo deste checkpoint e ainda deverao ser migrados em etapas futuras.
+
+---
+
+## 20. Checkpoint do modulo Produtos/Servicos em PHP + SQL
+
+O modulo Produtos/Servicos foi migrado na branch `php-sql` para persistencia em MariaDB via PHP + PDO.
+
+Escopo concluido nesta etapa:
+
+- listagem em `produtos.php` alimentada pela tabela `produtos`;
+- cadastro e edicao em `produto-form.php` com POST, validacao backend e prepared statements;
+- filtros de busca, categoria e status aplicados no SQL;
+- status cadastral persistido em `status`;
+- status de estoque calculado a partir de `tipo_item`, `estoque` e `estoque_minimo`;
+- desativacao e reativacao por alteracao logica do campo `status`;
+- validacao de codigo unico com mensagem amigavel;
+- protecao CSRF nas acoes de escrita;
+- saida HTML escapada com helper centralizado.
+
+A migracao manteve os HTMLs originais da PWA como referencia, sem alterar `products.html` ou `product-form.html`.
+
+Vendas, Dashboard e demais modulos continuam fora do escopo deste checkpoint e ainda deverao ser migrados em etapas futuras.

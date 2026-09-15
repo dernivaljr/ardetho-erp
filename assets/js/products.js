@@ -2,8 +2,36 @@ function saveProductsData(products) {
   return updateAppData("products", products);
 }
 
+function isProductsPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindPhpProductStatusConfirmation() {
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest("[data-confirm-product-status]");
+
+    if (!form) {
+      return;
+    }
+
+    const action = form.dataset.confirmProductStatus === "ativar" ? "ativar" : "desativar";
+    const message =
+      action === "ativar"
+        ? "Deseja ativar este item?"
+        : "Deseja desativar este item?";
+
+    if (!window.confirm(message)) {
+      event.preventDefault();
+    }
+  });
+}
+
 function renderProductsUser() {
-  if (isPhpRoute()) {
+  if (isProductsPhpRoute()) {
     return;
   }
 
@@ -329,6 +357,11 @@ function initializeProductsPage() {
   const productsPage = document.body.dataset.page === "products";
 
   if (!productsPage) {
+    return;
+  }
+
+  if (isProductsPhpRoute()) {
+    bindPhpProductStatusConfirmation();
     return;
   }
 
