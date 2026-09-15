@@ -635,8 +635,8 @@ Escopo concluido nesta etapa:
 - faturamento calculado por `SUM(vendas.valor_total)` excluindo vendas com status `Cancelado`;
 - pedidos recentes carregados por SQL com `JOIN` em clientes;
 - resumo real de vendas por status;
-- grafico mensal alimentado por faturamento de vendas, sem modulo Financeiro;
-- blocos fora do escopo, como Financeiro e RH, indicados como em desenvolvimento;
+- grafico mensal alimentado por faturamento de vendas;
+- blocos fora do escopo, como RH, indicados como em desenvolvimento;
 - `dashboard.php` sem dependencia de `data.js`, `storage.js`, `dashboard.js`, `localStorage` ou `ardetho_app_data` para os dados principais.
 
 O arquivo `dashboard.html` permanece preservado como fluxo legado/localStorage da PWA.
@@ -663,7 +663,8 @@ A rotina le diretamente `assets/js/data.js`, sem executar JavaScript e sem usar 
 
 - `clients`;
 - `products`;
-- `sales`.
+- `sales`;
+- `financial`.
 
 Escopo importado:
 
@@ -672,17 +673,44 @@ Escopo importado:
 - 3 servicos demonstrativos;
 - 5 vendas demonstrativas;
 - 5 itens de venda, um para cada venda legada.
+- 6 lancamentos financeiros demonstrativos.
 
 Estrategia:
 
 - clientes sao identificados por CPF/CNPJ quando disponivel, com fallback por e-mail e nome;
 - produtos e servicos sao identificados pelo campo `codigo`;
 - vendas sao identificadas pelo campo `codigo`;
+- lancamentos financeiros sao identificados pelo campo `codigo`;
 - IDs legados (`CLI-*`, `PRD-*`, `SRV-*`, `SAL-*`) sao usados somente como mapa temporario da importacao, nunca gravados como IDs SQL;
 - cada venda legada de item unico vira um registro em `vendas` e um registro correspondente em `venda_itens`;
+- cada lancamento financeiro legado vira um registro em `financeiro`, com vinculo opcional para cliente e venda quando houver correspondencia;
 - subtotais e totais sao validados por quantidade x valor unitario;
 - produtos legados com status operacional, como `Disponível`, `Baixo estoque` e `Indisponível`, entram como status cadastral `Ativo`; o estado de estoque segue calculado por quantidade/minimo no modulo Produtos.
 
 A importacao inteira roda dentro de uma transacao e e idempotente: execucoes repetidas ignoram registros ja existentes e nao duplicam dados.
 
-Usuarios, senhas, empresas, financeiro, relatorios, RH, configuracoes e demais modulos fora do escopo nao sao importados.
+Usuarios, senhas, empresas, relatorios, RH, configuracoes e demais modulos fora do escopo nao sao importados.
+
+---
+
+## 24. Checkpoint do modulo Financeiro em PHP + SQL
+
+O modulo Financeiro foi migrado na branch `php-sql` para persistencia em MariaDB via PHP + PDO.
+
+Escopo concluido nesta etapa:
+
+- listagem em `financeiro.php` alimentada pela tabela `financeiro`, com vinculos opcionais a `clientes` e `vendas`;
+- cadastro e edicao em `financeiro-form.php` com POST, validacao backend e prepared statements;
+- suporte a receitas e despesas com codigo, descricao, categoria, valor, data de lancamento, vencimento, status, forma de pagamento e observacoes;
+- filtro de busca, tipo, status e cliente aplicado no SQL;
+- resumo financeiro com saldo atual, contas a receber, contas a pagar e vencimentos proximos;
+- cancelamento logico por alteracao do status para `Cancelado`, sem exclusao fisica pela interface;
+- relacionamento opcional com vendas por `id_venda`, usando FK `ON DELETE RESTRICT`;
+- Dashboard atualizado para usar alertas e saldo financeiro reais;
+- importador legado ampliado para importar somente a secao `financial`, mantendo CLI-only, transacao e idempotencia;
+- protecao CSRF nas acoes de escrita;
+- saida HTML escapada com helper centralizado.
+
+A migracao manteve `financial.html` e `financial-form.html` preservados como referencia da PWA/localStorage.
+
+Relatorios, RH, configuracoes e demais modulos permanecem fora do escopo.

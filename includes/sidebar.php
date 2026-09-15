@@ -28,7 +28,7 @@ $navItems = [
     ],
     [
         'key' => 'financial',
-        'href' => 'financial.html',
+        'href' => 'financeiro.php',
         'icon' => '💰',
         'label' => 'Financeiro',
     ],

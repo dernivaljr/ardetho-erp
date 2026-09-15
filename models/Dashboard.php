@@ -50,6 +50,24 @@ class Dashboard
             )
             ->fetchColumn();
 
+        $financeiro = $this->pdo
+            ->query(
+                "SELECT
+                    COALESCE(SUM(CASE WHEN tipo = 'Receita' AND status <> 'Cancelado' THEN valor ELSE 0 END), 0) AS receitas,
+                    COALESCE(SUM(CASE WHEN tipo = 'Despesa' AND status <> 'Cancelado' THEN valor ELSE 0 END), 0) AS despesas,
+                    COALESCE(SUM(CASE WHEN tipo = 'Receita' AND status = 'Pendente' THEN valor ELSE 0 END), 0) AS receitas_pendentes,
+                    COALESCE(SUM(CASE WHEN tipo = 'Despesa' AND status = 'Pendente' THEN valor ELSE 0 END), 0) AS despesas_pendentes,
+                    COUNT(CASE
+                        WHEN status = 'Pendente'
+                         AND data_vencimento BETWEEN CURRENT_DATE AND DATE_ADD(CURRENT_DATE, INTERVAL 7 DAY)
+                        THEN 1 END) AS vencimentos_proximos
+                   FROM financeiro"
+            )
+            ->fetch();
+
+        $receitasFinanceiras = (float) ($financeiro['receitas'] ?? 0);
+        $despesasFinanceiras = (float) ($financeiro['despesas'] ?? 0);
+
         return [
             'clientes_ativos' => $clientesAtivos,
             'produtos_servicos_ativos' => $produtosServicosAtivos,
@@ -59,6 +77,10 @@ class Dashboard
             'pedidos_abertos' => $pedidosAbertos,
             'faturamento_total' => $faturamentoTotal,
             'faturamento_hoje' => $faturamentoHoje,
+            'financeiro_saldo' => number_format($receitasFinanceiras - $despesasFinanceiras, 2, '.', ''),
+            'financeiro_receitas_pendentes' => (string) ($financeiro['receitas_pendentes'] ?? '0.00'),
+            'financeiro_despesas_pendentes' => (string) ($financeiro['despesas_pendentes'] ?? '0.00'),
+            'financeiro_vencimentos_proximos' => (int) ($financeiro['vencimentos_proximos'] ?? 0),
         ];
     }
 

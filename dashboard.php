@@ -60,8 +60,8 @@ require __DIR__ . '/includes/topbar.php';
             <section class="dashboard-notification-grid" id="dashboard-notification-cards">
               <article class="card metric-card" id="dashboard-alert-expiration-card">
                 <span class="metric-label">Alertas de vencimento</span>
-                <strong class="metric-value" id="dashboard-alert-expiration-value">0</strong>
-                <span class="metric-change" id="dashboard-alert-expiration-text">Financeiro em desenvolvimento.</span>
+                <strong class="metric-value" id="dashboard-alert-expiration-value"><?= e($metricas['financeiro_vencimentos_proximos']) ?></strong>
+                <span class="metric-change" id="dashboard-alert-expiration-text"><?= e($metricas['financeiro_vencimentos_proximos']) ?> lançamento(s) pendente(s) vencendo em até 7 dias.</span>
               </article>
 
               <article class="card metric-card" id="dashboard-alert-orders-card">
@@ -126,7 +126,7 @@ require __DIR__ . '/includes/topbar.php';
 
                   <div class="summary-item">
                     <span class="summary-label">Financeiro</span>
-                    <strong class="summary-value" id="summary-scheduled-payments">Em desenvolvimento</strong>
+                    <strong class="summary-value" id="summary-scheduled-payments"><?= e(DashboardController::valorExibicao($metricas['financeiro_saldo'])) ?></strong>
                   </div>
                 </div>
               </article>

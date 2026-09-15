@@ -221,6 +221,20 @@ function buscarVendaExistente(PDO $pdo, string $codigo): ?int
     return $id === false ? null : (int) $id;
 }
 
+function buscarFinanceiroExistente(PDO $pdo, string $codigo): ?int
+{
+    $consulta = $pdo->prepare(
+        'SELECT id_financeiro
+           FROM financeiro
+          WHERE codigo = :codigo
+          LIMIT 1'
+    );
+    $consulta->execute(['codigo' => $codigo]);
+    $id = $consulta->fetchColumn();
+
+    return $id === false ? null : (int) $id;
+}
+
 $caminhoDataJs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'data.js';
 $fonte = file_get_contents($caminhoDataJs);
 
@@ -233,6 +247,7 @@ try {
     $clientes = extrairArrayLegado($fonte, 'clients');
     $produtos = extrairArrayLegado($fonte, 'products');
     $vendas = extrairArrayLegado($fonte, 'sales');
+    $financeiro = extrairArrayLegado($fonte, 'financial');
 
     $pdo = obterConexaoBanco();
     $pdo->beginTransaction();
@@ -242,6 +257,7 @@ try {
         'produtos_encontrados' => count(array_filter($produtos, static fn ($produto) => ($produto['itemType'] ?? '') === 'Produto')),
         'servicos_encontrados' => count(array_filter($produtos, static fn ($produto) => ($produto['itemType'] ?? '') === 'Serviço')),
         'vendas_encontradas' => count($vendas),
+        'financeiro_encontrado' => count($financeiro),
         'clientes_inseridos' => 0,
         'clientes_ignorados' => 0,
         'produtos_inseridos' => 0,
@@ -249,6 +265,8 @@ try {
         'vendas_inseridas' => 0,
         'vendas_ignoradas' => 0,
         'venda_itens_inseridos' => 0,
+        'financeiro_inserido' => 0,
+        'financeiro_ignorado' => 0,
     ];
 
     $mapaClientes = [];
@@ -380,7 +398,10 @@ try {
         )'
     );
 
+    $mapaVendas = [];
+
     foreach ($vendas as $venda) {
+        $idLegado = (string) ($venda['id'] ?? '');
         $codigo = textoOuNull($venda['code'] ?? null, 40);
         $idClienteLegado = (string) ($venda['clientId'] ?? '');
         $idProdutoLegado = (string) ($venda['productId'] ?? '');
@@ -389,7 +410,10 @@ try {
             throw new RuntimeException('Venda legada sem codigo encontrada.');
         }
 
-        if (buscarVendaExistente($pdo, $codigo) !== null) {
+        $idVendaExistente = buscarVendaExistente($pdo, $codigo);
+
+        if ($idVendaExistente !== null) {
+            $mapaVendas[$idLegado] = $idVendaExistente;
             $resultado['vendas_ignoradas']++;
             continue;
         }
@@ -420,6 +444,7 @@ try {
             'data_cadastro' => dataCadastroLegada($venda['createdAt'] ?? null),
         ]);
         $idVenda = (int) $pdo->lastInsertId();
+        $mapaVendas[$idLegado] = $idVenda;
 
         $inserirItem->execute([
             'id_venda' => $idVenda,
@@ -433,6 +458,65 @@ try {
         $resultado['venda_itens_inseridos']++;
     }
 
+    $inserirFinanceiro = $pdo->prepare(
+        'INSERT INTO financeiro (
+            codigo, tipo, descricao, categoria, valor, data_lancamento,
+            data_vencimento, status, forma_pagamento, id_cliente,
+            id_venda, observacoes, data_cadastro
+        ) VALUES (
+            :codigo, :tipo, :descricao, :categoria, :valor, :data_lancamento,
+            :data_vencimento, :status, :forma_pagamento, :id_cliente,
+            :id_venda, :observacoes, :data_cadastro
+        )'
+    );
+
+    foreach ($financeiro as $lancamento) {
+        $codigo = textoOuNull($lancamento['code'] ?? null, 40);
+        $idClienteLegado = (string) ($lancamento['clientId'] ?? '');
+        $idVendaLegada = (string) ($lancamento['saleId'] ?? '');
+
+        if ($codigo === null) {
+            throw new RuntimeException('Lancamento financeiro legado sem codigo encontrado.');
+        }
+
+        if (buscarFinanceiroExistente($pdo, $codigo) !== null) {
+            $resultado['financeiro_ignorado']++;
+            continue;
+        }
+
+        $idCliente = $idClienteLegado !== '' && isset($mapaClientes[$idClienteLegado])
+            ? $mapaClientes[$idClienteLegado]
+            : null;
+        $idVenda = $idVendaLegada !== '' && isset($mapaVendas[$idVendaLegada])
+            ? $mapaVendas[$idVendaLegada]
+            : null;
+
+        if ($idVenda !== null) {
+            $consultaVenda = $pdo->prepare('SELECT id_cliente FROM vendas WHERE id_venda = :id_venda LIMIT 1');
+            $consultaVenda->execute(['id_venda' => $idVenda]);
+            $idClienteVenda = $consultaVenda->fetchColumn();
+            $idCliente = $idClienteVenda === false ? $idCliente : (int) $idClienteVenda;
+        }
+
+        $inserirFinanceiro->execute([
+            'codigo' => $codigo,
+            'tipo' => textoOuNull($lancamento['entryType'] ?? 'Receita', 20) ?? 'Receita',
+            'descricao' => textoOuNull($lancamento['description'] ?? null, 180) ?? $codigo,
+            'categoria' => textoOuNull($lancamento['category'] ?? null, 100),
+            'valor' => decimalBanco($lancamento['amount'] ?? 0, 2) ?? '0.00',
+            'data_lancamento' => textoOuNull($lancamento['entryDate'] ?? null, 10) ?? date('Y-m-d'),
+            'data_vencimento' => textoOuNull($lancamento['dueDate'] ?? null, 10) ?? date('Y-m-d'),
+            'status' => textoOuNull($lancamento['status'] ?? 'Pendente', 30) ?? 'Pendente',
+            'forma_pagamento' => textoOuNull($lancamento['paymentMethod'] ?? null, 40) ?? 'Faturado',
+            'id_cliente' => $idCliente,
+            'id_venda' => $idVenda,
+            'observacoes' => textoOuNull($lancamento['notes'] ?? null, 5000),
+            'data_cadastro' => dataCadastroLegada($lancamento['createdAt'] ?? null),
+        ]);
+
+        $resultado['financeiro_inserido']++;
+    }
+
     $pdo->commit();
 
     echo "Fonte: assets/js/data.js\n";
@@ -440,6 +524,7 @@ try {
     echo "Produtos encontrados: {$resultado['produtos_encontrados']}\n";
     echo "Servicos encontrados: {$resultado['servicos_encontrados']}\n";
     echo "Vendas encontradas: {$resultado['vendas_encontradas']}\n";
+    echo "Lancamentos financeiros encontrados: {$resultado['financeiro_encontrado']}\n";
     echo "Clientes inseridos: {$resultado['clientes_inseridos']}\n";
     echo "Clientes ignorados: {$resultado['clientes_ignorados']}\n";
     echo "Produtos/servicos inseridos: {$resultado['produtos_inseridos']}\n";
@@ -447,6 +532,8 @@ try {
     echo "Vendas inseridas: {$resultado['vendas_inseridas']}\n";
     echo "Vendas ignoradas: {$resultado['vendas_ignoradas']}\n";
     echo "Itens de venda inseridos: {$resultado['venda_itens_inseridos']}\n";
+    echo "Lancamentos financeiros inseridos: {$resultado['financeiro_inserido']}\n";
+    echo "Lancamentos financeiros ignorados: {$resultado['financeiro_ignorado']}\n";
 } catch (Throwable $exception) {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
