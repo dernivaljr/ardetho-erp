@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+require __DIR__ . '/includes/auth.php';
+exigirAutenticacao();
+
 $pageTitle = 'Novo Item | Ardetho ERP';
 $bodyPage = 'product-form';
 $stylesheets = ['assets/css/pages.css'];
@@ -9,7 +14,6 @@ $topbarSubtitle = 'Cadastro completo de item';
 $scripts = [
     'assets/js/data.js',
     'assets/js/storage.js',
-    'assets/js/auth.js',
     'assets/js/layout.js',
     'assets/js/utils.js',
     'assets/js/product-form.js',

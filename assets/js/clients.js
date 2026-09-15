@@ -3,7 +3,11 @@ function saveClientsData(clients) {
 }
 
 function renderClientsUser() {
-  const currentUser = getCurrentUser();
+  if (isPhpRoute()) {
+    return;
+  }
+
+  const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
   const userRoleEls = document.querySelectorAll("[data-user='role']");

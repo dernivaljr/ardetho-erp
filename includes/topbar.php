@@ -1,6 +1,19 @@
 <?php
 $topbarTitle = $topbarTitle ?? '';
 $topbarSubtitle = $topbarSubtitle ?? '';
+$usuarioTopbar = function_exists('usuarioAtual') ? usuarioAtual() : null;
+$nomeUsuarioTopbar = $usuarioTopbar['nome'] ?? 'Usuario Ardetho';
+$emailUsuarioTopbar = $usuarioTopbar['email'] ?? '';
+$partesNomeTopbar = preg_split('/\s+/', trim($nomeUsuarioTopbar)) ?: [];
+$iniciaisUsuarioTopbar = 'UA';
+
+if (count($partesNomeTopbar) === 1 && $partesNomeTopbar[0] !== '') {
+    $iniciaisUsuarioTopbar = strtoupper(substr($partesNomeTopbar[0], 0, 2));
+} elseif (count($partesNomeTopbar) > 1) {
+    $iniciaisUsuarioTopbar = strtoupper(
+        substr($partesNomeTopbar[0], 0, 1) . substr($partesNomeTopbar[1], 0, 1)
+    );
+}
 ?>
     <div class="sidebar-overlay" data-action="close-mobile-menu"></div>
     <main class="app-main">
@@ -17,12 +30,12 @@ $topbarSubtitle = $topbarSubtitle ?? '';
 
         <div class="topbar-right">
           <div class="user-chip" data-action="go-profile" role="button" tabindex="0">
-            <div class="user-avatar" data-user="avatar">AD</div>
+            <div class="user-avatar" data-user="avatar"><?= htmlspecialchars($iniciaisUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></div>
             <div class="user-meta">
-              <span class="user-name" data-user="name">Admin User</span>
-              <span class="user-role" data-user="role">Administrador</span>
+              <span class="user-name" data-user="name"><?= htmlspecialchars($nomeUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></span>
+              <span class="user-role" data-user="role"><?= htmlspecialchars($emailUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></span>
             </div>
-            <a href="#" class="user-logout" data-action="logout">Sair</a>
+            <a href="logout.php" class="user-logout" data-action="logout">Sair</a>
           </div>
         </div>
       </header>

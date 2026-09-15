@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+require __DIR__ . '/includes/auth.php';
+exigirAutenticacao();
+
 $pageTitle = 'Clientes | Ardetho ERP';
 $bodyPage = 'clients';
 $stylesheets = ['assets/css/pages.css'];
@@ -9,7 +14,6 @@ $topbarSubtitle = 'Gestão de cadastros e relacionamento';
 $scripts = [
     'assets/js/data.js',
     'assets/js/storage.js',
-    'assets/js/auth.js',
     'assets/js/layout.js',
     'assets/js/clients.js',
     'assets/js/pwa.js'

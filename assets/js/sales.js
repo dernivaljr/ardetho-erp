@@ -3,6 +3,10 @@ function saveSalesData(sales) {
 }
 
 function renderSalesUser() {
+  if (isPhpRoute()) {
+    return;
+  }
+
   const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");

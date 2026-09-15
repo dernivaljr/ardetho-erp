@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+require __DIR__ . '/includes/auth.php';
+exigirAutenticacao();
+
 $pageTitle = 'Dashboard | Ardetho ERP';
 $bodyPage = 'dashboard';
 $stylesheets = ['assets/css/dashboard.css'];
@@ -9,7 +14,6 @@ $topbarSubtitle = 'Visão geral da operação';
 $scripts = [
     'assets/js/data.js',
     'assets/js/storage.js',
-    'assets/js/auth.js',
     'assets/js/layout.js',
     'assets/js/utils.js',
     'assets/js/dashboard.js',

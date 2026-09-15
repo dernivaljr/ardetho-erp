@@ -521,3 +521,37 @@ Objetivo:
 - propor uma estrutura PHP baseada no código real existente.
 
 Nesta primeira atividade o Codex NÃO deverá alterar nenhum arquivo.
+
+---
+
+## 18. Checkpoint da infraestrutura PHP + SQL
+
+A infraestrutura inicial de backend foi criada para a branch `php-sql`:
+
+- schema SQL em `database/ardetho.sql`;
+- conexão PDO centralizada em `config/database.php`;
+- autenticação PHP com sessão em `includes/auth.php`;
+- criação do primeiro administrador via CLI em `database/criar-admin.php`.
+
+Importação local sugerida, a partir da raiz do projeto:
+
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 --host=127.0.0.1 --port=3306 --user=root --execute="SOURCE database/ardetho.sql"
+```
+
+Criação do primeiro administrador, sem gravar senha no código:
+
+```powershell
+$env:ARDETHO_ADMIN_PASS = "informe-a-senha-somente-no-ambiente-local"
+& "C:\xampp\php\php.exe" database\criar-admin.php --nome="Administrador" --email="admin@exemplo.local" --password-env=ARDETHO_ADMIN_PASS
+Remove-Item Env:\ARDETHO_ADMIN_PASS
+```
+
+Servidor local temporário para testes funcionais:
+
+```powershell
+& "C:\xampp\php\php.exe" -S 127.0.0.1:8080
+```
+
+Nesta etapa, somente o login foi migrado para PDO + `usuarios` + `password_verify()` + `$_SESSION`.
+Clientes, Produtos, Vendas e os indicadores do Dashboard continuam temporariamente usando `data.js`, `storage.js` e `localStorage`.

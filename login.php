@@ -1,12 +1,49 @@
 <?php
+declare(strict_types=1);
+
+require __DIR__ . '/includes/auth.php';
+require __DIR__ . '/config/database.php';
+
+iniciarSessao();
+
+if (usuarioAutenticado()) {
+    header('Location: dashboard.php');
+    exit;
+}
+
+$loginError = '';
+$emailInformado = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $emailFiltrado = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $senhaFiltrada = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
+    $emailInformado = is_string($emailFiltrado) ? strtolower(trim($emailFiltrado)) : '';
+    $senhaInformada = is_string($senhaFiltrada) ? $senhaFiltrada : '';
+
+    if ($emailInformado === '' || $senhaInformada === '') {
+        $loginError = 'E-mail ou senha invalidos.';
+    } else {
+        try {
+            $usuario = autenticarUsuario(obterConexaoBanco(), $emailInformado, $senhaInformada);
+
+            if ($usuario === null) {
+                $loginError = 'E-mail ou senha invalidos.';
+            } else {
+                registrarUsuarioNaSessao($usuario);
+
+                header('Location: dashboard.php');
+                exit;
+            }
+        } catch (Throwable $exception) {
+            error_log('Falha no login Ardetho ERP: ' . $exception->getMessage());
+            $loginError = 'Nao foi possivel autenticar agora. Verifique o banco de dados e tente novamente.';
+        }
+    }
+}
+
 $pageTitle = 'Login | Ardetho ERP';
 $stylesheets = ['assets/css/auth.css'];
-$scripts = [
-    'assets/js/data.js',
-    'assets/js/storage.js',
-    'assets/js/auth.js',
-    'assets/js/pwa.js'
-];
+$scripts = ['assets/js/pwa.js'];
 
 require __DIR__ . '/includes/header.php';
 ?>
@@ -40,7 +77,7 @@ require __DIR__ . '/includes/header.php';
           <p>Enter your credentials to continue.</p>
         </div>
 
-        <form id="loginForm" class="login-form">
+        <form id="loginForm" class="login-form" method="post" action="login.php">
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -48,7 +85,10 @@ require __DIR__ . '/includes/header.php';
               type="email"
               id="email"
               name="email"
-              placeholder="admin@ardetho.com"
+              value="<?= htmlspecialchars($emailInformado, ENT_QUOTES, 'UTF-8') ?>"
+              placeholder="email@empresa.com"
+              autocomplete="username"
+              required
             />
           </div>
 
@@ -60,6 +100,8 @@ require __DIR__ . '/includes/header.php';
               id="password"
               name="password"
               placeholder="Enter your password"
+              autocomplete="current-password"
+              required
             />
           </div>
 
@@ -72,13 +114,11 @@ require __DIR__ . '/includes/header.php';
 
           <button type="submit" class="btn-primary w-full">Login</button>
 
-          <p class="form-demo">
-            Demo access: <strong>admin@ardetho.com</strong> / <strong>123456</strong>
+<?php if ($loginError !== ''): ?>
+          <p id="loginError" class="error-message">
+            <?= htmlspecialchars($loginError, ENT_QUOTES, 'UTF-8') ?>
           </p>
-
-          <p id="loginError" class="error-message hidden">
-            Invalid email or password.
-          </p>
+<?php endif; ?>
         </form>
 
         <div class="login-footer">

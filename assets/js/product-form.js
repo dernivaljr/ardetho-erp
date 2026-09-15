@@ -1,4 +1,8 @@
 function renderProductFormUser() {
+  if (isPhpRoute()) {
+    return;
+  }
+
   const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");

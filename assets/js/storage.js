@@ -17,8 +17,12 @@ const PHP_ROUTE_MAP = {
   "sale-form.html": "venda-form.php"
 };
 
+function isPhpRoute() {
+  return window.location.pathname.endsWith(".php");
+}
+
 function getAppRoutePath(path) {
-  const isPhpPage = window.location.pathname.endsWith(".php");
+  const isPhpPage = isPhpRoute();
 
   if (!isPhpPage) {
     return path;
