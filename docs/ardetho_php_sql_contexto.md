@@ -783,3 +783,22 @@ Com este checkpoint, a aplicacao principal PHP + SQL cobre:
 - Configuracoes.
 
 RH e demais modulos permanecem fora do escopo.
+
+---
+
+## 27. Checkpoint PWA para aplicacao PHP + SQL
+
+A aplicacao principal da branch `php-sql` agora e o fluxo PHP + MariaDB.
+
+O `manifest.json` foi alinhado para iniciar a PWA em `./login.php`, preservando `scope: ./`, `display: standalone`, cores e icone existente. O login PHP passa a ser a entrada instalada segura: usuarios sem sessao permanecem no login e usuarios autenticados seguem o fluxo normal da aplicacao.
+
+O `service-worker.js` foi ajustado para a arquitetura autenticada:
+
+- paginas PHP e navegacoes (`request.mode === "navigate"`) usam rede diretamente;
+- respostas `.php` nao sao armazenadas no Cache Storage;
+- nao ha fallback de `index.html` para paginas autenticadas;
+- logout, sessao expirada e falhas de servidor/banco nao devem exibir HTML autenticado antigo vindo do cache;
+- cache PWA fica restrito a assets estaticos same-origin apropriados, como `manifest.json`, CSS, JavaScript e imagens em `assets/`;
+- os HTMLs legados permanecem no repositorio como referencia historica, mas nao fazem parte do app shell precacheado.
+
+O cache atual usa prefixo proprio `ardetho-erp-` e versao `ardetho-erp-v23`. Na ativacao, somente caches antigos com esse prefixo sao removidos.
