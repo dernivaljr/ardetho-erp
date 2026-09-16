@@ -235,6 +235,20 @@ function buscarFinanceiroExistente(PDO $pdo, string $codigo): ?int
     return $id === false ? null : (int) $id;
 }
 
+function buscarFuncionarioExistente(PDO $pdo, string $email): ?int
+{
+    $consulta = $pdo->prepare(
+        'SELECT id_funcionario
+           FROM funcionarios
+          WHERE email = :email
+          LIMIT 1'
+    );
+    $consulta->execute(['email' => $email]);
+    $id = $consulta->fetchColumn();
+
+    return $id === false ? null : (int) $id;
+}
+
 $caminhoDataJs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'data.js';
 $fonte = file_get_contents($caminhoDataJs);
 
@@ -248,6 +262,7 @@ try {
     $produtos = extrairArrayLegado($fonte, 'products');
     $vendas = extrairArrayLegado($fonte, 'sales');
     $financeiro = extrairArrayLegado($fonte, 'financial');
+    $funcionarios = extrairArrayLegado($fonte, 'hr');
 
     $pdo = obterConexaoBanco();
     $pdo->beginTransaction();
@@ -258,6 +273,7 @@ try {
         'servicos_encontrados' => count(array_filter($produtos, static fn ($produto) => ($produto['itemType'] ?? '') === 'Serviço')),
         'vendas_encontradas' => count($vendas),
         'financeiro_encontrado' => count($financeiro),
+        'funcionarios_encontrados' => count($funcionarios),
         'clientes_inseridos' => 0,
         'clientes_ignorados' => 0,
         'produtos_inseridos' => 0,
@@ -267,6 +283,8 @@ try {
         'venda_itens_inseridos' => 0,
         'financeiro_inserido' => 0,
         'financeiro_ignorado' => 0,
+        'funcionarios_inseridos' => 0,
+        'funcionarios_ignorados' => 0,
     ];
 
     $mapaClientes = [];
@@ -517,6 +535,49 @@ try {
         $resultado['financeiro_inserido']++;
     }
 
+    $inserirFuncionario = $pdo->prepare(
+        'INSERT INTO funcionarios (
+            nome_completo, email, telefone, cargo, departamento,
+            salario, data_admissao, status, observacoes
+        ) VALUES (
+            :nome_completo, :email, :telefone, :cargo, :departamento,
+            :salario, :data_admissao, :status, :observacoes
+        )'
+    );
+
+    foreach ($funcionarios as $funcionario) {
+        $email = textoOuNull($funcionario['email'] ?? null, 190);
+
+        if ($email === null) {
+            throw new RuntimeException('Colaborador legado sem e-mail encontrado.');
+        }
+
+        if (buscarFuncionarioExistente($pdo, $email) !== null) {
+            $resultado['funcionarios_ignorados']++;
+            continue;
+        }
+
+        $statusFuncionario = textoOuNull($funcionario['status'] ?? 'Ativo', 30) ?? 'Ativo';
+
+        if (!in_array($statusFuncionario, ['Ativo', 'Férias', 'Afastado', 'Desligado'], true)) {
+            $statusFuncionario = 'Ativo';
+        }
+
+        $inserirFuncionario->execute([
+            'nome_completo' => textoOuNull($funcionario['fullName'] ?? null, 160) ?? $email,
+            'email' => $email,
+            'telefone' => textoOuNull($funcionario['phone'] ?? null, 30),
+            'cargo' => textoOuNull($funcionario['role'] ?? null, 120) ?? 'Colaborador',
+            'departamento' => textoOuNull($funcionario['department'] ?? null, 100) ?? 'Geral',
+            'salario' => decimalBanco($funcionario['salary'] ?? 0, 2) ?? '0.00',
+            'data_admissao' => textoOuNull($funcionario['admissionDate'] ?? null, 10) ?? date('Y-m-d'),
+            'status' => $statusFuncionario,
+            'observacoes' => textoOuNull($funcionario['notes'] ?? null, 5000),
+        ]);
+
+        $resultado['funcionarios_inseridos']++;
+    }
+
     $pdo->commit();
 
     echo "Fonte: assets/js/data.js\n";
@@ -525,6 +586,7 @@ try {
     echo "Servicos encontrados: {$resultado['servicos_encontrados']}\n";
     echo "Vendas encontradas: {$resultado['vendas_encontradas']}\n";
     echo "Lancamentos financeiros encontrados: {$resultado['financeiro_encontrado']}\n";
+    echo "Funcionarios encontrados: {$resultado['funcionarios_encontrados']}\n";
     echo "Clientes inseridos: {$resultado['clientes_inseridos']}\n";
     echo "Clientes ignorados: {$resultado['clientes_ignorados']}\n";
     echo "Produtos/servicos inseridos: {$resultado['produtos_inseridos']}\n";
@@ -534,6 +596,8 @@ try {
     echo "Itens de venda inseridos: {$resultado['venda_itens_inseridos']}\n";
     echo "Lancamentos financeiros inseridos: {$resultado['financeiro_inserido']}\n";
     echo "Lancamentos financeiros ignorados: {$resultado['financeiro_ignorado']}\n";
+    echo "Funcionarios inseridos: {$resultado['funcionarios_inseridos']}\n";
+    echo "Funcionarios ignorados: {$resultado['funcionarios_ignorados']}\n";
 } catch (Throwable $exception) {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();

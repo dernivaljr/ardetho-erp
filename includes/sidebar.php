@@ -40,7 +40,7 @@ $navItems = [
     ],
     [
         'key' => 'hr',
-        'href' => 'hr.html',
+        'href' => 'rh.php',
         'icon' => '🧑‍💼',
         'label' => 'RH',
     ],

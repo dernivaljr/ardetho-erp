@@ -102,7 +102,7 @@ class DashboardController
             ['nome' => 'Produtos/Serviços', 'status' => 'Ativo', 'classe' => 'badge-success'],
             ['nome' => 'Vendas', 'status' => 'Ativo', 'classe' => 'badge-success'],
             ['nome' => 'Financeiro', 'status' => 'Ativo', 'classe' => 'badge-success'],
-            ['nome' => 'RH', 'status' => 'Em desenvolvimento', 'classe' => 'badge-neutral'],
+            ['nome' => 'RH', 'status' => 'Ativo', 'classe' => 'badge-success'],
         ];
     }
 
