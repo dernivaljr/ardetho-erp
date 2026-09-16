@@ -4,6 +4,7 @@ $topbarSubtitle = $topbarSubtitle ?? '';
 $usuarioTopbar = function_exists('usuarioAtual') ? usuarioAtual() : null;
 $nomeUsuarioTopbar = $usuarioTopbar['nome'] ?? 'Usuario Ardetho';
 $emailUsuarioTopbar = $usuarioTopbar['email'] ?? '';
+$cargoUsuarioTopbar = ($usuarioTopbar['cargo'] ?? '') ?: $emailUsuarioTopbar;
 $partesNomeTopbar = preg_split('/\s+/', trim($nomeUsuarioTopbar)) ?: [];
 $iniciaisUsuarioTopbar = 'UA';
 
@@ -33,7 +34,7 @@ if (count($partesNomeTopbar) === 1 && $partesNomeTopbar[0] !== '') {
             <div class="user-avatar" data-user="avatar"><?= htmlspecialchars($iniciaisUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></div>
             <div class="user-meta">
               <span class="user-name" data-user="name"><?= htmlspecialchars($nomeUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></span>
-              <span class="user-role" data-user="role"><?= htmlspecialchars($emailUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></span>
+              <span class="user-role" data-user="role"><?= htmlspecialchars($cargoUsuarioTopbar, ENT_QUOTES, 'UTF-8') ?></span>
             </div>
             <a href="logout.php" class="user-logout" data-action="logout">Sair</a>
           </div>

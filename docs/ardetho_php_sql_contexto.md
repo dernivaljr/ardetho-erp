@@ -747,4 +747,39 @@ Com este checkpoint, a aplicacao principal PHP + SQL cobre:
 - Financeiro;
 - Relatorios.
 
-RH, configuracoes, perfil e demais modulos permanecem fora do escopo.
+RH e demais modulos permanecem fora do escopo.
+
+---
+
+## 26. Checkpoint dos modulos Perfil e Configuracoes em PHP + SQL
+
+Os modulos Perfil e Configuracoes foram migrados na branch `php-sql` para a aplicacao PHP principal.
+
+Escopo concluido nesta etapa:
+
+- `perfil.php` exige autenticacao PHP e edita somente o usuario autenticado na tabela `usuarios`;
+- `usuarios` recebeu os campos `cargo` e `departamento`, existentes no Perfil legado;
+- alteracoes de `nome`, `email`, `cargo` e `departamento` usam POST, CSRF, validacao backend e prepared statements;
+- alteracao de e-mail valida formato, respeita unicidade e atualiza a sessao apos sucesso;
+- `configuracoes.php` persiste preferencias simples em tabela generica `configuracoes`;
+- preferencias migradas: tema, sidebar compacta, atalhos do dashboard, alertas, resumo diario, idioma, formato de data, fuso horario, modulo inicial, modulo prioritario e visao inicial;
+- identidade visual da empresa do Perfil legado foi separada conceitualmente e persistida em Configuracoes: nome da empresa, nome exibido, logo, icone e cores da marca;
+- migration incremental `database/migrations/002_perfil_configuracoes.sql` criada e `database/ardetho.sql` atualizado para novas instalacoes;
+- navegacao PHP atualizada para `perfil.php` e `configuracoes.php`;
+- `profile.html` e `settings.html` permanecem preservados como fluxo legado/localStorage.
+
+O Perfil legado nao possuia troca de senha; por isso a funcionalidade nao foi implementada nesta etapa.
+
+Com este checkpoint, a aplicacao principal PHP + SQL cobre:
+
+- Login;
+- Dashboard;
+- Clientes;
+- Produtos/Servicos;
+- Vendas;
+- Financeiro;
+- Relatorios;
+- Perfil;
+- Configuracoes.
+
+RH e demais modulos permanecem fora do escopo.

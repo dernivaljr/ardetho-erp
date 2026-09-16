@@ -52,13 +52,13 @@ $navItems = [
     ],
     [
         'key' => 'settings',
-        'href' => 'settings.html',
+        'href' => 'configuracoes.php',
         'icon' => '⚙️',
         'label' => 'Configurações',
     ],
     [
         'key' => 'profile',
-        'href' => 'profile.html',
+        'href' => 'perfil.php',
         'icon' => '👤',
         'label' => 'Perfil',
     ],

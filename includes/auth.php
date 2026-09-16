@@ -84,7 +84,7 @@ function exigirAutenticacao(): void
 function autenticarUsuario(PDO $pdo, string $email, string $senha): ?array
 {
     $consulta = $pdo->prepare(
-        'SELECT id_usuario, nome, email, senha_hash, ativo
+        'SELECT id_usuario, nome, email, cargo, departamento, senha_hash, ativo
            FROM usuarios
           WHERE email = :email
           LIMIT 1'
@@ -112,6 +112,8 @@ function autenticarUsuario(PDO $pdo, string $email, string $senha): ?array
         'id_usuario' => (int) $usuario['id_usuario'],
         'nome' => (string) $usuario['nome'],
         'email' => (string) $usuario['email'],
+        'cargo' => (string) ($usuario['cargo'] ?? ''),
+        'departamento' => (string) ($usuario['departamento'] ?? ''),
     ];
 }
 
@@ -124,6 +126,21 @@ function registrarUsuarioNaSessao(array $usuario): void
         'id_usuario' => (int) $usuario['id_usuario'],
         'nome' => (string) $usuario['nome'],
         'email' => (string) $usuario['email'],
+        'cargo' => (string) ($usuario['cargo'] ?? ''),
+        'departamento' => (string) ($usuario['departamento'] ?? ''),
+    ];
+}
+
+function atualizarUsuarioNaSessao(array $usuario): void
+{
+    iniciarSessao();
+
+    $_SESSION['usuario'] = [
+        'id_usuario' => (int) $usuario['id_usuario'],
+        'nome' => (string) $usuario['nome'],
+        'email' => (string) $usuario['email'],
+        'cargo' => (string) ($usuario['cargo'] ?? ''),
+        'departamento' => (string) ($usuario['departamento'] ?? ''),
     ];
 }
 
