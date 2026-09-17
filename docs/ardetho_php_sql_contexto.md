@@ -802,3 +802,13 @@ O `service-worker.js` foi ajustado para a arquitetura autenticada:
 - os HTMLs legados permanecem no repositorio como referencia historica, mas nao fazem parte do app shell precacheado.
 
 O cache atual usa prefixo proprio `ardetho-erp-` e versao `ardetho-erp-v23`. Na ativacao, somente caches antigos com esse prefixo sao removidos.
+
+---
+
+## 28. Fluxo principal exclusivamente PHP
+
+A aplicacao PHP + SQL e o unico fluxo funcional principal do Ardetho ERP. A navegacao autenticada, os formularios e os redirects dos modulos migrados apontam exclusivamente para rotas PHP.
+
+As paginas institucionais publicas continuam estaticas em HTML, mas seus links de acesso ao sistema direcionam para `login.php`. O painel legado `erp-modules.html` deixou de ser exposto pela sidebar PHP porque depende da autenticacao simulada e dos dados em `localStorage`.
+
+Os HTMLs e scripts antigos permanecem no repositorio apenas como legado e referencia historica. Eles podem ser abertos diretamente, mas nao fazem parte da navegacao normal da aplicacao PHP.

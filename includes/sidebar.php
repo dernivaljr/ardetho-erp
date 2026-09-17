@@ -45,12 +45,6 @@ $navItems = [
         'label' => 'RH',
     ],
     [
-        'key' => 'modules',
-        'href' => 'erp-modules.html',
-        'icon' => '🧩',
-        'label' => 'Módulos',
-    ],
-    [
         'key' => 'settings',
         'href' => 'configuracoes.php',
         'icon' => '⚙️',
