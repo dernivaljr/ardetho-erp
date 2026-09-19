@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "ardetho-erp-";
-const CACHE_NAME = `${CACHE_PREFIX}v23`;
+const CACHE_NAME = `${CACHE_PREFIX}v24`;
 
 const FILES_TO_CACHE = [
   "./manifest.json",
