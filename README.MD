@@ -1,92 +1,146 @@
 # Ardetho ERP
 
-O Ardetho ERP e um projeto academico de gestao empresarial. A versao de entrega usa PHP e MariaDB para autenticacao e dados, com entrada em `login.php`.
+Um sistema ERP acadêmico desenvolvido em PHP e MariaDB para centralizar operações administrativas e comerciais.
 
-## Tecnologias e ambiente validado
+## Funcionalidades
 
-- PHP 8.2.12, Apache 2.4.58 e MariaDB 10.4.32 no XAMPP para Windows.
-- PDO com `pdo_mysql`, sessoes PHP, HTML, CSS e JavaScript sem framework.
+- Autenticação de usuários e Dashboard com indicadores da operação.
+- Cadastro, gestão, busca e filtros de Clientes e de Produtos e Serviços.
+- Vendas com múltiplos itens, cálculo de valores e acompanhamento de status.
+- Lançamentos financeiros, vencimentos e saldos.
+- Relatórios com filtros e exportação CSV.
+- Cadastro de colaboradores em Recursos Humanos.
+- Perfil do usuário e Configurações do sistema.
 
-O codigo usa propriedades `readonly`, que exigem PHP 8.1 ou superior. O teste de instalacao foi feito em PHP 8.2.12; outras combinacoes de versoes nao foram validadas. Confira se `PDO` e `pdo_mysql` estao habilitados no PHP do Apache e no PHP CLI. O projeto tambem usa extensoes comuns do PHP, como `json`, `filter` e `session`. Nao ha etapa de Composer ou `.env`.
+## Interface
 
-## Estrutura
+**Dashboard**
 
-| Caminho | Funcao |
-| --- | --- |
-| `controllers/` | Validacao, regras e fluxo das requisicoes. |
-| `models/` | Consultas e persistencia com PDO. |
-| `includes/` | Sessao, autenticacao, CSRF, mensagens e partes compartilhadas das views. |
-| `config/` | Conexao com o banco. |
-| `database/` | Schema completo, migrations incrementais, dados demonstrativos e utilitarios CLI. |
-| `assets/` | CSS, JavaScript e imagens. |
-| `docs/` | Contexto da migracao e documentacao historica. |
+![Dashboard com indicadores do Ardetho ERP](docs/images/dashboard.png)
 
-As paginas `.php` da raiz apresentam a interface. O fluxo atual inclui login, Dashboard, Clientes, Produtos/Servicos, Vendas, Financeiro, Relatorios, RH, Perfil e Configuracoes. Compras, Fornecedores e outros modulos futuros nao estao implementados.
+**Produtos e serviços**
 
-## Instalacao no XAMPP
+![Listagem de produtos e serviços](docs/images/produtos.png)
 
-1. Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp` (ou outro nome de subdiretorio).
-2. Inicie Apache e MySQL/MariaDB no XAMPP.
-3. No PowerShell, entre na pasta do projeto e importe o schema completo:
+**Venda com múltiplos itens**
 
-   ```powershell
-   Set-Location C:\xampp\htdocs\ardetho-erp
-   Get-Content -Raw -Encoding UTF8 database\ardetho.sql | & C:\xampp\mysql\bin\mysql.exe --default-character-set=utf8mb4 -u root
-   ```
+![Itens e valor total de uma venda](docs/images/venda-itens.png)
 
-   O arquivo `database/ardetho.sql` executa `CREATE DATABASE IF NOT EXISTS ardetho_erp` e `USE ardetho_erp`, depois cria as tabelas. Use-o para um banco novo; ele nao limpa dados de um banco existente. Se o usuario do MariaDB exigir senha, use as opcoes apropriadas do cliente `mysql` sem colocar a senha no comando ou no repositorio.
-4. Crie o primeiro usuario com o utilitario CLI. Escolha seu proprio nome, e-mail e senha; a senha precisa ter pelo menos 8 caracteres. Este exemplo solicita a senha sem exibi-la e remove a variavel temporaria ao terminar:
+**Financeiro**
 
-   ```powershell
-   $senhaAdmin = Read-Host 'Senha do administrador (minimo 8 caracteres)' -AsSecureString
-   $env:ARDETHO_ADMIN_PASS = [System.Net.NetworkCredential]::new('', $senhaAdmin).Password
-   try {
-       & C:\xampp\php\php.exe database\criar-admin.php --nome='Administrador' --email='voce@exemplo.com' --password-env=ARDETHO_ADMIN_PASS
-   } finally {
-       Remove-Item Env:\ARDETHO_ADMIN_PASS -ErrorAction SilentlyContinue
-       Remove-Variable senhaAdmin -ErrorAction SilentlyContinue
-   }
-   ```
+![Indicadores e lançamentos financeiros](docs/images/financeiro.png)
 
-   O script usa `password_hash`; escolha um e-mail seu no lugar do exemplo. Nao existe credencial padrao fixa para a aplicacao PHP.
-5. Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/) (redireciona para `login.php`) e entre com o usuario criado. O acesso direto por [login.php](http://localhost/ardetho-erp/login.php) tambem funciona.
+**Visualização móvel**
 
-Se a pasta em `htdocs` tiver outro nome, ajuste somente a URL. O teste fresh foi executado em um subdiretorio do Apache, nao apenas no servidor embutido do PHP.
+![Dashboard em tela móvel](docs/images/mobile.png)
 
-### Conexao com o banco
+As telas mostram apenas dados demonstrativos.
 
-`config/database.php` usa estes valores locais por padrao:
+## Tecnologias
 
-| Variavel | Padrao |
-| --- | --- |
-| `DB_HOST` | `127.0.0.1` |
-| `DB_PORT` | `3306` |
-| `DB_NAME` | `ardetho_erp` |
-| `DB_USER` | `root` |
-| `DB_PASS` | senha vazia |
+PHP 8.1 ou superior, MariaDB/MySQL, PDO, Apache, HTML5, CSS3 e JavaScript. O ambiente validado usa XAMPP para Windows com PHP 8.2.12, Apache 2.4.58 e MariaDB 10.4.32.
 
-As variaveis de ambiente substituem os defaults no processo PHP que executa o codigo. Para outro banco/usuario, configure-as tanto no ambiente do Apache quanto no terminal usado pelos utilitarios CLI e reinicie o Apache depois de alterar seu ambiente. Nao basta definir `DB_NAME` em um terminal separado enquanto o Apache ja esta em execucao. O schema SQL, por sua vez, fixa o nome `ardetho_erp`; importar em outro nome exige adaptar essa selecao de banco na copia usada para a importacao.
+## Estrutura do projeto
 
-### Schema novo versus migrations
-
-`database/ardetho.sql` ja contem o schema final completo: `usuarios`, `clientes`, `produtos`, `vendas`, `venda_itens`, `financeiro`, `funcionarios` e `configuracoes`. **Em instalacao nova, nao execute as migrations depois dele.**
-
-Os arquivos de `database/migrations/` servem apenas para atualizar instalacoes antigas, conforme o ponto de partida: `001_financeiro.sql`, `002_perfil_configuracoes.sql` e `003_rh.sql`. As migrations `001` e `002` selecionam `ardetho_erp` explicitamente; `003` usa o banco selecionado na conexao. Nao ha runner automatico de migrations.
-
-### Dados demonstrativos (opcional)
-
-O ERP funciona sem seed. Para importar a massa historica da antiga PWA depois de criar o schema, execute:
-
-```powershell
-& C:\xampp\php\php.exe database\importar-dados-legados.php
+```text
+ardetho-erp/
+|-- assets/
+|   |-- css/
+|   |-- images/
+|   `-- js/
+|-- config/
+|-- controllers/
+|-- database/
+|   |-- ardetho.sql
+|   |-- criar-admin.php
+|   |-- importar-dados-legados.php
+|   |-- seed-demo.json
+|   `-- migrations/
+|-- docs/
+|   `-- images/
+|-- includes/
+|-- models/
+|-- index.php
+|-- login.php
+|-- dashboard.php
+|-- clientes.php
+|-- produtos.php
+|-- vendas.php
+|-- financeiro.php
+|-- relatorios.php
+|-- rh.php
+|-- perfil.php
+`-- configuracoes.php
 ```
 
-O importador e CLI-only, le `database/seed-demo.json` e insere clientes, produtos/servicos, vendas e itens, lancamentos financeiros e funcionarios. O arquivo nao contem usuarios nem senhas. A importacao e opcional e idempotente: uma segunda execucao ignora os registros ja importados. Nao a use para substituir dados reais.
+As páginas e formulários PHP ficam na raiz. `models/` acessa os dados, `controllers/` trata as requisições, `includes/` reúne componentes e recursos compartilhados, e `config/` define a conexão com o banco. `assets/` contém a interface; `database/` contém o esquema e os utilitários de instalação.
 
-## Arquitetura e seguranca
+## Como executar
 
-Models consultam o MariaDB com PDO; controllers validam entradas e coordenam o fluxo; paginas PHP apresentam as views. A autenticacao usa `password_hash`/`password_verify` e sessao PHP. Formularios mutaveis usam token CSRF; consultas usam prepared statements; a saida HTML e escapada. Isso descreve mecanismos existentes, nao uma garantia de seguranca completa.
+### 1. Requisitos
 
-## Versao de entrega e historico
+Instale o XAMPP com Apache, MariaDB/MySQL, phpMyAdmin e PHP 8.1+ com `PDO` e `pdo_mysql` habilitados. Não é necessário instalar dependências com Composer.
 
-A interface e servida por rotas PHP; servidor e banco precisam estar disponiveis. Esta versao nao registra Service Worker, nao oferece instalacao como PWA e nao funciona offline. Os arquivos HTML e scripts de LocalStorage da fase Web/PWA nao fazem parte desta entrega. Sua historia permanece nos commits e branches do Git; documentos historicos em `docs/` descrevem etapas anteriores, nao rotas atuais.
+### 2. Colocar o projeto no XAMPP
+
+Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp`. No painel do XAMPP, inicie **Apache** e **MySQL**.
+
+### 3. Criar e importar o banco
+
+1. Abra [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/).
+2. Em **Bancos de dados**, crie `ardetho_erp` com a colação `utf8mb4_unicode_ci`.
+3. Selecione `ardetho_erp` na barra lateral e abra a aba **Importar** desse banco.
+4. Selecione `database/ardetho.sql` na pasta do projeto e clique em **Importar**.
+
+O SQL cria as oito tabelas necessárias. Use um banco novo; não execute `database/migrations/` após importar o esquema completo.
+
+### 4. Criar o primeiro administrador
+
+Abra o PowerShell na pasta do projeto e execute, substituindo o e-mail e a senha do exemplo:
+
+```powershell
+Set-Location C:\xampp\htdocs\ardetho-erp
+$env:ARDETHO_ADMIN_PASS = "SuaSenhaAqui"
+& "C:\xampp\php\php.exe" database\criar-admin.php --nome="Administrador" --email="admin@exemplo.com" --password-env=ARDETHO_ADMIN_PASS
+Remove-Item Env:\ARDETHO_ADMIN_PASS
+```
+
+A senha deve ter pelo menos 8 caracteres. O script armazena seu hash; não existe usuário ou senha padrão. A última linha remove a variável de ambiente temporária.
+
+### 5. Dados demonstrativos (opcional)
+
+Para visualizar o sistema já preenchido com dados de exemplo, execute na mesma pasta:
+
+```powershell
+& "C:\xampp\php\php.exe" database\importar-dados-legados.php
+```
+
+O importador usa `database/seed-demo.json`, não cria usuários e pode ser executado novamente sem duplicar os registros importados. O sistema também funciona sem esses dados.
+
+### 6. Acessar o sistema
+
+Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/). A raiz redireciona para `login.php`; entre com o administrador criado no passo 4. Se você escolheu outro nome para a pasta em `htdocs`, ajuste a URL.
+
+## Teste rápido
+
+Após entrar, abra o Dashboard, cadastre um Cliente e um Produto ou Serviço, crie uma Venda e volte ao Dashboard para conferir os indicadores. Em seguida, visite Financeiro e Relatórios. Se importou os dados demonstrativos, você também pode navegar pelos módulos já preenchidos.
+
+## Arquitetura
+
+Os Models consultam e gravam no MariaDB por PDO. Os Controllers validam os dados e coordenam o fluxo. As páginas PHP exibem as Views; `includes/` fornece autenticação, sessão, proteção CSRF e partes compartilhadas da interface.
+
+## Segurança implementada
+
+O projeto utiliza `password_hash`/`password_verify`, sessão PHP com regeneração do ID no login, tokens CSRF nos formulários, consultas preparadas com PDO e escape de dados exibidos em HTML. Status como inativação e cancelamento preservam registros quando aplicável. Esses recursos não substituem uma avaliação de segurança para uso em produção.
+
+## Banco de dados
+
+`database/ardetho.sql` é o esquema completo para uma instalação nova. `database/migrations/` contém atualizações incrementais para bancos de etapas anteriores e **não** deve ser executado depois do esquema completo.
+
+### Configuração avançada do banco
+
+Em um XAMPP padrão, `config/database.php` usa `127.0.0.1:3306`, banco `ardetho_erp`, usuário `root` e senha vazia. Para outra configuração, defina `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` e `DB_PASS` no ambiente do Apache e dos utilitários PHP CLI.
+
+## Observações
+
+Este é um projeto acadêmico. O acesso depende de Apache e MariaDB ativos; os dados são persistidos no banco, não no navegador.
