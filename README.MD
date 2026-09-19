@@ -1,344 +1,95 @@
 # Ardetho ERP
 
-![Ardetho ERP Preview](assets/images/preview-dashboard.png)
+O Ardetho ERP e um projeto academico de gestao empresarial. A aplicacao principal usa PHP e MariaDB para autenticacao e dados; paginas institucionais publicas permanecem em HTML.
 
-Ardetho ERP is a modular and customizable enterprise resource planning system developed as an academic front-end project.  
-The project was created to simulate a modern ERP environment with public presentation pages and an internal authenticated area, focusing on usability, modularity, branding customization, and interface consistency.
+## Tecnologias e ambiente validado
 
----
+- PHP 8.2.12, Apache 2.4.58 e MariaDB 10.4.32 no XAMPP para Windows.
+- PDO com `pdo_mysql`, sessoes PHP, HTML, CSS e JavaScript sem framework.
+- Manifest Web App e Service Worker para a PWA.
 
-## Overview
+O codigo usa propriedades `readonly`, que exigem PHP 8.1 ou superior. O teste de instalacao foi feito em PHP 8.2.12; outras combinacoes de versoes nao foram validadas. Confira se `PDO` e `pdo_mysql` estao habilitados no PHP do Apache e no PHP CLI. O projeto tambem usa extensoes comuns do PHP, como `json`, `filter` e `session`. Nao ha etapa de Composer ou `.env`.
 
-The main idea of Ardetho ERP is to provide a management platform that can be adapted according to different business profiles.  
-The environment was structured to support a modular approach, allowing the system to grow progressively with the company.
+## Estrutura
 
-The project includes:
+| Caminho | Funcao |
+| --- | --- |
+| `controllers/` | Validacao, regras e fluxo das requisicoes. |
+| `models/` | Consultas e persistencia com PDO. |
+| `includes/` | Sessao, autenticacao, CSRF, mensagens e partes compartilhadas das views. |
+| `config/` | Conexao com o banco. |
+| `database/` | Schema completo, migrations incrementais e utilitarios CLI. |
+| `assets/` | CSS, JavaScript e imagens. |
+| `docs/` | Contexto da migracao e documentacao historica. |
 
-- a public presentation area
-- an internal ERP area
-- module activation and deactivation
-- company branding customization
-- HR management
-- dashboard visualization
-- LocalStorage-based persistence
+As paginas `.php` da raiz apresentam a interface. O fluxo atual inclui login, Dashboard, Clientes, Produtos/Servicos, Vendas, Financeiro, Relatorios, RH, Perfil e Configuracoes. Compras, Fornecedores e outros modulos futuros nao estao implementados.
 
----
+## Instalacao no XAMPP
 
-## Main Features
+1. Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp` (ou outro nome de subdiretorio).
+2. Inicie Apache e MySQL/MariaDB no XAMPP.
+3. No PowerShell, entre na pasta do projeto e importe o schema completo:
 
-### Public pages
-- Home page
-- About page
-- Modules page
-- Contact page
+   ```powershell
+   Set-Location C:\xampp\htdocs\ardetho-erp
+   Get-Content -Raw -Encoding UTF8 database\ardetho.sql | & C:\xampp\mysql\bin\mysql.exe --default-character-set=utf8mb4 -u root
+   ```
 
-### Internal ERP pages
-- Login
-- Dashboard
-- Clients
-- Products
-- Sales
-- Financial
-- Reports
-- HR
-- ERP Modules
-- Settings
-- Profile
+   O arquivo `database/ardetho.sql` executa `CREATE DATABASE IF NOT EXISTS ardetho_erp` e `USE ardetho_erp`, depois cria as tabelas. Use-o para um banco novo; ele nao limpa dados de um banco existente. Se o usuario do MariaDB exigir senha, use as opcoes apropriadas do cliente `mysql` sem colocar a senha no comando ou no repositorio.
+4. Crie o primeiro usuario com o utilitario CLI. Escolha seu proprio nome, e-mail e senha; a senha precisa ter pelo menos 8 caracteres. Este exemplo solicita a senha sem exibi-la e remove a variavel temporaria ao terminar:
 
-### Functional highlights
-- Authentication with protected internal routes
-- Multi-user simulation with different company identities
-- Company branding customization:
-  - company name
-  - display name
-  - logo
-  - favicon
-  - primary color
-  - accent color
-- Dynamic dashboard with:
-  - metrics
-  - notifications
-  - summary
-  - activities
-  - financial chart
-  - operational status
-- Clients module with PF/PJ structure
-- Products and services module
-- Sales module
-- Financial module with income and expenses
-- Reports connected to internal data
-- ERP modules activation/deactivation
-- HR module with:
-  - employee listing
-  - salary field
-  - status filter
-  - department filter
-  - employee form
-  - create/edit/delete operations
+   ```powershell
+   $senhaAdmin = Read-Host 'Senha do administrador (minimo 8 caracteres)' -AsSecureString
+   $env:ARDETHO_ADMIN_PASS = [System.Net.NetworkCredential]::new('', $senhaAdmin).Password
+   try {
+       & C:\xampp\php\php.exe database\criar-admin.php --nome='Administrador' --email='voce@exemplo.com' --password-env=ARDETHO_ADMIN_PASS
+   } finally {
+       Remove-Item Env:\ARDETHO_ADMIN_PASS -ErrorAction SilentlyContinue
+       Remove-Variable senhaAdmin -ErrorAction SilentlyContinue
+   }
+   ```
 
----
+   O script usa `password_hash`; escolha um e-mail seu no lugar do exemplo. Nao existe credencial padrao fixa para a aplicacao PHP.
+5. Abra [http://localhost/ardetho-erp/login.php](http://localhost/ardetho-erp/login.php) e entre com o usuario criado. A pagina `index.html` e publica e seu botao de acesso tambem leva a `login.php`.
 
-## Technologies Used
+Se a pasta em `htdocs` tiver outro nome, ajuste somente a URL. O teste fresh foi executado em um subdiretorio do Apache, nao apenas no servidor embutido do PHP.
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla JS)
-- LocalStorage
-- Google Fonts (Inter)
+### Conexao com o banco
 
----
+`config/database.php` usa estes valores locais por padrao:
 
-## Current Web/PWA Documentation
+| Variavel | Padrao |
+| --- | --- |
+| `DB_HOST` | `127.0.0.1` |
+| `DB_PORT` | `3306` |
+| `DB_NAME` | `ardetho_erp` |
+| `DB_USER` | `root` |
+| `DB_PASS` | senha vazia |
 
-The current Web/PWA version is documented in [`docs/current-system/`](docs/current-system/README.md).
+As variaveis de ambiente substituem os defaults no processo PHP que executa o codigo. Para outro banco/usuario, configure-as tanto no ambiente do Apache quanto no terminal usado pelos utilitarios CLI e reinicie o Apache depois de alterar seu ambiente. Nao basta definir `DB_NAME` em um terminal separado enquanto o Apache ja esta em execucao. O schema SQL, por sua vez, fixa o nome `ardetho_erp`; importar em outro nome exige adaptar essa selecao de banco na copia usada para a importacao.
 
-This documentation describes the existing static HTML, CSS, JavaScript, LocalStorage and PWA behavior without changing the functional code.
+### Schema novo versus migrations
 
----
+`database/ardetho.sql` ja contem o schema final completo: `usuarios`, `clientes`, `produtos`, `vendas`, `venda_itens`, `financeiro`, `funcionarios` e `configuracoes`. **Em instalacao nova, nao execute as migrations depois dele.**
 
-## Project Structure
-```text
-/
-├── index.html
-├── about.html
-├── modules.html
-├── contact.html
-├── login.html
-├── dashboard.html
-├── clients.html
-├── client-form.html
-├── products.html
-├── product-form.html
-├── sales.html
-├── sale-form.html
-├── financial.html
-├── financial-form.html
-├── hr.html
-├── hr-form.html
-├── reports.html
-├── erp-modules.html
-├── settings.html
-├── profile.html
-│
-├── assets/
-│   ├── css/
-│   │   ├── variables.css
-│   │   ├── global.css
-│   │   ├── layout.css
-│   │   ├── components.css
-│   │   ├── public.css
-│   │   ├── auth.css
-│   │   ├── dashboard.css
-│   │   ├── pages.css
-│   │   └── responsive.css
-│   │
-│   ├── js/
-│   │   ├── data.js
-│   │   ├── storage.js
-│   │   ├── auth.js
-│   │   ├── layout.js
-│   │   ├── utils.js
-│   │   ├── dashboard.js
-│   │   ├── clients.js
-│   │   ├── client-form.js
-│   │   ├── products.js
-│   │   ├── product-form.js
-│   │   ├── sales.js
-│   │   ├── sale-form.js
-│   │   ├── financial.js
-│   │   ├── financial-form.js
-│   │   ├── reports.js
-│   │   ├── modules.js
-│   │   ├── settings.js
-│   │   ├── profile.js
-│   │   ├── hr.js
-│   │   ├── hr-form.js
-│   │   └── pwa.js
-│   │
-│   └── images/
-│       ├── ardetho-logo.png
-│       ├── ardetho-icon.png
-│       ├── ardetho-marca.png
-│       ├── preview-dashboard.png
-│       ├── mecanica-xyz-logo.png
-│       └── mecanica-xyz-icon.png
-│
-├── README.MD
-├── LICENSE
-└── .gitignore
+Os arquivos de `database/migrations/` servem apenas para atualizar instalacoes antigas, conforme o ponto de partida: `001_financeiro.sql`, `002_perfil_configuracoes.sql` e `003_rh.sql`. As migrations `001` e `002` selecionam `ardetho_erp` explicitamente; `003` usa o banco selecionado na conexao. Nao ha runner automatico de migrations.
+
+### Dados demonstrativos (opcional)
+
+O ERP funciona sem seed. Para importar a massa historica da antiga PWA depois de criar o schema, execute:
+
+```powershell
+& C:\xampp\php\php.exe database\importar-dados-legados.php
 ```
----
 
-## Public Navigation
+O importador e CLI-only, le `assets/js/data.js` e insere clientes, produtos/servicos, vendas e itens, lancamentos financeiros e funcionarios. Ele e opcional e idempotente: uma segunda execucao ignora os registros ja importados. Nao o use para substituir dados reais.
 
-The project includes a public presentation flow before login:
+## Arquitetura e seguranca
 
-- `index.html`
-- `about.html`
-- `modules.html`
-- `contact.html`
+Models consultam o MariaDB com PDO; controllers validam entradas e coordenam o fluxo; paginas PHP apresentam as views. A autenticacao usa `password_hash`/`password_verify` e sessao PHP. Formularios mutaveis usam token CSRF; consultas usam prepared statements; a saida HTML e escapada. Isso descreve mecanismos existentes, nao uma garantia de seguranca completa.
 
-These pages were created to make the repository look more complete and professional, simulating a real product presentation website.
+## PWA e legado
 
-## Internal Modules
+O manifest inicia em `./login.php` e usa `scope: ./`, inclusive em subdiretorio. O Service Worker pode armazenar assets estaticos, mas navegacoes e paginas PHP autenticadas usam a rede. O Ardetho ERP **nao e um ERP offline**; servidor e banco precisam estar disponiveis. A possibilidade de instalacao como PWA depende tambem dos requisitos do navegador. O icone atual do manifest tem 211 x 211 pixels; nao ha icones dedicados de 192 x 192, 512 x 512 ou maskable.
 
-### Dashboard
-Displays key operational information, metrics, summaries, notifications, and internal activity.
-
-### Clients
-Handles company and individual clients, with full address and registration details.
-
-### Products
-Manages products and services, including category, supplier, stock, price, and status.
-
-### Sales
-Organizes orders, clients, products/services, payment methods, and sales workflow.
-
-### Financial
-Tracks income and expenses, payment status, due dates, descriptions, and financial summaries.
-
-### Reports
-Provides views connected to internal data and export-oriented summaries.
-
-### ERP Modules
-Allows activation and deactivation of modules according to the desired environment profile.
-
-### Settings
-Provides visual and behavior customization of the system.
-
-### Profile
-Allows editing the current user and company branding with logo, favicon and colors.
-
-### HR
-Handles employee records with department, salary and status.
-
-## Authentication Example
-
-The project simulates different environments through different accounts.
-
-### Master environment
-- Email: `admin@ardetho.com`
-- Password: `123456`
-
-### Client environment
-- Email: `admin@mecanicaxyz.com`
-- Password: `123456`
-
-When logging in with different users, the environment can reflect different company branding.
-
-## Branding Customization
-
-One of the strongest aspects of the project is the branding customization flow available through the Profile page.
-
-The system supports:
-
-- custom company name
-- custom display name
-- custom logo
-- custom favicon
-- custom primary color
-- custom accent color
-
-This allows the ERP to simulate white-label or client-specific environments.
-
-## Data Persistence
-
-The project uses `LocalStorage` as the persistence layer.
-
-Main stored structures include:
-
-- application data
-- current user
-- current company
-- active modules
-- settings and visual preferences
-
-Because the project evolved over time, if a new structure is added to `data.js`, the browser may still keep an older `LocalStorage` version.
-
-In that case, you can reset the local environment in the browser console with:
-
-```javascript
-resetAppData();
-```
----
-
-## Educational Purpose
-
-This project was developed for academic and portfolio purposes, with focus on:
-
-- front-end architecture
-- modular systems
-- interface consistency
-- LocalStorage persistence
-- customization logic
-- dashboard composition
-- public + private navigation structure
-
-## Future Improvements
-
-Possible future improvements include:
-
-- real backend integration
-- multi-tenant separated datasets
-- advanced user and permission management
-- real public contact form integration
-- advanced analytics and reports
-- stronger HR workflows
-- advanced stock module implementation
-- better synchronization between user session and editable profile
-- attachment/image upload flow instead of manual URL fields
-
-## How to Run
-
-Because this is a front-end project with static files and LocalStorage persistence, you can run it locally by opening the HTML files in the browser or by using a simple local server. PWA features such as the Service Worker require `localhost` or another compatible secure context.
-
-Examples:
-
-- open `index.html`
-- or serve the project folder with a local development server
-
-## Mobile Experience & PWA
-
-Ardetho ERP has been adapted for responsive operation across mobile devices, tablets, and desktops, providing an experience similar to modern hybrid applications.
-
-### Implemented Mobile Features
-
-- Fully responsive layout
-- Sidebar adapted to a mobile hamburger menu
-- Responsive table-to-card conversion where mobile cards exist
-- Horizontal mobile table scrolling for Financial and HR
-- Touch-friendly components
-- Navigation optimized for multiple screen sizes
-- Structure prepared for hybrid app deployment
-
-### Progressive Web App (PWA)
-
-The project includes Progressive Web App (PWA) support, allowing installation directly on devices without requiring initial publication in app stores.
-
-#### Implemented PWA Features
-
-- `manifest.json`
-- `service-worker.js`
-- Offline cache for core assets
-- Installable application support
-- Partial offline functionality
-- OS-integrated theme support
-- Structure prepared for mobile packaging
-
-Current PWA note: `assets/images/ardetho-icon.png` is 211x211 and the manifest declares this real size. Dedicated 192x192, 512x512 and maskable icons still need to be generated.
-
-### Technologies Used
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- LocalStorage
-- Service Workers
-- Web App Manifest
-
-### PWA Structure
-
-```text
-manifest.json
-service-worker.js
-assets/js/pwa.js
+Os arquivos `.html` internos e os scripts de LocalStorage da primeira fase academica permanecem no repositorio como referencia historica. Execute a aplicacao atual pelas rotas PHP; nao use `dashboard.html` ou `login.html` como entrada do ERP. As paginas publicas `index.html`, `about.html`, `modules.html` e `contact.html` continuam estaticas.
