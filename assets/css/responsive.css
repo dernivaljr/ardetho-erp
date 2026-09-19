@@ -316,6 +316,7 @@
   .client-form-actions .btn-primary,
   .client-form-actions .btn-secondary {
     width: 100%;
+    box-sizing: border-box;
   }
 
   /* =========================
@@ -642,6 +643,7 @@
   .mobile-data-card-actions .btn-secondary,
   .mobile-data-card-actions .btn-danger {
     width: 100%;
+    box-sizing: border-box;
     justify-content: center;
   }
 }
@@ -689,5 +691,6 @@
 
   .search-bar .input-default {
     width: 100%;
+    box-sizing: border-box;
   }
 }

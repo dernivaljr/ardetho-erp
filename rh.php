@@ -123,7 +123,7 @@ require __DIR__ . '/includes/topbar.php';
                 </div>
               </form>
 
-              <div class="table-wrapper table-wrapper-mobile-scroll">
+              <div class="table-wrapper">
                 <table class="table-default">
                   <thead>
                     <tr>
