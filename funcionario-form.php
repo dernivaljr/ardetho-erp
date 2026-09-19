@@ -28,7 +28,6 @@ $topbarTitle = 'RH';
 $topbarSubtitle = 'Cadastro e edição de colaborador';
 $scripts = [
     'assets/js/layout.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

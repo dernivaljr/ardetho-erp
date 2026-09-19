@@ -33,7 +33,6 @@ $scripts = [
     'assets/js/layout.js',
     'assets/js/utils.js',
     'assets/js/financial.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

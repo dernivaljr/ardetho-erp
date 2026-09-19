@@ -43,16 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'Login | Ardetho ERP';
 $stylesheets = ['assets/css/auth.css'];
-$scripts = ['assets/js/pwa.js'];
 
 require __DIR__ . '/includes/header.php';
 ?>
 <main class="login-page">
     <section class="login-brand-panel">
       <div class="brand-panel-content">
-        <a href="index.html" class="brand brand-link">
+        <div class="brand brand-link">
           <img src="assets/images/ardetho-logo.png" alt="Ardetho ERP" class="brand-logo" />
-        </a>
+        </div>
         <span class="auth-badge">Business management platform</span>
 
         <h1>Control your business with clarity, speed and modular intelligence.</h1>
@@ -121,9 +120,6 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
         </form>
 
-        <div class="login-footer">
-          <a href="index.html" class="btn-secondary">Back to Home</a>
-        </div>
       </div>
     </section>
   </main>

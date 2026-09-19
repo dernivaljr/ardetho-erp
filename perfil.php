@@ -22,7 +22,6 @@ $topbarTitle = 'Perfil';
 $topbarSubtitle = 'Dados do usuário autenticado';
 $scripts = [
     'assets/js/layout.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

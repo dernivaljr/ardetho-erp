@@ -8,80 +8,6 @@ if (PHP_SAPI !== 'cli') {
 
 require __DIR__ . '/../config/database.php';
 
-function extrairArrayLegado(string $fonte, string $secao): array
-{
-    if (!preg_match('/\b' . preg_quote($secao, '/') . '\s*:\s*\[/', $fonte, $match, PREG_OFFSET_CAPTURE)) {
-        throw new RuntimeException("Secao {$secao} nao encontrada em assets/js/data.js.");
-    }
-
-    $inicioArray = strpos($fonte, '[', $match[0][1]);
-
-    if ($inicioArray === false) {
-        throw new RuntimeException("Inicio da secao {$secao} nao encontrado.");
-    }
-
-    $profundidade = 0;
-    $emString = false;
-    $escape = false;
-    $tamanho = strlen($fonte);
-
-    for ($indice = $inicioArray; $indice < $tamanho; $indice++) {
-        $caractere = $fonte[$indice];
-
-        if ($emString) {
-            if ($escape) {
-                $escape = false;
-                continue;
-            }
-
-            if ($caractere === '\\') {
-                $escape = true;
-                continue;
-            }
-
-            if ($caractere === '"') {
-                $emString = false;
-            }
-
-            continue;
-        }
-
-        if ($caractere === '"') {
-            $emString = true;
-            continue;
-        }
-
-        if ($caractere === '[') {
-            $profundidade++;
-            continue;
-        }
-
-        if ($caractere === ']') {
-            $profundidade--;
-
-            if ($profundidade === 0) {
-                $literal = substr($fonte, $inicioArray, $indice - $inicioArray + 1);
-                return decodificarLiteralJs($literal, $secao);
-            }
-        }
-    }
-
-    throw new RuntimeException("Fim da secao {$secao} nao encontrado.");
-}
-
-function decodificarLiteralJs(string $literal, string $secao): array
-{
-    $json = preg_replace('/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*:)/', '$1"$2"$3', $literal);
-    $json = preg_replace('/,\s*([}\]])/', '$1', (string) $json);
-    $dados = json_decode($json, true);
-
-    if (!is_array($dados)) {
-        throw new RuntimeException("Nao foi possivel decodificar a secao {$secao}: " . json_last_error_msg());
-    }
-
-    return $dados;
-}
-
 function textoOuNull(mixed $valor, int $limite): ?string
 {
     $texto = trim((string) ($valor ?? ''));
@@ -249,20 +175,24 @@ function buscarFuncionarioExistente(PDO $pdo, string $email): ?int
     return $id === false ? null : (int) $id;
 }
 
-$caminhoDataJs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'data.js';
-$fonte = file_get_contents($caminhoDataJs);
-
-if ($fonte === false) {
-    fwrite(STDERR, "Nao foi possivel ler assets/js/data.js.\n");
-    exit(1);
-}
-
 try {
-    $clientes = extrairArrayLegado($fonte, 'clients');
-    $produtos = extrairArrayLegado($fonte, 'products');
-    $vendas = extrairArrayLegado($fonte, 'sales');
-    $financeiro = extrairArrayLegado($fonte, 'financial');
-    $funcionarios = extrairArrayLegado($fonte, 'hr');
+    $fonte = file_get_contents(__DIR__ . '/seed-demo.json');
+    if ($fonte === false) {
+        throw new RuntimeException('Nao foi possivel ler database/seed-demo.json.');
+    }
+
+    $dados = json_decode($fonte, true, 512, JSON_THROW_ON_ERROR);
+    foreach (['clients', 'products', 'sales', 'financial', 'hr'] as $secao) {
+        if (!isset($dados[$secao]) || !is_array($dados[$secao])) {
+            throw new RuntimeException("Secao {$secao} ausente em database/seed-demo.json.");
+        }
+    }
+
+    $clientes = $dados['clients'];
+    $produtos = $dados['products'];
+    $vendas = $dados['sales'];
+    $financeiro = $dados['financial'];
+    $funcionarios = $dados['hr'];
 
     $pdo = obterConexaoBanco();
     $pdo->beginTransaction();
@@ -580,7 +510,7 @@ try {
 
     $pdo->commit();
 
-    echo "Fonte: assets/js/data.js\n";
+    echo "Fonte: database/seed-demo.json\n";
     echo "Clientes encontrados: {$resultado['clientes_encontrados']}\n";
     echo "Produtos encontrados: {$resultado['produtos_encontrados']}\n";
     echo "Servicos encontrados: {$resultado['servicos_encontrados']}\n";

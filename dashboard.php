@@ -31,7 +31,6 @@ $topbarSubtitle = 'Visão geral da operação';
 $scripts = [
     'assets/js/layout.js',
     'assets/js/utils.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

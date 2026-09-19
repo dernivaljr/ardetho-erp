@@ -30,7 +30,6 @@ $topbarSubtitle = 'Gestão de cadastros e relacionamento';
 $scripts = [
     'assets/js/layout.js',
     'assets/js/clients.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

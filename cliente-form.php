@@ -30,7 +30,6 @@ $topbarSubtitle = 'Cadastro completo de cliente';
 $scripts = [
     'assets/js/utils.js',
     'assets/js/client-form.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

@@ -57,7 +57,7 @@ function initProfileNavigation() {
         return;
       }
 
-      window.location.href = window.location.pathname.endsWith(".php") ? "perfil.php" : "profile.html";
+      window.location.href = "perfil.php";
     });
 
     chip.addEventListener("keydown", (event) => {
@@ -66,7 +66,7 @@ function initProfileNavigation() {
       }
 
       event.preventDefault();
-      window.location.href = window.location.pathname.endsWith(".php") ? "perfil.php" : "profile.html";
+      window.location.href = "perfil.php";
     });
   });
 }

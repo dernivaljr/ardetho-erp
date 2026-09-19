@@ -36,7 +36,6 @@ $topbarSubtitle = 'Indicadores e visão analítica da operação';
 $scripts = [
     'assets/js/layout.js',
     'assets/js/reports.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 
