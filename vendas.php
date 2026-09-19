@@ -32,7 +32,6 @@ $scripts = [
     'assets/js/layout.js',
     'assets/js/utils.js',
     'assets/js/sales.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

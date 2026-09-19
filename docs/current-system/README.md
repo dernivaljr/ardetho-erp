@@ -1,8 +1,10 @@
-# Documentacao da versao Web/PWA atual
+# Documentacao historica da versao Web/PWA
 
-Esta pasta documenta o estado atual do Ardetho ERP como projeto Web/PWA estatico, baseado em HTML, CSS, JavaScript puro, LocalStorage, manifest e service worker.
+> Registro da fase anterior a entrega PHP + MariaDB. Os HTMLs, scripts de LocalStorage, manifest e Service Worker descritos nesta pasta nao fazem parte da aplicacao atual; permanecem recuperaveis pelo historico Git. Para a versao de entrega, consulte `../../README.MD`.
 
-O objetivo desta documentacao e registrar como o sistema funciona hoje. Ela nao define alternativas tecnologicas, nao propoe mudanca de tecnologia e nao substitui os documentos historicos da pasta `documents/`.
+Esta pasta documenta o estado da fase Web/PWA do Ardetho ERP como projeto estatico, baseado em HTML, CSS, JavaScript puro, LocalStorage, manifest e service worker.
+
+O objetivo desta documentacao e registrar como o sistema funcionava nessa fase. Ela nao define alternativas tecnologicas, nao propoe mudanca de tecnologia e nao substitui os documentos historicos da pasta `documents/`.
 
 ## Escopo
 

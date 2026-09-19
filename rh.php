@@ -31,7 +31,6 @@ $topbarSubtitle = 'Gestão de colaboradores e estrutura interna';
 $scripts = [
     'assets/js/layout.js',
     'assets/js/utils.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

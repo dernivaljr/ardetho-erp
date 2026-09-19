@@ -21,7 +21,6 @@ $topbarTitle = 'Configurações';
 $topbarSubtitle = 'Preferências gerais e personalização do ambiente';
 $scripts = [
     'assets/js/layout.js',
-    'assets/js/pwa.js'
 ];
 $isInternal = true;
 

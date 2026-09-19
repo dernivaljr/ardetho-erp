@@ -1,5 +1,7 @@
 # Ardetho ERP — Contexto da Migração para PHP + SQL
 
+> Documento histórico da migração. Na versão de entrega, a aplicação usa exclusivamente rotas PHP + MariaDB; os HTMLs e o Service Worker da antiga PWA foram removidos da branch de limpeza e continuam disponíveis no histórico Git. Os dados demonstrativos usados pelo importador estão em `database/seed-demo.json`. Para instalação e uso atuais, consulte `README.MD`.
+
 ## 1. Objetivo do projeto
 
 Criar uma nova versão acadêmica e funcional do Ardetho ERP utilizando PHP + SQL, tomando como base a versão Web/PWA já revisada.

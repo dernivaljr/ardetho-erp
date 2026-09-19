@@ -1,12 +1,11 @@
 # Ardetho ERP
 
-O Ardetho ERP e um projeto academico de gestao empresarial. A aplicacao principal usa PHP e MariaDB para autenticacao e dados; paginas institucionais publicas permanecem em HTML.
+O Ardetho ERP e um projeto academico de gestao empresarial. A versao de entrega usa PHP e MariaDB para autenticacao e dados, com entrada em `login.php`.
 
 ## Tecnologias e ambiente validado
 
 - PHP 8.2.12, Apache 2.4.58 e MariaDB 10.4.32 no XAMPP para Windows.
 - PDO com `pdo_mysql`, sessoes PHP, HTML, CSS e JavaScript sem framework.
-- Manifest Web App e Service Worker para a PWA.
 
 O codigo usa propriedades `readonly`, que exigem PHP 8.1 ou superior. O teste de instalacao foi feito em PHP 8.2.12; outras combinacoes de versoes nao foram validadas. Confira se `PDO` e `pdo_mysql` estao habilitados no PHP do Apache e no PHP CLI. O projeto tambem usa extensoes comuns do PHP, como `json`, `filter` e `session`. Nao ha etapa de Composer ou `.env`.
 
@@ -18,7 +17,7 @@ O codigo usa propriedades `readonly`, que exigem PHP 8.1 ou superior. O teste de
 | `models/` | Consultas e persistencia com PDO. |
 | `includes/` | Sessao, autenticacao, CSRF, mensagens e partes compartilhadas das views. |
 | `config/` | Conexao com o banco. |
-| `database/` | Schema completo, migrations incrementais e utilitarios CLI. |
+| `database/` | Schema completo, migrations incrementais, dados demonstrativos e utilitarios CLI. |
 | `assets/` | CSS, JavaScript e imagens. |
 | `docs/` | Contexto da migracao e documentacao historica. |
 
@@ -50,7 +49,7 @@ As paginas `.php` da raiz apresentam a interface. O fluxo atual inclui login, Da
    ```
 
    O script usa `password_hash`; escolha um e-mail seu no lugar do exemplo. Nao existe credencial padrao fixa para a aplicacao PHP.
-5. Abra [http://localhost/ardetho-erp/login.php](http://localhost/ardetho-erp/login.php) e entre com o usuario criado. A pagina `index.html` e publica e seu botao de acesso tambem leva a `login.php`.
+5. Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/) (redireciona para `login.php`) e entre com o usuario criado. O acesso direto por [login.php](http://localhost/ardetho-erp/login.php) tambem funciona.
 
 Se a pasta em `htdocs` tiver outro nome, ajuste somente a URL. O teste fresh foi executado em um subdiretorio do Apache, nao apenas no servidor embutido do PHP.
 
@@ -82,14 +81,12 @@ O ERP funciona sem seed. Para importar a massa historica da antiga PWA depois de
 & C:\xampp\php\php.exe database\importar-dados-legados.php
 ```
 
-O importador e CLI-only, le `assets/js/data.js` e insere clientes, produtos/servicos, vendas e itens, lancamentos financeiros e funcionarios. Ele e opcional e idempotente: uma segunda execucao ignora os registros ja importados. Nao o use para substituir dados reais.
+O importador e CLI-only, le `database/seed-demo.json` e insere clientes, produtos/servicos, vendas e itens, lancamentos financeiros e funcionarios. O arquivo nao contem usuarios nem senhas. A importacao e opcional e idempotente: uma segunda execucao ignora os registros ja importados. Nao a use para substituir dados reais.
 
 ## Arquitetura e seguranca
 
 Models consultam o MariaDB com PDO; controllers validam entradas e coordenam o fluxo; paginas PHP apresentam as views. A autenticacao usa `password_hash`/`password_verify` e sessao PHP. Formularios mutaveis usam token CSRF; consultas usam prepared statements; a saida HTML e escapada. Isso descreve mecanismos existentes, nao uma garantia de seguranca completa.
 
-## PWA e legado
+## Versao de entrega e historico
 
-O manifest inicia em `./login.php` e usa `scope: ./`, inclusive em subdiretorio. O Service Worker pode armazenar assets estaticos, mas navegacoes e paginas PHP autenticadas usam a rede. O Ardetho ERP **nao e um ERP offline**; servidor e banco precisam estar disponiveis. A possibilidade de instalacao como PWA depende tambem dos requisitos do navegador. O icone atual do manifest tem 211 x 211 pixels; nao ha icones dedicados de 192 x 192, 512 x 512 ou maskable.
-
-Os arquivos `.html` internos e os scripts de LocalStorage da primeira fase academica permanecem no repositorio como referencia historica. Execute a aplicacao atual pelas rotas PHP; nao use `dashboard.html` ou `login.html` como entrada do ERP. As paginas publicas `index.html`, `about.html`, `modules.html` e `contact.html` continuam estaticas.
+A interface e servida por rotas PHP; servidor e banco precisam estar disponiveis. Esta versao nao registra Service Worker, nao oferece instalacao como PWA e nao funciona offline. Os arquivos HTML e scripts de LocalStorage da fase Web/PWA nao fazem parte desta entrega. Sua historia permanece nos commits e branches do Git; documentos historicos em `docs/` descrevem etapas anteriores, nao rotas atuais.
