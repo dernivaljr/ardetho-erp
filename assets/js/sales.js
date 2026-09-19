@@ -2,7 +2,33 @@ function saveSalesData(sales) {
   return updateAppData("sales", sales);
 }
 
+function isSalesPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindPhpSaleStatusConfirmation() {
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest("[data-confirm-sale-status]");
+
+    if (!form) {
+      return;
+    }
+
+    if (!window.confirm("Deseja cancelar esta venda?")) {
+      event.preventDefault();
+    }
+  });
+}
+
 function renderSalesUser() {
+  if (isSalesPhpRoute()) {
+    return;
+  }
+
   const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
@@ -128,7 +154,7 @@ function renderSalesTable(sales) {
       <td>${formatSaleDate(sale.saleDate)}</td>
       <td>
         <div class="action-group">
-          <a href="sale-form.html?id=${sale.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`sale-form.html?id=${sale.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-sale" data-sale-id="${sale.id}">Excluir</a>
         </div>
       </td>
@@ -172,7 +198,7 @@ function renderSalesTable(sales) {
         </div>
 
         <div class="mobile-data-card-actions">
-          <a href="sale-form.html?id=${sale.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`sale-form.html?id=${sale.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-sale" data-sale-id="${sale.id}">Excluir</a>
         </div>
       `;
@@ -322,6 +348,11 @@ function initializeSalesPage() {
   const salesPage = document.body.dataset.page === "sales";
 
   if (!salesPage) {
+    return;
+  }
+
+  if (isSalesPhpRoute()) {
+    bindPhpSaleStatusConfirmation();
     return;
   }
 

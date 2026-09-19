@@ -1,28 +1,8 @@
-const CACHE_NAME = "ardetho-erp-v22";
+const CACHE_PREFIX = "ardetho-erp-";
+const CACHE_NAME = `${CACHE_PREFIX}v24`;
 
 const FILES_TO_CACHE = [
-  "./",
   "./manifest.json",
-  "./index.html",
-  "./about.html",
-  "./modules.html",
-  "./contact.html",
-  "./login.html",
-  "./dashboard.html",
-  "./clients.html",
-  "./client-form.html",
-  "./products.html",
-  "./product-form.html",
-  "./sales.html",
-  "./sale-form.html",
-  "./financial.html",
-  "./financial-form.html",
-  "./reports.html",
-  "./erp-modules.html",
-  "./settings.html",
-  "./profile.html",
-  "./hr.html",
-  "./hr-form.html",
 
   "./assets/css/variables.css",
   "./assets/css/global.css",
@@ -62,6 +42,29 @@ const FILES_TO_CACHE = [
   "./assets/images/mecanica-xyz-icon.png"
 ];
 
+function isSameOrigin(request) {
+  return new URL(request.url).origin === self.location.origin;
+}
+
+function isPhpRequest(request) {
+  return new URL(request.url).pathname.endsWith(".php");
+}
+
+function isCacheableStaticAsset(request) {
+  if (request.method !== "GET" || !isSameOrigin(request)) {
+    return false;
+  }
+
+  const pathname = new URL(request.url).pathname;
+
+  return (
+    pathname.endsWith("/manifest.json") ||
+    pathname.includes("/assets/css/") ||
+    pathname.includes("/assets/js/") ||
+    pathname.includes("/assets/images/")
+  );
+}
+
 self.addEventListener("install", (event) => {
   self.skipWaiting();
 
@@ -81,7 +84,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
+          .filter((cacheName) => cacheName.startsWith(CACHE_PREFIX) && cacheName !== CACHE_NAME)
           .map((cacheName) => caches.delete(cacheName))
       );
     }).then(() => {
@@ -91,9 +94,36 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  if (request.mode === "navigate" || isPhpRequest(request)) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  if (!isCacheableStaticAsset(request)) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    caches.match(request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+          return networkResponse;
+        }
+
+        const responseToCache = networkResponse.clone();
+
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(request, responseToCache);
+        });
+
+        return networkResponse;
+      });
     })
   );
 });

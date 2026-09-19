@@ -2,7 +2,7 @@
   "name": "Ardetho ERP",
   "short_name": "Ardetho",
   "description": "Sistema ERP modular para gestão empresarial.",
-  "start_url": "./index.html",
+  "start_url": "./login.php",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0F172A",

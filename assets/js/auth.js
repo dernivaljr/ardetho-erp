@@ -101,7 +101,7 @@ function logoutUser() {
     console.error("Logout error:", error);
   }
 
-  window.location.replace("login.html");
+  window.location.replace(getAppRoutePath("login.html"));
 }
 
 function isUserAuthenticated() {
@@ -119,7 +119,10 @@ function isUserAuthenticated() {
 }
 
 function isLoginPage() {
-  return window.location.pathname.includes("login.html");
+  return (
+    window.location.pathname.includes("login.html") ||
+    window.location.pathname.includes("login.php")
+  );
 }
 
 function protectInternalPage() {
@@ -128,7 +131,7 @@ function protectInternalPage() {
   }
 
   if (!isUserAuthenticated()) {
-    window.location.replace("login.html");
+    window.location.replace(getAppRoutePath("login.html"));
   }
 }
 
@@ -138,7 +141,7 @@ function redirectAuthenticatedUserFromLogin() {
   }
 
   if (isUserAuthenticated()) {
-    window.location.replace("dashboard.html");
+    window.location.replace(getAppRoutePath("dashboard.html"));
   }
 }
 
@@ -168,7 +171,7 @@ function handleLoginSubmit(event) {
     return;
   }
 
-  window.location.replace("dashboard.html");
+  window.location.replace(getAppRoutePath("dashboard.html"));
 }
 
 function bindLoginForm() {
@@ -202,9 +205,9 @@ function getCurrentPageName() {
 
 function getModulePageMap() {
   return {
-    clients: "clients.html",
-    products: "products.html",
-    sales: "sales.html",
+    clients: getAppRoutePath("clients.html"),
+    products: getAppRoutePath("products.html"),
+    sales: getAppRoutePath("sales.html"),
     financial: "financial.html",
     reports: "reports.html",
     hr: "hr.html",
@@ -215,13 +218,19 @@ function getModulePageMap() {
 function getPageModuleMap() {
   return {
     "clients.html": "clients",
+    "clientes.php": "clients",
     "client-form.html": "clients",
+    "cliente-form.php": "clients",
 
     "products.html": "products",
+    "produtos.php": "products",
     "product-form.html": "products",
+    "produto-form.php": "products",
 
     "sales.html": "sales",
+    "vendas.php": "sales",
     "sale-form.html": "sales",
+    "venda-form.php": "sales",
 
     "financial.html": "financial",
     "financial-form.html": "financial",
@@ -236,10 +245,12 @@ function getPageModuleMap() {
 function getAlwaysAllowedPages() {
   return [
     "dashboard.html",
+    "dashboard.php",
     "erp-modules.html",
     "settings.html",
     "profile.html",
-    "login.html"
+    "login.html",
+    "login.php"
   ];
 }
 
@@ -270,7 +281,7 @@ function protectInactiveModulePage() {
   const currentModule = activeModules.find((module) => module.slug === moduleSlug);
 
   if (currentModule && currentModule.active === false) {
-    window.location.replace("dashboard.html");
+    window.location.replace(getAppRoutePath("dashboard.html"));
   }
 }
 

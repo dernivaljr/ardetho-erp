@@ -2,6 +2,30 @@ function saveFinancialData(entries) {
   return updateAppData("financial", entries);
 }
 
+function isFinancialPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindFinancialPhpActions() {
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest("[data-confirm-financial-status='cancelar']");
+
+    if (!form) {
+      return;
+    }
+
+    const confirmed = window.confirm("Deseja realmente cancelar este lançamento?");
+
+    if (!confirmed) {
+      event.preventDefault();
+    }
+  });
+}
+
 function renderFinancialUser() {
   const currentUser = getCurrentUser() || appData.currentUser;
 
@@ -323,6 +347,11 @@ function initializeFinancialPage() {
   const financialPage = document.body.dataset.page === "financial";
 
   if (!financialPage) {
+    return;
+  }
+
+  if (isFinancialPhpRoute()) {
+    bindFinancialPhpActions();
     return;
   }
 

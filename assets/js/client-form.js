@@ -1,5 +1,17 @@
+function isClientFormPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
 function renderClientFormUser() {
-  const currentUser = getCurrentUser();
+  if (isClientFormPhpRoute()) {
+    return;
+  }
+
+  const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
   const userRoleEls = document.querySelectorAll("[data-user='role']");
@@ -506,7 +518,7 @@ function handleClientFormSubmit(event) {
     createClient(formData);
   }
 
-  window.location.href = "clients.html";
+  window.location.href = getAppRoutePath("clients.html");
 }
 
 function bindClientFormActions() {
@@ -546,6 +558,39 @@ function bindClientFormActions() {
   });
 }
 
+function bindClientFormPhpActions() {
+  const personTypeField = document.getElementById("client-person-type");
+  const zipCodeField = document.getElementById("client-zip-code");
+
+  if (personTypeField) {
+    personTypeField.addEventListener("change", updateClientPersonTypeFields);
+  }
+
+  if (zipCodeField) {
+    zipCodeField.addEventListener("blur", handleZipCodeLookup);
+  }
+
+  const allFields = document.querySelectorAll(
+    "#client-form-page input, #client-form-page select, #client-form-page textarea"
+  );
+
+  allFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+
+    field.addEventListener("change", () => {
+      const group = field.closest(".form-group");
+      if (group) {
+        group.classList.remove("field-invalid");
+      }
+    });
+  });
+}
+
 function loadClientForEdit() {
   const clientId = getClientIdFromUrl();
 
@@ -557,7 +602,7 @@ function loadClientForEdit() {
   const client = findClientById(clientId);
 
   if (!client) {
-    window.location.href = "clients.html";
+    window.location.href = getAppRoutePath("clients.html");
     return;
   }
 
@@ -568,6 +613,13 @@ function initializeClientFormPage() {
   const clientFormPage = document.body.dataset.page === "client-form";
 
   if (!clientFormPage) {
+    return;
+  }
+
+  if (isClientFormPhpRoute()) {
+    updateClientPersonTypeFields();
+    applyInputMasks();
+    bindClientFormPhpActions();
     return;
   }
 

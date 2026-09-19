@@ -1,4 +1,16 @@
+function isFinancialFormPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
 function renderFinancialFormUser() {
+  if (isFinancialFormPhpRoute()) {
+    return;
+  }
+
   const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
@@ -466,6 +478,78 @@ function bindFinancialFormActions() {
   }
 }
 
+function syncPhpFinancialDataFromSelectedSale() {
+  const saleField = document.getElementById("financial-sale-id");
+  const clientField = document.getElementById("financial-client-id");
+  const categoryField = document.getElementById("financial-category");
+  const descriptionField = document.getElementById("financial-description");
+  const amountField = document.getElementById("financial-amount");
+  const paymentMethodField = document.getElementById("financial-payment-method");
+
+  if (!saleField || !clientField || !categoryField || !descriptionField || !amountField || !paymentMethodField) {
+    return;
+  }
+
+  const selectedOption = saleField.selectedOptions[0];
+
+  if (!selectedOption || !selectedOption.value) {
+    return;
+  }
+
+  if (selectedOption.dataset.clientId) {
+    clientField.value = selectedOption.dataset.clientId;
+  }
+
+  categoryField.value = selectedOption.dataset.category || "Venda";
+  descriptionField.value = selectedOption.dataset.description || "";
+
+  if (selectedOption.dataset.amount) {
+    amountField.value = formatCurrencyValue(Number(selectedOption.dataset.amount));
+  }
+
+  if (selectedOption.dataset.paymentMethod) {
+    paymentMethodField.value = selectedOption.dataset.paymentMethod;
+  }
+}
+
+function bindFinancialFormPhpActions() {
+  const form = document.getElementById("financial-form-page");
+  const amountField = document.getElementById("financial-amount");
+  const saleField = document.getElementById("financial-sale-id");
+  const entryTypeField = document.getElementById("financial-entry-type");
+
+  if (amountField) {
+    amountField.addEventListener("input", () => {
+      if (amountField.hasAttribute("readonly")) {
+        return;
+      }
+
+      amountField.value = formatCurrencyInput(amountField.value);
+    });
+  }
+
+  if (saleField) {
+    saleField.addEventListener("change", syncPhpFinancialDataFromSelectedSale);
+  }
+
+  if (entryTypeField) {
+    entryTypeField.addEventListener("change", () => {
+      updateFinancialEntryTypeFields();
+      syncPhpFinancialDataFromSelectedSale();
+    });
+  }
+
+  if (form) {
+    form.addEventListener("submit", () => {
+      if (amountField && !amountField.hasAttribute("readonly")) {
+        amountField.value = formatCurrencyInput(amountField.value);
+      }
+    });
+  }
+
+  updateFinancialEntryTypeFields();
+}
+
 function loadFinancialEntryForEdit() {
   const entryId = getFinancialIdFromUrl();
 
@@ -498,6 +582,11 @@ function initializeFinancialFormPage() {
   const financialFormPage = document.body.dataset.page === "financial-form";
 
   if (!financialFormPage) {
+    return;
+  }
+
+  if (isFinancialFormPhpRoute()) {
+    bindFinancialFormPhpActions();
     return;
   }
 

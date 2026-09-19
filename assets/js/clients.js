@@ -2,8 +2,40 @@ function saveClientsData(clients) {
   return updateAppData("clients", clients);
 }
 
+function isClientsPhpRoute() {
+  if (typeof isPhpRoute === "function") {
+    return isPhpRoute();
+  }
+
+  return window.location.pathname.endsWith(".php");
+}
+
+function bindPhpClientStatusConfirmation() {
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest("[data-confirm-client-status]");
+
+    if (!form) {
+      return;
+    }
+
+    const action = form.dataset.confirmClientStatus === "ativar" ? "ativar" : "desativar";
+    const message =
+      action === "ativar"
+        ? "Deseja ativar este cliente?"
+        : "Deseja desativar este cliente?";
+
+    if (!window.confirm(message)) {
+      event.preventDefault();
+    }
+  });
+}
+
 function renderClientsUser() {
-  const currentUser = getCurrentUser();
+  if (isClientsPhpRoute()) {
+    return;
+  }
+
+  const currentUser = getCurrentUser() || appData.currentUser;
 
   const userNameEls = document.querySelectorAll("[data-user='name']");
   const userRoleEls = document.querySelectorAll("[data-user='role']");
@@ -112,7 +144,7 @@ function renderClientsTable(clients) {
       <td><span class="${getClientBadgeClass(client.status)}">${client.status || "—"}</span></td>
       <td>
         <div class="action-group">
-          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`client-form.html?id=${client.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
         </div>
       </td>
@@ -151,7 +183,7 @@ function renderClientsTable(clients) {
         </div>
 
         <div class="mobile-data-card-actions">
-          <a href="client-form.html?id=${client.id}" class="btn-secondary">Editar</a>
+          <a href="${getAppRoutePath(`client-form.html?id=${client.id}`)}" class="btn-secondary">Editar</a>
           <a href="#" class="btn-danger" data-action="delete-client" data-client-id="${client.id}">Excluir</a>
         </div>
       `;
@@ -266,6 +298,11 @@ function initializeClientsPage() {
   const clientsPage = document.body.dataset.page === "clients";
 
   if (!clientsPage) {
+    return;
+  }
+
+  if (isClientsPhpRoute()) {
+    bindPhpClientStatusConfirmation();
     return;
   }
 
