@@ -53,7 +53,7 @@ ardetho-erp/
 |-- database/
 |   |-- ardetho.sql
 |   |-- criar-admin.php
-|   |-- importar-dados-legados.php
+|   |-- importar-dados-demo.php
 |   |-- seed-demo.json
 |   `-- migrations/
 |-- docs/
@@ -77,24 +77,31 @@ As páginas e formulários PHP ficam na raiz. `models/` acessa os dados, `contro
 
 ## Como executar
 
-### 1. Requisitos
+### Requisitos
 
 Instale o XAMPP com Apache, MariaDB/MySQL, phpMyAdmin e PHP 8.1+ com `PDO` e `pdo_mysql` habilitados. Não é necessário instalar dependências com Composer.
 
-### 2. Colocar o projeto no XAMPP
+### 1. Copiar o projeto
 
-Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp`. No painel do XAMPP, inicie **Apache** e **MySQL**.
+Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp`.
 
-### 3. Criar e importar o banco
+### 2. Iniciar o XAMPP
 
-1. Abra [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/).
-2. Em **Bancos de dados**, crie `ardetho_erp` com a colação `utf8mb4_unicode_ci`.
-3. Selecione `ardetho_erp` na barra lateral e abra a aba **Importar** desse banco.
-4. Selecione `database/ardetho.sql` na pasta do projeto e clique em **Importar**.
+No XAMPP Control Panel, inicie **Apache** e **MySQL**.
+
+### 3. Criar o banco de dados
+
+Abra [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/). Em **Bancos de dados**, crie `ardetho_erp`. Se houver opção de colação, escolha `utf8mb4_unicode_ci`.
+
+### 4. Importar o esquema
+
+1. Selecione `ardetho_erp` na barra lateral do phpMyAdmin.
+2. Abra a aba **Importar** desse banco.
+3. Selecione `database/ardetho.sql` na pasta do projeto e clique em **Importar**.
 
 O SQL cria as oito tabelas necessárias. Use um banco novo; não execute `database/migrations/` após importar o esquema completo.
 
-### 4. Criar o primeiro administrador
+### 5. Criar o primeiro administrador
 
 Abra o PowerShell na pasta do projeto e execute, substituindo o e-mail e a senha do exemplo:
 
@@ -107,19 +114,19 @@ Remove-Item Env:\ARDETHO_ADMIN_PASS
 
 A senha deve ter pelo menos 8 caracteres. O script armazena seu hash; não existe usuário ou senha padrão. A última linha remove a variável de ambiente temporária.
 
-### 5. Dados demonstrativos (opcional)
+### 6. Dados demonstrativos (opcional)
 
 Para visualizar o sistema já preenchido com dados de exemplo, execute na mesma pasta:
 
 ```powershell
-& "C:\xampp\php\php.exe" database\importar-dados-legados.php
+& "C:\xampp\php\php.exe" database\importar-dados-demo.php
 ```
 
 O importador usa `database/seed-demo.json`, não cria usuários e pode ser executado novamente sem duplicar os registros importados. O sistema também funciona sem esses dados.
 
-### 6. Acessar o sistema
+### 7. Acessar o sistema
 
-Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/). A raiz redireciona para `login.php`; entre com o administrador criado no passo 4. Se você escolheu outro nome para a pasta em `htdocs`, ajuste a URL.
+Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/). A raiz redireciona para `login.php`; entre com o administrador criado no passo 5. Se você escolheu outro nome para a pasta em `htdocs`, ajuste a URL.
 
 ## Teste rápido
 
