@@ -11,6 +11,7 @@ Um sistema ERP acadêmico desenvolvido em PHP e MariaDB para centralizar operaç
 - Relatórios com filtros e exportação CSV.
 - Cadastro de colaboradores em Recursos Humanos.
 - Perfil do usuário e Configurações do sistema.
+- Gestão de usuários pelo administrador, alteração de senha e troca obrigatória após senha temporária.
 
 ## Interface
 
@@ -70,6 +71,9 @@ ardetho-erp/
 |-- relatorios.php
 |-- rh.php
 |-- perfil.php
+|-- alterar-senha.php
+|-- usuarios.php
+|-- usuario-form.php
 `-- configuracoes.php
 ```
 
@@ -89,48 +93,39 @@ Copie ou clone o projeto para `C:\xampp\htdocs\ardetho-erp`.
 
 No XAMPP Control Panel, inicie **Apache** e **MySQL**.
 
-### 3. Criar o banco de dados
+### 3. Criar e importar o banco
 
 Abra [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/). Em **Bancos de dados**, crie `ardetho_erp`. Se houver opção de colação, escolha `utf8mb4_unicode_ci`.
 
-### 4. Importar o esquema
-
 1. Selecione `ardetho_erp` na barra lateral do phpMyAdmin.
 2. Abra a aba **Importar** desse banco.
-3. Selecione `database/ardetho.sql` na pasta do projeto e clique em **Importar**.
+3. Selecione `database/ardetho.sql` na pasta do projeto e execute a importação.
 
-O SQL cria as oito tabelas necessárias. Use um banco novo; não execute `database/migrations/` após importar o esquema completo.
+Esse arquivo contém o esquema completo para uma instalação nova. Não execute `database/migrations/` depois de importá-lo.
 
-### 5. Criar o primeiro administrador
+### 4. Acessar o Ardetho
 
-Abra o PowerShell na pasta do projeto e execute, substituindo o e-mail e a senha do exemplo:
+Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/). A raiz redireciona para `login.php`. Se você escolheu outro nome para a pasta em `htdocs`, ajuste a URL.
 
-```powershell
-Set-Location C:\xampp\htdocs\ardetho-erp
-$env:ARDETHO_ADMIN_PASS = "SuaSenhaAqui"
-& "C:\xampp\php\php.exe" database\criar-admin.php --nome="Administrador" --email="admin@exemplo.com" --password-env=ARDETHO_ADMIN_PASS
-Remove-Item Env:\ARDETHO_ADMIN_PASS
-```
+**Credenciais iniciais de demonstração:** e-mail `admin@ardetho.local`, senha `12345678`. Após entrar, a senha pode ser alterada em **Perfil**. Essas credenciais não são adequadas para uso em produção.
 
-A senha deve ter pelo menos 8 caracteres. O script armazena seu hash; não existe usuário ou senha padrão. A última linha remove a variável de ambiente temporária.
+### Usuários do sistema
 
-### 6. Dados demonstrativos (opcional)
+Em **Configurações > Gerenciar usuários**, o administrador pode criar usuários com nome, e-mail, cargo, departamento, perfil e senha temporária; também pode ativar, desativar e redefinir senhas. Usuários comuns não acessam essa gestão. Quem recebe uma senha temporária deve alterá-la no primeiro acesso.
 
-Para visualizar o sistema já preenchido com dados de exemplo, execute na mesma pasta:
+### Dados demonstrativos (opcional)
+
+Para preencher o ERP com dados de exemplo, execute na pasta do projeto:
 
 ```powershell
 & "C:\xampp\php\php.exe" database\importar-dados-demo.php
 ```
 
-O importador usa `database/seed-demo.json`, não cria usuários e pode ser executado novamente sem duplicar os registros importados. O sistema também funciona sem esses dados.
-
-### 7. Acessar o sistema
-
-Abra [http://localhost/ardetho-erp/](http://localhost/ardetho-erp/). A raiz redireciona para `login.php`; entre com o administrador criado no passo 5. Se você escolheu outro nome para a pasta em `htdocs`, ajuste a URL.
+O importador usa `database/seed-demo.json`, não cria usuários e pode ser executado novamente sem duplicar os registros importados. O sistema funciona sem esses dados.
 
 ## Teste rápido
 
-Após entrar, abra o Dashboard, cadastre um Cliente e um Produto ou Serviço, crie uma Venda e volte ao Dashboard para conferir os indicadores. Em seguida, visite Financeiro e Relatórios. Se importou os dados demonstrativos, você também pode navegar pelos módulos já preenchidos.
+Entre com o administrador padrão, abra o Dashboard e acesse **Configurações > Gerenciar usuários**. Opcionalmente, crie um usuário de teste. Cadastre um Cliente e um Produto ou Serviço, crie uma Venda e confira os indicadores no Dashboard. Depois, visite Financeiro e Relatórios.
 
 ## Arquitetura
 
@@ -138,11 +133,11 @@ Os Models consultam e gravam no MariaDB por PDO. Os Controllers validam os dados
 
 ## Segurança implementada
 
-O projeto utiliza `password_hash`/`password_verify`, sessão PHP com regeneração do ID no login, tokens CSRF nos formulários, consultas preparadas com PDO e escape de dados exibidos em HTML. Status como inativação e cancelamento preservam registros quando aplicável. Esses recursos não substituem uma avaliação de segurança para uso em produção.
+O projeto utiliza `password_hash`/`password_verify`, sessão PHP com regeneração do ID no login, tokens CSRF nos formulários, consultas preparadas com PDO e escape de dados exibidos em HTML. Usuários inativos não autenticam; redefinições administrativas exigem nova senha temporária. Status como inativação e cancelamento preservam registros quando aplicável. Esses recursos não substituem uma avaliação de segurança para uso em produção.
 
 ## Banco de dados
 
-`database/ardetho.sql` é o esquema completo para uma instalação nova. `database/migrations/` contém atualizações incrementais para bancos de etapas anteriores e **não** deve ser executado depois do esquema completo.
+`database/ardetho.sql` é o esquema completo para uma instalação nova. `database/migrations/` contém atualizações incrementais para bancos existentes; `004_usuarios_acesso.sql` atualiza instalações anteriores à gestão de usuários. **Não** execute migrations depois de importar o esquema completo.
 
 ### Configuração avançada do banco
 
