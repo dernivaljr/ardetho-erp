@@ -7,7 +7,7 @@ require __DIR__ . '/config/database.php';
 iniciarSessao();
 
 if (usuarioAutenticado()) {
-    header('Location: dashboard.php');
+    header('Location: ' . ((int) (usuarioAtual()['trocar_senha'] ?? 0) === 1 ? 'alterar-senha.php' : 'dashboard.php'));
     exit;
 }
 
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 registrarUsuarioNaSessao($usuario);
 
-                header('Location: dashboard.php');
+                header('Location: ' . ((int) $usuario['trocar_senha'] === 1 ? 'alterar-senha.php' : 'dashboard.php'));
                 exit;
             }
         } catch (Throwable $exception) {

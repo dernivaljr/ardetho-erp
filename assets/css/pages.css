@@ -154,6 +154,23 @@
   gap: 4px;
 }
 
+.user-management-row {
+  flex-wrap: wrap;
+}
+
+.user-management-row .option-content {
+  flex: 1 1 280px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.user-management-row form {
+  display: flex;
+  align-items: end;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
 .option-title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);

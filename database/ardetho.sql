@@ -12,11 +12,23 @@ CREATE TABLE IF NOT EXISTS usuarios (
   departamento VARCHAR(100) NULL,
   senha_hash VARCHAR(255) NOT NULL,
   ativo TINYINT(1) NOT NULL DEFAULT 1,
+  perfil_acesso VARCHAR(20) NOT NULL DEFAULT 'Usuário',
+  status VARCHAR(10) NOT NULL DEFAULT 'Ativo',
+  trocar_senha TINYINT(1) NOT NULL DEFAULT 0,
   data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ultimo_login DATETIME NULL,
   PRIMARY KEY (id_usuario),
   UNIQUE KEY uq_usuarios_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO usuarios (nome, email, senha_hash, ativo, perfil_acesso, status, trocar_senha)
+SELECT 'Administrador', 'admin@ardetho.local',
+       '$2y$10$mPDqnHUiXFlz/ci811CuJ.D/2Mt329.6Oi085jf6zn63EfkrnihVq',
+       1, 'Administrador', 'Ativo', 0
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@ardetho.local');
+
+UPDATE usuarios SET perfil_acesso = 'Administrador', status = 'Ativo', ativo = 1
+WHERE email = 'admin@ardetho.local';
 
 CREATE TABLE IF NOT EXISTS clientes (
   id_cliente INT UNSIGNED NOT NULL AUTO_INCREMENT,

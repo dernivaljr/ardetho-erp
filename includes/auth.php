@@ -73,18 +73,45 @@ function usuarioAtual(): ?array
 
 function exigirAutenticacao(): void
 {
-    if (usuarioAutenticado()) {
-        return;
+    if (!usuarioAutenticado()) {
+        header('Location: login.php');
+        exit;
     }
 
-    header('Location: login.php');
-    exit;
+    require_once __DIR__ . '/../config/database.php';
+    $consulta = obterConexaoBanco()->prepare(
+        'SELECT id_usuario, nome, email, cargo, departamento, ativo, perfil_acesso, status, trocar_senha
+           FROM usuarios WHERE id_usuario = :id_usuario LIMIT 1'
+    );
+    $consulta->execute(['id_usuario' => (int) $_SESSION['usuario']['id_usuario']]);
+    $usuario = $consulta->fetch();
+
+    if (!$usuario || (int) $usuario['ativo'] !== 1 || $usuario['status'] !== 'Ativo') {
+        realizarLogout();
+        header('Location: login.php');
+        exit;
+    }
+
+    atualizarUsuarioNaSessao($usuario);
+    if ((int) $usuario['trocar_senha'] === 1 && basename($_SERVER['SCRIPT_NAME'] ?? '') !== 'alterar-senha.php') {
+        header('Location: alterar-senha.php');
+        exit;
+    }
+}
+
+function exigirAdministrador(): void
+{
+    exigirAutenticacao();
+    if ((usuarioAtual()['perfil_acesso'] ?? '') !== 'Administrador') {
+        http_response_code(403);
+        exit('Acesso negado.');
+    }
 }
 
 function autenticarUsuario(PDO $pdo, string $email, string $senha): ?array
 {
     $consulta = $pdo->prepare(
-        'SELECT id_usuario, nome, email, cargo, departamento, senha_hash, ativo
+        'SELECT id_usuario, nome, email, cargo, departamento, senha_hash, ativo, perfil_acesso, status, trocar_senha
            FROM usuarios
           WHERE email = :email
           LIMIT 1'
@@ -93,7 +120,7 @@ function autenticarUsuario(PDO $pdo, string $email, string $senha): ?array
     $consulta->execute(['email' => $email]);
     $usuario = $consulta->fetch();
 
-    if (!$usuario || (int) $usuario['ativo'] !== 1) {
+    if (!$usuario || (int) $usuario['ativo'] !== 1 || $usuario['status'] !== 'Ativo') {
         return null;
     }
 
@@ -114,6 +141,9 @@ function autenticarUsuario(PDO $pdo, string $email, string $senha): ?array
         'email' => (string) $usuario['email'],
         'cargo' => (string) ($usuario['cargo'] ?? ''),
         'departamento' => (string) ($usuario['departamento'] ?? ''),
+        'perfil_acesso' => (string) $usuario['perfil_acesso'],
+        'status' => (string) $usuario['status'],
+        'trocar_senha' => (int) $usuario['trocar_senha'],
     ];
 }
 
@@ -128,6 +158,9 @@ function registrarUsuarioNaSessao(array $usuario): void
         'email' => (string) $usuario['email'],
         'cargo' => (string) ($usuario['cargo'] ?? ''),
         'departamento' => (string) ($usuario['departamento'] ?? ''),
+        'perfil_acesso' => (string) ($usuario['perfil_acesso'] ?? 'Usuário'),
+        'status' => (string) ($usuario['status'] ?? 'Ativo'),
+        'trocar_senha' => (int) ($usuario['trocar_senha'] ?? 0),
     ];
 }
 
@@ -141,6 +174,9 @@ function atualizarUsuarioNaSessao(array $usuario): void
         'email' => (string) $usuario['email'],
         'cargo' => (string) ($usuario['cargo'] ?? ''),
         'departamento' => (string) ($usuario['departamento'] ?? ''),
+        'perfil_acesso' => (string) ($usuario['perfil_acesso'] ?? 'Usuário'),
+        'status' => (string) ($usuario['status'] ?? 'Ativo'),
+        'trocar_senha' => (int) ($usuario['trocar_senha'] ?? 0),
     ];
 }
 

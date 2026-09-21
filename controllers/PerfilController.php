@@ -93,6 +93,9 @@ class PerfilController
             'email' => $email,
             'cargo' => $cargo ?? '',
             'departamento' => $departamento ?? '',
+            'perfil_acesso' => $usuarioAtual['perfil_acesso'],
+            'status' => $usuarioAtual['status'],
+            'trocar_senha' => $usuarioAtual['trocar_senha'],
         ]);
 
         definirFlash('success', 'Perfil atualizado com sucesso.');
@@ -103,7 +106,7 @@ class PerfilController
     private function buscarUsuario(int $idUsuario): ?array
     {
         $consulta = $this->pdo->prepare(
-            'SELECT id_usuario, nome, email, cargo, departamento
+            'SELECT id_usuario, nome, email, cargo, departamento, perfil_acesso, status, trocar_senha
                FROM usuarios
               WHERE id_usuario = :id_usuario
               LIMIT 1'

@@ -85,8 +85,8 @@ try {
     $hash = password_hash($senha, PASSWORD_DEFAULT);
 
     $insercao = $pdo->prepare(
-        'INSERT INTO usuarios (nome, email, senha_hash, ativo)
-         VALUES (:nome, :email, :senha_hash, 1)'
+        'INSERT INTO usuarios (nome, email, senha_hash, ativo, perfil_acesso, status, trocar_senha)
+         VALUES (:nome, :email, :senha_hash, 1, \'Administrador\', \'Ativo\', 0)'
     );
 
     $insercao->execute([

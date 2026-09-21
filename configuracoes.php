@@ -39,6 +39,10 @@ require __DIR__ . '/includes/topbar.php';
             </div>
           </div>
 
+<?php if ((usuarioAtual()['perfil_acesso'] ?? '') === 'Administrador'): ?>
+          <div class="client-form-actions"><a href="usuarios.php" class="btn-secondary">Gerenciar usuários</a></div>
+<?php endif; ?>
+
 <?php if ($flash): ?>
           <div class="toast toast-<?= e($flash['tipo'] ?? 'info') ?>" role="status">
             <?= e($flash['mensagem'] ?? '') ?>

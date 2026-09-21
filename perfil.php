@@ -111,6 +111,10 @@ require __DIR__ . '/includes/topbar.php';
                 <article class="page-card">
                   <div class="option-list">
                     <div class="option-item">
+                      <div class="option-content"><span class="option-title">Senha</span></div>
+                      <a href="alterar-senha.php" class="btn-secondary">Alterar senha</a>
+                    </div>
+                    <div class="option-item">
                       <div class="option-content">
                         <span class="option-title">Identidade visual da empresa</span>
                         <span class="option-description">Nome exibido, logo, ícone e cores foram migrados para Configurações.</span>
